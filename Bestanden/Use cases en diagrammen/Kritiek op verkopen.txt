@@ -1,0 +1,28 @@
+Kritiek op Verkopen UCD:
+
+Database kan alleen een actor zijn als het onafhankelijk actie kan ondernemen.
+Ik denk ook dat je geen if/else cases of loops in een UCD diagram mag plaatsen (het is nog geen activiteiten diagram).
+
+Het is misschien ook verstandig om deze UCD te maken met de website in gedachten:
+
+- Een bezoeker moet de 'recepten kunnen bekijken', kunnen inloggen (wachtwoord vergeten) en kunnen registreren.
+- Wanneer ingelogd een bestelling plaatsen (tijdens het plaatsen van een bestelling ook zijn gegevens kunnen wijzigen),
+  de status van een bestelling bekijken en zijn persoonlijke gegevens veranderen.
+- De keuken moet de bestellingen kunnen bekijken en bestelling kunnen markeren als 'klaargemaakt'.
+- De bezorger moet kunnen inloggen en zijn bezorgroute moeten kunnen bekijken (en kunnen aftekenen?).
+
+Er zijn vast ook wel meer usecases maar ik denk dat deze toch wel de belangrijkste zijn.
+
+Mijn advies is:
+- verwijder database en de case 'check':
+ (De webserver checkt vooraf of een product nog beschikbaar is voordat een klant het kan bestellen,
+ producten die niet beschikbaar zijn kunnen dus ook niet besteld worden.)
+
+- maak de bezorger onafhankelijk van de keuken maar afhankelijk van zijn bezorgroute,
+ welke afhankelijk is van de bestel status die wordt beheerd door de keuken.
+
+- Voeg de bovengenoemde usecases toe.
+
+- geen usecases toevoegen die buiten de website UI om gebeuren (geld aannemen/afgeven, gerecht koken etc..)
+
+//mocht er iets niet kloppen/ontbreken dan zou het fijn zijn als iemand mij kan corrigeren/aanvullen.
