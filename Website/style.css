@@ -39,3 +39,19 @@ h2{
   background-color:#476BB2;
   cursor:pointer;
 }
+
+.error{
+  background:#ff826d;
+  margin-bottom:20px;
+  padding:10px;
+  color:white;
+  width:80%;
+}
+
+.success{
+  background:#acd589;
+  margin-bottom:20px;
+  padding:10px;
+  color:white;
+  width:80%;
+}
