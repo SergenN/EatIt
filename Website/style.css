@@ -1,0 +1,41 @@
+body{
+  background-color:#F8F8F8;
+  font-family:helvetica;
+}
+
+h2{
+  color:#5F5F5F;
+}
+
+.login{
+  margin-right: auto;
+  margin-left: auto;
+  width:300px;
+  background-color:white;
+  border: 1px solid #dadada;
+  border-radius: 6px;
+
+  margin-top:40px;
+
+  padding-top:40px;
+  padding-bottom: 40px;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.invoerveld{
+  width:80%;
+  padding:10px;
+}
+
+#submit{
+  background-color:#6699FF;
+  color:white;
+  border:none;
+  padding:10px;
+}
+
+#submit:hover{
+  background-color:#476BB2;
+  cursor:pointer;
+}
