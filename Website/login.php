@@ -1,12 +1,17 @@
-<?php 
-	// Create connection
-	$con=mysqli_connect("localhost","root","","eatit");
+<?php // Geschreven door:			Thijs Kuilman
+// Studentnummer:					327154
+// 
+// Doel van dit bestand:
+// Deze pagina bevat een formulier waarmee een gebruiker kan inloggen op de website.
+// ?>
 
-	// Check connection
-	if (mysqli_connect_errno()) {
-	  echo "Kan niet verbinden met de database: " . mysqli_connect_error();
-	}
-?>
+<!-- Met de database connecten en de sessie laden -->
+<?php include 'database_sessie.php'; ?>
+
+<!-- Als een gebruiker al ingelogd is, wordt het doorverwezen naar index.php -->
+<?php if(isset($_SESSION['gegevens'])){
+	header ('location: index.php');
+} ?>
 
 <!DOCTYPE html>
 <html>
@@ -22,8 +27,10 @@ $l_email = "";
 $l_password = "";
 $password = "1";
 
+// Als er op het knopje 'Inloggen' is geklikt, dan wordt het volgende uitgevoerd:
 if (isset($_POST['l_submit'])) {
 
+	// POST data omzetten in variables
 	if(isset($l_email)){
 	$l_email = $_POST['l_email'];
 	}
@@ -37,8 +44,6 @@ if (isset($_POST['l_submit'])) {
 	$result = mysqli_query($con, $query);
 	$password = '';
 
-	echo $query;
-
 	while($row = mysqli_fetch_array($result)) {
 		$password = $row['wachtwoord'];
 	}
@@ -50,17 +55,31 @@ if (isset($_POST['l_submit'])) {
 	<form class="form-signin" method="post">
 	<h2>Inloggen</h2>  
 	<?php
+	// Gegevens zijn juist ingevoerd
 	 if($password == $l_password && isset($_POST['l_submit'])){
+	 	// Melding dat de gebruiker succesvol is ingelogd
 		echo '<div class="success">Succesvol ingelogd!</div><br>';
+		header ('location: index.php');
+
+		// Alle gegevens van de ingelogde gebruiker opslaan in een sessie
+		$query = "SELECT * FROM klant WHERE email = '" . $l_email . "' ";
+		$result = mysqli_query($con, $query);
+		$_SESSION['gegevens'] = mysqli_fetch_array($result);
+
+	// Onjuiste gegevenns
 	}elseif($password != $l_password && isset($_POST['l_submit'])){
 		echo '<div class="error">Onjuiste gegevens ingevoerd</div><br>';
 	}
 	?>
-	  <a href="register.php">Nog geen lid? Registreer je hier!</a><br><br>
+	<!-- Als de gebruiker geen account heeft, dan wordt het hier doorverwezen naar de registreer pagina -->
+	 <a href="register.php">Nog geen lid? Registreer je hier!</a><br><br>
+	  	<!-- Het formulier om i te loggen (email en wachtwoord) -->
 	    <input type="email" class="invoerveld" name="l_email" placeholder="Email" required autofocus value=<?php echo '"' . $l_email . '"'; ?>><br><br>
 	    <input type="password" class="invoerveld" name="l_password" placeholder="Wachtwoord" required value=<?php echo '"' . $l_password . '"'; ?>><br><br>
 
 	    <br>
+
+	    <!-- Knopje om in te loggen -->
 	    <button type="submit" name="l_submit" id="submit">Inloggen</button>
 	</form>
 	</center>

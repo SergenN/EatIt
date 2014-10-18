@@ -1,7 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Sergen Nurel
- * Date: 8-10-2014
- * Time: 19:04
- */ 
+<?php // Geschreven door:			Thijs Kuilman
+// Studentnummer:					327154
+// 
+// Doel van dit bestand:
+// Dit is de footer van elke pagina. Dit wordt geinclude zodat het later makkelijker wordt om voor elke pagina de footer te veranderen.
+// ?>
+
+<div class="footer">
+	Copyright &#169; 2014 EatIt
+</div>
