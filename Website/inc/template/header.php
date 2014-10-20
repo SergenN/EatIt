@@ -21,7 +21,7 @@
 			<a href="register.php">Registreren</a>';
 		} else {
 			// Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
-			echo 'Welkom, ' . $gegevens['voornaam'] . ' | ' . '<a href="instellingen.php">Instellingen</a> ' . ' | ' . '<a href="winkelwagen.php">Winkelwagen</a>' . ' | ' .'<a href="uitloggen.php">Uitloggen</a>';
+			echo 'Welkom, ' . $gegevens['voornaam'] . ' | ' . '<a href="instellingen.php">Instellingen</a> ' . ' | ' . '<a href="winkelwagen.php">Winkelwagen</a>' . ' | ' . (($gegevens['permissies'] == 'beheerder')?'<a href="beheerder.php">Beheerderspaneel</a> | ':"") . '<a href="uitloggen.php">Uitloggen</a>';
 		}
 	?>
 	</div>
