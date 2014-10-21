@@ -81,9 +81,9 @@ if(isset($_POST['submit_settings'])){
 
 	// De tabel met gebruikers
 	echo '<table style="width:100%">';
-	echo '<tr><td><b>Email</b></td><td><b>Voornaam</b></td><td><b>Achternaam</b></td><td><b>Adres</b></td><td><b>Telefoonnr</b></td><td><b>Postcode</b></td>';
+	echo '<tr><td><b>Email</b></td><td><b>Voornaam</b></td><td><b>Achternaam</b></td><td><b>Adres</b></td><td><b>Telefoonnr</b></td><td><b>Postcode</b></td><td><b>Afdeling</b></td>';
 	while($row = mysqli_fetch_array($result)) {
-		echo "<tr><td>" . $row['email'] . "</td><td>" . $row['voornaam']. "</td><td>" . $row['achternaam']. "</td><td>" . $row['adres']. "</td><td>" . $row['telefoonnummer']. "</td><td>" . $row['postcode'] . '</td></tr>';
+		echo "<tr><td>" . $row['email'] . "</td><td>" . $row['voornaam']. "</td><td>" . $row['achternaam']. "</td><td>" . $row['adres']. "</td><td>" . $row['telefoonnummer']. "</td><td>" . $row['postcode']  . '</td><td>'. $row['permissies']. "</td><tr>";
 	}
 	
 	echo '</table>';
