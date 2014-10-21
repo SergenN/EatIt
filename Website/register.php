@@ -95,7 +95,7 @@ if(isset($_POST['submit'])){
 		$secretcode = hash('crc32b', $secretcode);
 
 		// De gegevens invullen
-		$query = "INSERT INTO klant VALUES ('" . $email . "', '" . $voornaam . "', '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "')";
+		$query = "INSERT INTO klant(email, voornaam, achternaam, telefoonnummer, plaats, adres, postcode, wachtwoord, permissies) VALUES ( '" . $email . "', '" . $voornaam . "', '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "', '"  . 'lid' . "')";
 		$result = mysqli_query($con, $query);
 
 		$voltooid = 1;
