@@ -60,7 +60,7 @@ if(isset($_POST['submit_settings'])){
 		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
 		<form class="form-signin" name="changedata" method="post" action="beheerder.php">
 		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
-		Permissie omzetten naar:<br><select name="permissie" required>
+		Permissie omzetten naar:<br><select class="invoerveld" name="permissie" required>
 		<option value="lid">Lid</option>
 		<option value="bezorger">Bezorger</option>
 		<option value="keuken">Keuken</option>
@@ -71,6 +71,23 @@ if(isset($_POST['submit_settings'])){
 		<!-- Het formulier verzenden. -->
 		<button type="submit" name="submit_settings" id="submit">Wijzingen opslaan</button>
 	</form>
+
+	<h2>Gebruikerslijst</h2>
+	<?php
+
+	// Een lijst opstellen met alle gebruikers met bijehorende gegevens
+	$query = "SELECT * from klant";
+	$result = mysqli_query($con, $query);
+
+	// De tabel met gebruikers
+	echo '<table style="width:100%">';
+	echo '<tr><td><b>Email</b></td><td><b>Voornaam</b></td><td><b>Achternaam</b></td><td><b>Adres</b></td><td><b>Telefoonnr</b></td><td><b>Postcode</b></td>';
+	while($row = mysqli_fetch_array($result)) {
+		echo "<tr><td>" . $row['email'] . "</td><td>" . $row['voornaam']. "</td><td>" . $row['achternaam']. "</td><td>" . $row['adres']. "</td><td>" . $row['telefoonnummer']. "</td><td>" . $row['postcode'] . '</td></tr>';
+	}
+	
+	echo '</table>';
+	?>
 
 	</div>
 
