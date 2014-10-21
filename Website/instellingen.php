@@ -39,6 +39,11 @@ if(isset($_POST['submit_settings'])){
 	// Kijken of de variables zijn invuld. Als er een onderdeel is ingevoerd, dan wordt de functie update_data uitgevoerd en worden er hierbij parameters meegegeven. Deze functie
 	// zorgt ervoor dat de data wordt aangepast in de database.
 
+	if ($_POST['email'] != '') {
+		$email = $_POST['email'];
+		update_data('email', $gegevens['email'], $con);
+	}
+
 	if ($_POST['voornaam'] != '') {
 		$voornaam = $_POST['voornaam'];
 		update_data('voornaam', $gegevens['email'], $con);
@@ -129,7 +134,7 @@ if(isset($_POST['submit_settings'])){
 	<h2>Persoonlijke gegevens</h2>
 		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
 		<form class="form-signin" name="changedata" method="post" action="instellingen.php">
-		Email:<br><input type="email" class="invoerveld" placeholder= <?php echo '"' . $gegevens['email'] . '"'; ?> readonly><br><br>
+		Email:<br><input type="email" name="email" class="invoerveld" placeholder= <?php echo '"' . $gegevens['email'] . '"'; ?> value=<?php echo '"' . $email . '"'; ?>><br><br>
 		Voornaam:<br><input type="text" class="invoerveld" name="voornaam" placeholder=<?php echo '"' . $gegevens['voornaam'] . '"'; ?>><br><br>
 		Achternaam:<br><input type="text" class="invoerveld" name="achternaam" placeholder=<?php echo '"' . $gegevens['achternaam'] . '"'; ?> value=<?php echo '"' . $achternaam . '"'; ?>><br><br>
 		Telefoonnummer:<br><input type="number" class="invoerveld" name="telefoonnummer" placeholder=<?php echo '"' . $gegevens['telefoonnummer'] . '"'; ?> value=<?php echo '"' . $telefoonnummer . '"'; ?>><br><br>
