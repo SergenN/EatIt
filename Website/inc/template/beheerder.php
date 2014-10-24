@@ -1,36 +1,20 @@
-<?php // Geschreven door:			Thijs Kuilman
-// Studentnummer:					327154
-// 
-// Doel van dit bestand:
-// Deze pagina bevat een formulier waarmee een gebruiker zijn persoonlijke gegevens kan veranderen. Naast account instellingen kun je ook je wachtwoord aanpassen.
-// ?>
-
-<!-- Met de database connecten en de sessie laden -->
-<?php include 'database_sessie.php'; ?>
-
-<!-- Als een gebruiker niet ingelogd is, wordt het doorverwezen naar index.php -->
-<?php if(!isset($_SESSION['gegevens'])){
-	header ('location: index.php');
-} ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Instellingen</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-<body>
-
-<!-- De header inladen -->
-<?php include 'header.php'; ?>
-
-<!-- Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php -->
-<?php if($gegevens['permissies'] != 'beheerder'){
-	header ('location: index.php');
-}
-?>
-
 <?php
+/* Geschreven door:			Thijs Kuilman
+ * Studentnummer:					327154
+ *
+ * Doel van dit bestand:
+ * Deze pagina bevat een formulier waarmee een gebruiker zijn persoonlijke gegevens kan veranderen. Naast account instellingen kun je ook je wachtwoord aanpassen.
+ */
+
+if(!isset($_SESSION['gegevens'])){
+    header ('location: index.php');
+}
+
+//Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php
+if($gegevens['permissies'] != 'beheerder'){
+    header ('location: index.php');
+}
+
 // print_r($gegevens);
 if(isset($_POST['submit_settings'])){
 	// Kijken of de variables zijn invuld. Als er een onderdeel is ingevoerd, dan wordt de functie update_data uitgevoerd en worden er hierbij parameters meegegeven. Deze functie
@@ -53,8 +37,7 @@ if(isset($_POST['submit_settings'])){
 		$_SESSION['gegevens'] = mysqli_fetch_array($result);
 ?>
 
-	<!-- De content. Hier komt alle inhoud van de site. -->
-	<div class="content">
+<div class="content">
 	<!-- Het formulier -->
 	<h2>Permissies aanpassen</h2>
 		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
@@ -88,12 +71,4 @@ if(isset($_POST['submit_settings'])){
 	
 	echo '</table>';
 	?>
-
-	</div>
-
-	<!-- De footer -->
-	<div class="footer">
-		Copyright &#169; 2014 EatIt
-	</div>
 </div>
-</body>

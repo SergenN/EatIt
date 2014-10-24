@@ -1,38 +1,13 @@
-<?php // Geschreven door:			Thijs Kuilman
-// Studentnummer:					327154
-// 
-// Doel van dit bestand:
-// Deze pagina bevat een formulier waarmee een gebruiker zijn persoonlijke gegevens kan veranderen. Naast account instellingen kun je ook je wachtwoord aanpassen.
-// ?>
-
-<!-- Met de database connecten en de sessie laden -->
-<?php include 'database_sessie.php'; ?>
-
-<!-- Als een gebruiker niet ingelogd is, wordt het doorverwezen naar index.php -->
-<?php if(!isset($_SESSION['gegevens'])){
-	header ('location: index.php');
-} ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Instellingen</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-<body>
-
-<!-- De header inladen -->
-<?php include 'header.php'; ?>
-
 <?php
-// De variabelen die in de invoervelden worden aangepast
-$email = "";
-$voornaam = "";
-$achternaam = "";
-$telefoonnummer = "";
-$plaats = "";
-$adres = "";
-$postcode = "";
+/* Geschreven door:			Thijs Kuilman
+ * Studentnummer:					327154
+ *
+ * Doel van dit bestand:
+ * Deze pagina bevat een formulier waarmee een gebruiker zijn persoonlijke gegevens kan veranderen. Naast account instellingen kun je ook je wachtwoord aanpassen.
+ */
+if(!isset($_SESSION['gegevens'])){
+    header ('location: index.php');
+}
 
 // print_r($gegevens);
 if(isset($_POST['submit_settings'])){
@@ -111,7 +86,8 @@ if(isset($_POST['submit_settings'])){
 ?>
 
 	<!-- De content. Hier komt alle inhoud van de site. -->
-	<div class="content">
+
+<div class="content">
 	<?php
 	// Hier wordt gekeken of er bij het aanvragen van een nieuw wachtwoord errors optraden. Als dit het geval is, dan wordt de error op het scherm weergegeven.
     if(isset($_POST['wachtwoord'])){
@@ -151,12 +127,4 @@ if(isset($_POST['submit_settings'])){
 		<!-- Het formulier verzenden. -->
 		<button type="submit" name="submit_settings" id="submit">Wijzigingen opslaan</button>
 	</form>
-
-	</div>
-
-	<!-- De footer -->
-	<div class="footer">
-		Copyright &#169; 2014 EatIt
-	</div>
 </div>
-</body>
