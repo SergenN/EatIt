@@ -1,12 +1,10 @@
 <?php
+// De variabelen die in de invoervelden worden aangepast
+$l_email = isset($_POST['l_email']) ? $_POST['l_email'] : "";
+$l_password = isset($_POST['l_password']) ? $_POST['l_password'] : "";
+
 if (isset($_POST['l_submit'])) {
 
-    $l_email = mysqli_real_escape_string($con, $_POST['l_email']);
-
-	if(isset($l_email)){
-		$l_password = $_POST['l_password'];
-	}
-	
 	// Kijken of het email adres al in de database staat. Dit wordt gedaan door het ingevulde email adres m.b.v een WHERE en een COUNT statement te tellen. Als er 0 zijn, dan kan de persoon zich registeren. Als het op 1 staat, dan volgt er een error.
 	$query = "SELECT wachtwoord FROM klant WHERE email = '" . $l_email . "' ";
 	$result = mysqli_query($con, $query);
@@ -26,9 +24,9 @@ if (isset($_POST['l_submit'])) {
         <form class="form-signin" method="post">
             <h2>Inloggen</h2>
             <?php
-             if($password == $l_password && isset($_POST['l_submit'])){
+             if(isset($_POST['l_submit']) && $password == $l_password){
                 echo '<div class="success">Succesvol ingelogd!</div><br>';
-            }elseif($password != $l_password && isset($_POST['l_submit'])){
+            }elseif(isset($_POST['l_submit']) && $password != $l_password){
                 echo '<div class="error">Onjuiste gegevens ingevoerd</div><br>';
             }
             ?>

@@ -15,8 +15,6 @@ function initSession(){
         $result = mysqli_query($con, $query);
         $_SESSION['gegevens'] = mysqli_fetch_array($result);
         $gegevens = ($_SESSION['gegevens']);
-        }else{
-        $gegevens = 'gast';
     }
 }*/
 ?>
