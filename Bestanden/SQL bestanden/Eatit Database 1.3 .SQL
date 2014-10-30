@@ -94,7 +94,7 @@ CREATE TABLE Klant
     KL_Achternaam			 VARCHAR (20) NOT NULL ,
     KL_Telefoonnummer		 VARCHAR (16) NOT NULL ,
     KL_Mail					 VARCHAR (60) NOT NULL ,
-    KL_Plaats				 VARCHAR (30) ,
+    KL_Plaats				 VARCHAR (30) NOT NULL ,
     KL_Adres				 VARCHAR (30) NOT NULL ,
     KL_Postcode				 VARCHAR (6)  NOT NULL ,
     KL_Wachtwoord			 VARCHAR (60) NOT NULL ,
@@ -123,7 +123,7 @@ CREATE TABLE Medewerkers
     MED_Plaats				 VARCHAR (30) ,
     MED_Adres				 VARCHAR (30) ,
     MED_Postcode			 VARCHAR (6) ,
-    Afdeling				 INT NOT NULL ,
+    Afdeling				 INT ,
     Manager_ID				 INT ,
 	PRIMARY KEY ( MedNR ) 
   ) ;
