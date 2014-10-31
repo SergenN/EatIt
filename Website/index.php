@@ -6,18 +6,29 @@ if (mysqli_connect_errno()){
     die('Could not make connection with the database!');
 }
 
-include('inc/template/header.php');
-
 if (isset($_GET['p'])) {
-    $dir = 'inc/template/' . $_GET['p'] . '.php';
-    if (is_file($dir)) {
+    include('inc/template/header.php');
+    $dir = 'inc/template/' .$_GET['p']. '.php';
+    if(is_file($dir)) {
         include($dir);
     }else{
         include('inc/template/body.php');
     }
+    include('inc/template/footer.php');
+} if (isset($_GET['a'])){
+    $dir = 'inc/class/' .$_GET['a']. '.php';
+    if(is_file($dir)) {
+        include($dir);
+    } else {
+        include('inc/template/header.php');
+        include('inc/template/body.php');
+        include('inc/template/footer.php');
+    }
 }else{
+    include('inc/template/header.php');
     include('inc/template/body.php');
+    include('inc/template/footer.php');
 }
 
-include('inc/template/footer.php');
+mysqli_close($con);
 ?>

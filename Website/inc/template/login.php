@@ -20,7 +20,7 @@ if (isset($_POST['l_submit'])) {
 
 <div class="login">
 	<center>
-        <img src="inc/template/img/logo_notext.png" action="index.php?p=register" class="logo">
+        <img src="inc/template/img/logo_notext.png" action="index.php?p=login" class="logo">
         <form class="form-signin" method="post">
             <h2>Inloggen</h2>
             <?php

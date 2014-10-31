@@ -53,7 +53,7 @@ CREATE TABLE Ingredienten
   (
     IngNR					 INT NOT NULL AUTO_INCREMENT ,
     ING_Naam				 VARCHAR (30) NOT NULL ,
-	ING_TechnischeVoorraad	 INT ,
+	  ING_TechnischeVoorraad	 INT ,
     ING_InBestelling		 INT ,
     ING_Gereserveerd		 INT ,
     ING_BestelNiveau		 INT ,

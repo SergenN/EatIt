@@ -87,17 +87,17 @@ if(isset($_POST['submit'])){
 <!-- Het formulier waarin de invoervelden staan om je te registreren -->
 <div class="login">
 	<center>
-        <img src="inc/template/img/logo_notext.png" action="registreren.php" class="logo">
+        <img src="inc/template/img/logo_notext.png" action="index.php?p=registreren" class="logo">
         <form class="form-signin" method="post">
           <h2>Registreren</h2>
           <!-- Als de registratie voltooid is (wordt in regel 94 bepaald), dan laat het systeem een bevesteging op het scherm zien. Ook krijgt de gebruiker het wachtwoord en wordt
           hij/zij aangeraden om in te loggen -->
           <?php if ($voltooid == 1) {
-            echo '<div class="success">Aanmelding succesvol. Uw wachtwoord:<br> ' . $secretcode . '<br><br> <a href="login.php">Log hier in!</a> </div><br>';
+            echo '<div class="success">Aanmelding succesvol. Uw wachtwoord:<br> ' . $secretcode . '<br><br> <a href="../../index.php?p=login">Log hier in!</a> </div><br>';
           } ?>
           <?php if ($voltooid == 0) {?>
           <!-- Als de gebruiker al een account heeft, dan kunnen ze via deze link naar de inlogpagina -->
-          <a href="login.php">Al lid? Log hier in!</a><br><br>
+          <a href="../../index.php?p=login">Al lid? Log hier in!</a><br><br>
             <?php
                 // Errorcode weergeven wanneer een email in bezet is
                 if($emailcheck == 1 && isset($_POST['submit'])){

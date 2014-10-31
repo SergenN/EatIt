@@ -10,4 +10,5 @@
 unset($_SESSION['gegevens']);
 
 // De gebruiker terugsturen naar de index pagina
-header ('location: index.php'); ?>
+header ('location: index.php');
+?>
