@@ -1,33 +1,33 @@
 -- Project EatIT
 -- Groep: F4
--- Versie: 1.0
--- Compatible met versie 1.3 EatIT Database 1.3 .SQL
+-- Versie: 1.1
+-- Compatible met versie 1.3 EatIT Database 1.4 .SQL
 -- Test gegevens toevoegen aan de verschillende tabbellen.
 
 -- Alle medewerkers worden toegevoegd.
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Inge', 'Achternaam', 'ingeachternaam@eatit.com', '050-9658741', 'Groningen', 'Langestraat 23', '1122AB');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Inge', 'Achternaam', 'ingeachternaam@eatit.com', '050-9658741', 'Groningen', 'Langestraat 23', '1122AB', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Tim', 'Achter', 'timachter@eatit.com', '050-5423157', 'Groningen', 'Krommebocht 36', '4488ZB');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Tim', 'Achter', 'timachter@eatit.com', '050-5423157', 'Groningen', 'Krommebocht 36', '4488ZB', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Jeroen', 'de Vries', 'jeroendevries@eatit.com', '0597-542168', 'Stadskanaal', 'Kanaal 12', '8465MN');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Jeroen', 'de Vries', 'jeroendevries@eatit.com', '0597-542168', 'Stadskanaal', 'Kanaal 12', '8465MN', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Bert', 'Bartels', 'bertbartels@eatit.com', '0598-645217', 'Veendam', 'Veenweg 156', '9998ZX');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Bert', 'Bartels', 'bertbartels@eatit.com', '0598-645217', 'Veendam', 'Veenweg 156', '9998ZX', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Els', 'Zoon', 'elszoon@eatit.com', '050-3214574', 'Groningen', 'Grotemarkt', '4444PO');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Els', 'Zoon', 'elszoon@eatit.com', '050-3214574', 'Groningen', 'Grotemarkt', '4444PO', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Gerard', 'van Holten', 'gerardvanholten@eatit.com', '0598-455215', 'Hoogezand', 'Laagzand 55', '9876RE');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Gerard', 'van Holten', 'gerardvanholten@eatit.com', '0598-455215', 'Hoogezand', 'Laagzand 55', '9876RE', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Hanneke', 'Scheepstra', 'hannekescheepstra@eatit.com', '0595-875412', 'Winsum', 'Kleinelaan 4', '2123QW');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Hanneke', 'Scheepstra', 'hannekescheepstra@eatit.com', '0595-875412', 'Winsum', 'Kleinelaan 4', '2123QW', 'Wachtwoord');
 
-INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode)
-VALUES ('Lars', 'Pieters', 'larspieters@eatit.com', '050-2124456', 'Groningen', 'Grachtweg 7', '2134KJ');
+INSERT INTO Medewerkers (MED_Voornaam, MED_Achternaam, MED_Mail, MED_Telefoonnummer, MED_Plaats, MED_Adres, MED_Postcode, MED_Wachtwoord)
+VALUES ('Lars', 'Pieters', 'larspieters@eatit.com', '050-2124456', 'Groningen', 'Grachtweg 7', '2134KJ', 'Wachtwoord');
 
 
 -- Managers van de medewerkers worden toegevoegd.
@@ -137,17 +137,20 @@ INSERT INTO Leverancier (LEV_Naam, LEV_Telefoonnummer, LEV_Mail, LEV_Plaats, LEV
 VALUES ('LekkerLekker', '0595-874120', 'infolekkerlekker@lekkerlekker.nl', 'Winsum', 'Diepdal 98', '3214HW');
 
 -- Ingredienten worden toegevoegd.
-INSERT INTO Ingredienten (ING_Naam, ING_TechnischeVoorraad, ING_InBestelling, ING_Gereserveerd, ING_BestelNiveau, ING_Leverancier, ING_Prijs)
+INSERT INTO Artikelen (ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_Prijs)
 VALUES ('Pesto', 150, 20, 50, 60, 1, 0.80);
 
-INSERT INTO Ingredienten (ING_Naam, ING_TechnischeVoorraad, ING_InBestelling, ING_Gereserveerd, ING_BestelNiveau, ING_Leverancier, ING_Prijs)
+INSERT INTO Artikelen (ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_Prijs)
 VALUES ('Mais', 240, 40, 65, 40, 2, 0.75 );
 
-INSERT INTO Ingredienten (ING_Naam, ING_TechnischeVoorraad, ING_InBestelling, ING_Gereserveerd, ING_BestelNiveau, ING_Leverancier, ING_Prijs)
+INSERT INTO Artikelen (ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_Prijs)
 VALUES ('Ingredient67', 210, 24, 24, 42, 2, 1.20 );
 
-INSERT INTO Ingredienten (ING_Naam, ING_TechnischeVoorraad, ING_InBestelling, ING_Gereserveerd, ING_BestelNiveau, ING_Leverancier, ING_Prijs)
-VALUES ('Ingredient12', 50, 10, 20, 8, 5, 2.20 );
+INSERT INTO Artikelen (ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_Prijs)
+VALUES ('Ingredient12', 50, 10, 20, 8, 2, 2.20 );
+
+INSERT INTO Artikelen (ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_Prijs)
+VALUES ('Bier', 80, 10, 26, 8, 2, 2.00 );
 
 -- 2 Gerechten worden toegevoegd.
 INSERT INTO Gerecht (GER_Naam, GER_Prijs, GER_Beschrijving)
@@ -157,17 +160,17 @@ INSERT INTO Gerecht (GER_Naam, GER_Prijs, GER_Beschrijving)
 VALUES ('Gerecht 2', 8.20, 'Gebraden varkensvlees met champignons' );
 
 -- Ingredienten die nodig zijn per gerecht toevoegen.
-INSERT INTO Aantalingredienten (GerNR, IngNR, ING_Aantal)
+INSERT INTO Aantalingredienten (GerNR, ArtNR, ING_Aantal)
 VALUES (1, 3, 2);
 
-INSERT INTO Aantalingredienten (GerNR, IngNR, ING_Aantal)
+INSERT INTO Aantalingredienten (GerNR, ArtNR, ING_Aantal)
 VALUES (1, 1, 3);
 
-INSERT INTO Aantalingredienten (GerNR, IngNR, ING_Aantal)
+INSERT INTO Aantalingredienten (GerNR, ArtNR, ING_Aantal)
 VALUES (1, 2, 5);
 
-INSERT INTO Aantalingredienten (GerNR, IngNR, ING_Aantal)
+INSERT INTO Aantalingredienten (GerNR, ArtNR, ING_Aantal)
 VALUES (2, 1, 1);
 
-INSERT INTO Aantalingredienten (GerNR, IngNR, ING_Aantal)
-VALUES (2, 4, 4);
+INSERT INTO Aantalingredienten (GerNR, ArtNR, ING_Aantal)
+VALUES (2, 3, 4);

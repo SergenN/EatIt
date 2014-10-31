@@ -25,7 +25,7 @@ CREATE TABLE Aantalingredienten
   (
     AiNR					 INT NOT NULL AUTO_INCREMENT ,
     GerNR					 INT NOT NULL ,
-    IngNR					 INT NOT NULL ,
+    ArtNR					 INT NOT NULL ,
     ING_Aantal				 INT NOT NULL ,
 	PRIMARY KEY ( AiNR ) 
   ) ;
@@ -131,6 +131,7 @@ CREATE TABLE Medewerkers
     MED_Plaats				 VARCHAR (30) ,
     MED_Adres				 VARCHAR (30) ,
     MED_Postcode			 VARCHAR (6) ,
+	MED_Wachtwoord			 VARCHAR (60) ,
     Afdeling				 INT ,
     Manager_ID				 INT ,
 	PRIMARY KEY ( MedNR ) 
@@ -146,7 +147,7 @@ ALTER TABLE AantalVerkocht ADD CONSTRAINT AantalVerkocht_Bestelling_FK FOREIGN K
 
 ALTER TABLE AantalVerkocht ADD CONSTRAINT AantalVerkocht_Gerecht_FK FOREIGN KEY ( GerNR ) REFERENCES Gerecht ( GerNR ) ;
 
-ALTER TABLE Aantalingredienten ADD CONSTRAINT Aantalingredienten_Artikelen_FK FOREIGN KEY ( IngNR ) REFERENCES Artikelen ( ArtNR ) ;
+ALTER TABLE Aantalingredienten ADD CONSTRAINT Aantalingredienten_Artikelen_FK FOREIGN KEY ( ArtNR ) REFERENCES Artikelen ( ArtNR ) ;
 
 ALTER TABLE Aantalingredienten ADD CONSTRAINT Aantalingredienten_Gerecht_FK FOREIGN KEY ( GerNR ) REFERENCES Gerecht ( GerNR ) ;
 
