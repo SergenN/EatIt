@@ -34,6 +34,18 @@
     </head>
 
     <body>
+
+    <!-- Gegevens van de gebruiker opslaan -->
+    <?php if(isset($_SESSION['gegevens'])){
+        $gegevens = ($_SESSION['gegevens']);
+        // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
+        $query = "SELECT * FROM klant WHERE email = '" . $gegevens['email'] . "' ";
+        $result = mysqli_query($con, $query);
+        $_SESSION['gegevens'] = mysqli_fetch_array($result);
+        $gegevens = ($_SESSION['gegevens']);
+    }
+    ?>
+
     <div class="container">
         <div class="header">
             <a href="index.php"><img src="inc/template/img/logo.png" id="logo"></a>
@@ -47,7 +59,7 @@
                         <a href="index.php?p=register">Registreren</a>';
                     } else {
                         // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
-                        echo 'Welkom, ' . $gegevens['voornaam'] . ' | ' . '<a href="instellingen.php">Instellingen</a> ' . ' | ' . '<a href="winkelwagen.php">Winkelwagen</a>' . ' | ' . (($gegevens['permissies'] == 'beheerder')? '<a href="pages/beheerder.php">Beheerderspaneel</a> | ' :"") . '<a href="uitloggen.php">Uitloggen</a>';
+                        echo 'Welkom, ' . $gegevens['voornaam'] . ' | ' . '<a href="?p=instellingen">Instellingen</a> ' . ' | ' . '<a href="winkelwagen.php">Winkelwagen</a>' . ' | ' . (($gegevens['permissies'] == 'beheerder')? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"") . '<a href="?p=uitloggen">Uitloggen</a>';
                     }
                 ?>
             </div>

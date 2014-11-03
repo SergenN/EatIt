@@ -41,7 +41,7 @@ if(isset($_POST['submit_settings'])){
 	<!-- Het formulier -->
 	<h2>Permissies aanpassen</h2>
 		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
-		<form class="form-signin" name="changedata" method="post" action="beheerder.php">
+		<form class="form-signin" name="changedata" method="post" action="?p=beheerder">
 		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
 		Permissie omzetten naar:<br><select class="invoerveld" name="permissie" required>
 		<option value="lid">Lid</option>
