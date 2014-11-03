@@ -17,33 +17,13 @@ $voltooid = 0;
 $secretcode = "";
 
 // Kijken of de variables zijn invuld. Zoja: zet de postdata om naar de variabelen. Dit is puur om de query straks iets netter te maken.
-if (isset($_POST['email'])) {
-	$email = $_POST['email'];
-}
-
-if (isset($_POST['voornaam'])) {
-	$voornaam = $_POST['voornaam'];
-}
-
-if (isset($_POST['achternaam'])) {
-	$achternaam = $_POST['achternaam'];
-}
-
-if (isset($_POST['telefoonnummer'])) {
-	$telefoonnummer = $_POST['telefoonnummer'];
-}
-
-if (isset($_POST['plaats'])) {
-	$plaats = $_POST['plaats'];
-}
-
-if (isset($_POST['adres'])) {
-	$adres = $_POST['adres'];
-}
-
-if (isset($_POST['postcode'])) {
-	$postcode = $_POST['postcode'];
-}
+$email = isset($_POST['email']) ? $_POST['email'] : "";
+$voornaam = isset($_POST['voornaam']) ? $_POST['voornaam'] : "";
+$achternaam = isset($_POST['achternaam']) ? $_POST['achternaam'] : "";
+$telefoonnummer = isset($_POST['telefoonnummer']) ? $_POST['telefoonnummer'] : "";
+$plaats = isset($_POST['plaats']) ? $_POST['plaats'] : "";
+$adres = isset($_POST['adres']) ? $_POST['adres'] : "";
+$postcode = isset($_POST['postcode']) ? $_POST['postcode'] : "";
 
 
 // Het account aanmaken zodra er op het knopje is geklikt.
