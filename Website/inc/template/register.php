@@ -29,12 +29,12 @@ $postcode = isset($_POST['postcode']) ? $_POST['postcode'] : "";
 // Het account aanmaken zodra er op het knopje is geklikt.
 if(isset($_POST['submit'])){
 	// Kijken of het email adres al in de database staat. Dit wordt gedaan door het ingevulde email adres m.b.v een WHERE en een COUNT statement te tellen. Als er 0 zijn, dan kan de persoon zich registeren. Als het op 1 staat, dan volgt er een error.
-	$query = "SELECT count(email) FROM klant WHERE email = '" . $email . "' ";
+	$query = "SELECT count(KL_Mail) FROM Klant WHERE KL_Mail = '" . $email . "' ";
 	$result = mysqli_query($con, $query);
 
 
 	while($row = mysqli_fetch_array($result)) {
-		$emailcheck = $row['count(email)'];
+		$emailcheck = $row['count(KL_Mail)'];
 	}
 
 	// Als het email adres niet gevonden is, dan worden de gegevens in de database gezet
@@ -55,7 +55,8 @@ if(isset($_POST['submit'])){
 		$secretcode = hash('crc32b', $secretcode);
 
 		// De gegevens invullen
-		$query = "INSERT INTO klant(email, voornaam, achternaam, telefoonnummer, plaats, adres, postcode, wachtwoord, permissies) VALUES ( '" . $email . "', '" . $voornaam . "', '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "', '"  . 'lid' . "')";
+		$query = "INSERT INTO Klant(KL_Mail, KL_Voornaam, KL_Achternaam, KL_Telefoonnummer, KL_Plaats, KL_Adres, KL_Postcode, KL_Wachtwoord) VALUES ( '" . $email . "', '" . $voornaam . "'";
+		$query .= ", '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "')";
 		$result = mysqli_query($con, $query);
 
 		$voltooid = 1;

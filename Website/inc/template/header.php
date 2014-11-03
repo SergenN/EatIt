@@ -39,11 +39,12 @@
     <?php if(isset($_SESSION['gegevens'])){
         $gegevens = ($_SESSION['gegevens']);
         // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
-        $query = "SELECT * FROM klant WHERE email = '" . $gegevens['email'] . "' ";
+        $query = "SELECT * FROM Klant WHERE KL_Mail = '" . $gegevens['KL_Mail'] . "' ";
         $result = mysqli_query($con, $query);
         $_SESSION['gegevens'] = mysqli_fetch_array($result);
         $gegevens = ($_SESSION['gegevens']);
     }
+    
     ?>
 
     <div class="container">
@@ -59,7 +60,8 @@
                         <a href="index.php?p=register">Registreren</a>';
                     } else {
                         // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
-                        echo 'Welkom, ' . $gegevens['voornaam'] . ' | ' . '<a href="?p=instellingen">Instellingen</a> ' . ' | ' . '<a href="winkelwagen.php">Winkelwagen</a>' . ' | ' . (($gegevens['permissies'] == 'beheerder')? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"") . '<a href="?p=uitloggen">Uitloggen</a>';
+                        //$beheerder =  (($gegevens['permissies'] == 'beheerder') ? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"");
+                        echo "Welkom, . {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
                     }
                 ?>
             </div>

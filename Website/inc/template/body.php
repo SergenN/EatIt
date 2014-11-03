@@ -7,7 +7,7 @@
 
 function getGerechten($con){
     $gerechten = array();
-    $query = "SELECT * FROM gerecht g JOIN aantalingredienten a ON g.GerNR = a.GerNR WHERE ING_Aantal >= 1";
+    $query = "SELECT * FROM Gerecht g JOIN Aantalingredienten a ON g.GerNR = a.GerNR WHERE ING_Aantal >= 1";
     $result = mysqli_query($con, $query);
     if (mysqli_error($con)){
         die ('Kon query niet uitvoeren!');

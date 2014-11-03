@@ -1,6 +1,6 @@
 <?php
 session_start();
-$con = mysqli_connect('localhost','root','','EatIt');
+$con = mysqli_connect('localhost','root','','Eatit');
 
 if (mysqli_connect_errno()){
     die('Could not make connection with the database!');
