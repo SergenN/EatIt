@@ -34,9 +34,8 @@ if(isset($_GET['q'])){
             }
             break;
         case("add") :
-            if (isset ($_POST['lev_submit']) && !empty($sqid)){
-                $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel')";
-                $results = mysqli_query($con, $query);
+            if (isset ($_POST['lev_submit'])){
+                $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel');";
                 if(mysqli_error($con)){
                     $_SESSION['res'] = $_POST;
                     $location = "index.php?p=leverancierform&res=failed";

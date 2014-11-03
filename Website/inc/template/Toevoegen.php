@@ -94,7 +94,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
             echo "<tr>
                 <td class=\"a\">{$row['ING_Naam']}</td>
                 <td class=\"b\">{$row['ING_TechnischeVoorraad']}</td>
-                <td class=\"c\">{$row['ING_Prijs']}</td>
+                <td class=\"c\">{$row['ING_prijs']}</td>
                 <td class=\"d\">{$row['LEV_Naam']}</td>
                 <td class=\"e\"><a href=\"index.php?p=ingredientForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=ingredientForm&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
             </tr>";
