@@ -11,6 +11,24 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
 ?>
 
 <div class="content">
+    <?php if (isset($_GET['res'])){
+        echo '<center>';
+        switch($_GET['res']) {
+            case("added") :
+                echo '<div class="success">Object toegevoegd aan database.</div><br>';
+                break;
+            case("modified") :
+                echo '<div class="success">Object gewijzigd.</div><br>';
+                break;
+            case("deleted") :
+                echo '<div class="success">Object gedelete</div><br>';
+                break;
+            case("failed") :
+                echo '<div class="success">Kon object niet verwijderen!</div><br>';
+                break;
+        }
+        echo '</center>';
+    }?>
     <div class="box">
         <div class="edittabtitle">
             <p class="title">Gerechten verwijderen en/of aanpassen</p>
@@ -29,116 +47,37 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
             </thead>
 
             <tbody class="editbody">
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
+            <?php
+            $query = "SELECT * FROM gerecht;";
+            $result = mysqli_query($con, $query);
+            $rows = 0;
+            while($row = mysqli_fetch_assoc($result)){
+                $levnr = $row["GerNR"];
+                echo "<tr>
+                <td class=\"a\">{$row['GER_Naam']}</td>
+                <td class=\"b\">{$row['GerNR']}</td>
+                <td class=\"c\">{$row['GER_Prijs']}</td>
+                <td class=\"d\">{$row['GER_Naam']}</td>
+                <td class=\"e\"><a href=\"index.php?p=gerechtForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=gerechtform&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
+            </tr>";
+                $rows++;
+            }?>
             </tbody>
         </table>
-        <div class="edittabfooter">xx items in totaal</div>
+        <div class="edittabfooter"><?php echo $rows?> gerecht(en) in totaal.</div>
     </div>
 
     <div class="box">
         <div class="edittabtitle">
             <p class="title">Ingredienten verwijderen en/of aanpassen</p>
             <p class="blue">Hier kunt u Ingredienten verwijderen uit en/of aanpassen in de database.</p>
-            <a href="index.php?p=formulier&a=ingredient"><div id="newIngredient" class="newitem">Ingredient toevoegen</div></a>
+            <a href="index.php?p=ingredientform"><div id="newIngredient" class="newitem">Ingredient toevoegen</div></a>
         </div>
         <table class="edittable" rules="groups">
             <thead>
             <tr>
                 <th class="a">Product</th>
-                <th class="b">Artikel-NR</th>
+                <th class="b">In voorraad</th>
                 <th class="c">Prijs</th>
                 <th class="d">Fabrikant</th>
                 <th class="e"></th>
@@ -146,110 +85,31 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
             </thead>
 
             <tbody class="editbody">
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
-
-            <tr>
-                <td class="a">f</td>
-                <td class="b">g</td>
-                <td class="c">h</td>
-                <td class="d">i</td>
-                <td class="e"><img src="inc/template/img/otf_edit.svg" class="editico"><img src="inc/template/img/otf_delete.svg" class="delico"></td>
-            </tr>
+            <?php
+            $query = "SELECT * FROM ingredienten i JOIN leverancier l ON l.LevNr = i.ING_Leverancier;";
+            $result = mysqli_query($con, $query);
+            $rows = 0;
+            while($row = mysqli_fetch_assoc($result)){
+            $levnr = $row["IngNR"];
+            echo "<tr>
+                <td class=\"a\">{$row['ING_Naam']}</td>
+                <td class=\"b\">{$row['ING_TechnischeVoorraad']}</td>
+                <td class=\"c\">{$row['ING_Prijs']}</td>
+                <td class=\"d\">{$row['LEV_Naam']}</td>
+                <td class=\"e\"><a href=\"index.php?p=ingredientForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=ingredientForm&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
+            </tr>";
+            $rows++;
+            }?>
             </tbody>
         </table>
-        <div class="edittabfooter">xx items in totaal</div>
+        <div class="edittabfooter"><?php echo $rows?> ingredient(en) in totaal.</div>
     </div>
 
     <div class="box">
         <div class="edittabtitle">
             <p class="title">Leveranciers verwijderen en/of aanpassen</p>
             <p class="blue">Hier kunt u leveranciers verwijderen uit en/of aanpassen in de database.</p>
-            <a href="index.php?p=formulier&a=leverancierForm"><div id="newLeverancier" class="newitem">Leverancier toevoegen</div></a>
+            <a href="index.php?p=leverancierForm"><div id="newLeverancier" class="newitem">Leverancier toevoegen</div></a>
         </div>
         <table class="edittable" rules="groups">
             <thead>
@@ -274,7 +134,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
                 <td class=\"b\">{$row['LEV_Postcode']}</td>
                 <td class=\"c\">{$row['LEV_Plaats']}</td>
                 <td class=\"d\">{$row['LEV_Naam']}</td>
-                <td class=\"e\"><a href=\"index.php?p=leverancierForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=leverancierForm&a=delete&i=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
+                <td class=\"e\"><a href=\"index.php?p=leverancierForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=leverancierform&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
                     </tr>";
                 $rows++;
             }

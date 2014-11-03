@@ -52,7 +52,7 @@ CREATE TABLE Gerecht
   (
     GerNR					 INT NOT NULL AUTO_INCREMENT ,
     GER_Naam				 VARCHAR (30) NOT NULL ,
-    GER_Prijs				 INT ,
+    GER_Prijs				 DOUBLE ,
     GER_Beschrijving		 VARCHAR (100) ,
 	PRIMARY KEY ( GerNR ) 
   ) ;
@@ -66,7 +66,7 @@ CREATE TABLE Artikelen
     ART_Gereserveerd		 INT ,
     ART_BestelNiveau		 INT ,
     ART_Leverancier			 INT ,
-    ART_Prijs 				 INT ,
+    ART_Prijs 				 DOUBLE ,
 	PRIMARY KEY ( ArtNR ) 
   ) ;
 

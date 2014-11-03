@@ -5,44 +5,44 @@
  * Date: 31-10-2014
  * Time: 04:23
  */
-$exists = false;
-$levNaam = isset($_POST['lev_naam']) ? $_POST['lev_naam'] : "";
-$levadres = isset($_POST['lev_adres']) ? $_POST['lev_adres'] : "";
-$levpost = isset($_POST['lev_post']) ? $_POST['lev_post'] : "";
-$levplaats = isset($_POST['lev_plaats']) ? $_POST['lev_plaats'] : "";
-$levmail = isset($_POST['lev_mail']) ? $_POST['lev_mail'] : "";
-$levtel = isset($_POST['lev_tel']) ? $_POST['lev_tel'] : "";
+$action = "index.php?a=leverancierForm&q=add";
 
-if (isset ($_POST['lev_submit'])){
-    $sqnaam = mysqli_real_escape_string($con, $levNaam);
-    $sqadres = mysqli_real_escape_string($con, $levadres);
-    $sqpost = mysqli_real_escape_string($con, $levpost);
-    $sqplaats = mysqli_real_escape_string($con, $levplaats);
-    $sqmail = mysqli_real_escape_string($con, $levmail);
-    $sqtel = mysqli_real_escape_string($con, $levtel);
-
-    $query = "SELECT COUNT(*) AS total FROM leverancier WHERE LEV_Naam = '$sqnaam' OR LEV_Adres = '$sqadres' OR LEV_Postcode = '$sqpost' OR LEV_Plaats = '$sqplaats';";
-    $results = mysqli_query($con, $query);
-    $values = mysql_fetch_assoc($results);
-    $num_rows = $values['total'];
-    if ($num_rows == 0){
-        $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel')";
-        $results = mysqli_query($con, $query);
+if (isset($_GET['id'])){
+    $id = mysqli_real_escape_string($con, $_GET['id']);
+    $query = "SELECT * FROM leverancier WHERE LevNR = $id;";
+    $result = mysqli_query($con, $query);
+    $rows = mysqli_num_rows($result);
+    if ($rows == 1){
+        $row = mysqli_fetch_assoc($result);
+        $qnaam = $row['LEV_Naam'];
+        $qadres = $row['LEV_Adres'];
+        $qpost = $row['LEV_Postcode'];
+        $qplaats = $row['LEV_Plaats'];
+        $qmail = $row['LEV_Mail'];
+        $qtel = $row['LEV_Telefoonnummer'];
+        $action = "index.php?a=leverancierForm&q=mod";
     } else {
-        $exists = true;
+        header("index.php?p=toevoegen&res=failed");
     }
 }
+
+$levnaam = isset($_SESSION['lev']['lev_naam']) ? $_SESSION['lev']['lev_naam'] : isset($qnaam) ? $qnaam : "";
+$levadres = isset($_SESSION['lev']['lev_adres']) ? $_SESSION['lev']['lev_adres'] : isset($qadres) ? $qadres : "";
+$levpost = isset($_SESSION['lev']['lev_post']) ? $_SESSION['lev']['lev_post'] : isset($qpost) ? $qpost : "";
+$levplaats = isset($_SESSION['lev']['lev_plaats']) ? $_SESSION['lev']['lev_plaats'] : isset($qplaats) ? $qplaats : "";
+$levmail = isset($_SESSION['lev']['lev_mail']) ? $_SESSION['lev']['lev_mail'] : isset($qmail) ? $qmail : "";
+$levtel = isset($_SESSION['lev']['lev_tel']) ? $_SESSION['lev']['lev_tel'] : isset($qtel) ? $qtel : "";
 ?>
 
 <div class="content">
     <center>
     <h2>Leverancier Toevoegen/Wijzigen</h2>
-        <?php if($exists){echo '<div class="error">Er bestaat al een leverancier met soortgelijke gegevens!</div><br>';}?>
-    <form action="index.php?p=leverancierForm" method="post">
-        <?php if(isset($_POST['id'])){echo "<input type=\"hidden\" name=\"lev_id\" value=\"{$_post['id']}\">";}?>
+    <form action="<?php echo $action;?>" method="post">
+        <?php if(isset($_GET['res']) && $_GET['res'] == 'failed'){echo '<div class="error">Er ging iets verkeerd! Probeer opnieuw.</div><br>';}
+         if(isset($_GET['id'])){echo "<input type=\"text\" name=\"lev_id\" value=\"{$_GET['id']}\">";}?>
         <table>
             <tr><td>Leverancier Naam</td>
-                <td><input type="text" class="invoerveld" name="lev_naam" placeholder="Naam" required autofocus value="<?php echo $levNaam; ?>"></td></tr>
+                <td><input type="text" class="invoerveld" name="lev_naam" placeholder="Naam" required autofocus value="<?php echo $levnaam; ?>"></td></tr>
             <tr><td>Leverancier Adres</td>
                 <td><input type="text" class="invoerveld" name="lev_adres" placeholder="Adres" required value="<?php echo $levadres; ?>"></td></tr>
             <tr><td>Leverancier Postcode</td>
