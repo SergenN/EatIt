@@ -109,20 +109,20 @@ if(isset($_POST['submit_settings'])){
 	<!-- Het formulier -->
 	<h2>Persoonlijke gegevens</h2>
 		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
-		<form class="form-signin" name="changedata" method="post" action="instellingen.php">
-		Email:<br><input type="email" name="email" class="invoerveld" placeholder= <?php echo '"' . $gegevens['email'] . '"'; ?> value=<?php echo '"' . $email . '"'; ?>><br><br>
+		<form class="form-signin" name="changedata" method="post" action="?p=instellingen">
+		Email:<br><input type="email" name="email" class="invoerveld" placeholder= <?php echo '"' . $gegevens['email'] . '"'; ?>><br><br>
 		Voornaam:<br><input type="text" class="invoerveld" name="voornaam" placeholder=<?php echo '"' . $gegevens['voornaam'] . '"'; ?>><br><br>
-		Achternaam:<br><input type="text" class="invoerveld" name="achternaam" placeholder=<?php echo '"' . $gegevens['achternaam'] . '"'; ?> value=<?php echo '"' . $achternaam . '"'; ?>><br><br>
-		Telefoonnummer:<br><input type="number" class="invoerveld" name="telefoonnummer" placeholder=<?php echo '"' . $gegevens['telefoonnummer'] . '"'; ?> value=<?php echo '"' . $telefoonnummer . '"'; ?>><br><br>
-		Plaats:<br><input type="text" class="invoerveld" name="plaats" placeholder=<?php echo '"' . $gegevens['plaats'] . '"'; ?> value=<?php echo '"' . $plaats . '"'; ?>><br><br>
-		Adres:<br><input type="text" class="invoerveld" name="adres" placeholder=<?php echo '"' . $gegevens['adres'] . '"'; ?> value=<?php echo '"' . $adres . '"'; ?>><br><br>
-		Postcode:<br><input type="text" class="invoerveld" name="postcode" placeholder=<?php echo '"' . $gegevens['postcode'] . '"'; ?> value=<?php echo '"' . $postcode . '"'; ?>><br><br>
+		Achternaam:<br><input type="text" class="invoerveld" name="achternaam" placeholder=<?php echo '"' . $gegevens['achternaam'] . '"'; ?>><br><br>
+		Telefoonnummer:<br><input type="number" class="invoerveld" name="telefoonnummer" placeholder=<?php echo '"' . $gegevens['telefoonnummer'] . '"'; ?>><br><br>
+		Plaats:<br><input type="text" class="invoerveld" name="plaats" placeholder=<?php echo '"' . $gegevens['plaats'] . '"'; ?>><br><br>
+		Adres:<br><input type="text" class="invoerveld" name="adres" placeholder=<?php echo '"' . $gegevens['adres'] . '"'; ?>><br><br>
+		Postcode:<br><input type="text" class="invoerveld" name="postcode" placeholder=<?php echo '"' . $gegevens['postcode'] . '"'; ?>><br><br>
 		
 		<!-- Hier kunnen de gebruikers hun wachtwoord veranderen. Het wijzigingsproces wordt ALLEEN geactiveerd als het eerste veld hiervan wordt ingevuld. -->
 		<h2>Wachtwoord wijzigen</h2>
-		Voer je huidige wachtwoord in:<br><input type="password" class="invoerveld" name="wachtwoord" value=<?php echo '"' . $postcode . '"'; ?>><br><br>
-		Voer je gewenst wachtwoord twee keer in:<br><input type="password" class="invoerveld" name="password_new" value=<?php echo '"' . $postcode . '"'; ?>><br>
-		<br><input type="password" class="invoerveld" name="password_new2" value=<?php echo '"' . $postcode . '"'; ?>><br><br>
+		Voer je huidige wachtwoord in:<br><input type="password" class="invoerveld" name="wachtwoord"><br><br>
+		Voer je gewenst wachtwoord twee keer in:<br><input type="password" class="invoerveld" name="password_new"><br>
+		<br><input type="password" class="invoerveld" name="password_new2"><br><br>
 
 		<!-- Het formulier verzenden. -->
 		<button type="submit" name="submit_settings" id="submit">Wijzigingen opslaan</button>

@@ -8,7 +8,7 @@ h2{
   color:#5F5F5F;
 }
 
-.login, .content{
+/*.login, */.content{
   margin-right: auto;
   margin-left: auto;
   background-color:white;
@@ -24,10 +24,10 @@ h2{
   padding-right:10px;
 }
 
-.login{
-   width:300px;
-  padding:30px;
-}
+  /*.login{
+     width:300px;
+    padding:30px;
+  }*/
 
 .footer{
   color:grey;

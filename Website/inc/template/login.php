@@ -10,31 +10,35 @@ if (isset($_POST['l_submit'])) {
 	$result = mysqli_query($con, $query);
 	$password = '';
 
-	echo $query;
-
 	while($row = mysqli_fetch_array($result)) {
 		$password = $row['wachtwoord'];
 	}
 }
 ?>
-
-<div class="login">
-	<center>
-        <img src="inc/template/img/logo_notext.png" action="index.php?p=login" class="logo">
+<center>
+<div class="content">
         <form class="form-signin" method="post">
             <h2>Inloggen</h2>
             <?php
              if(isset($_POST['l_submit']) && $password == $l_password){
                 echo '<div class="success">Succesvol ingelogd!</div><br>';
+
+                // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
+                $query = "SELECT * FROM klant WHERE email = '" . $l_email . "' ";
+                $result = mysqli_query($con, $query);
+                $_SESSION['gegevens'] = mysqli_fetch_array($result);
+
+                header ('location: index.php');
+
             }elseif(isset($_POST['l_submit']) && $password != $l_password){
                 echo '<div class="error">Onjuiste gegevens ingevoerd</div><br>';
             }
             ?>
-            <a href="index.php?p=register">Nog geen lid? Registreer je hier!</a><br><br>
+            <a href="?p=register">Nog geen lid? Registreer je hier!</a><br><br>
             <input type="email" class="invoerveld" name="l_email" placeholder="Email" required autofocus value=<?php echo '"' . $l_email . '"'; ?>><br><br>
             <input type="password" class="invoerveld" name="l_password" placeholder="Wachtwoord" required value=<?php echo '"' . $l_password . '"'; ?>><br><br>
             <br>
             <button type="submit" name="l_submit" id="submit">Inloggen</button>
         </form>
-	</center>
 </div>
+</center>
