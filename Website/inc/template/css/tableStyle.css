@@ -153,3 +153,10 @@ p.blue {
     font-size: 1.1vw;
     color: #09558C;
 }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+

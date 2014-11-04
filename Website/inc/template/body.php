@@ -5,33 +5,45 @@
  * Time: 11:00
  */
 
-function getGerechten($con){
-    $gerechten = array();
-    $query = "SELECT * FROM Gerecht g JOIN Aantalingredienten a ON g.GerNR = a.GerNR WHERE ING_Aantal >= 1";
-    $result = mysqli_query($con, $query);
-    if (mysqli_error($con)){
-        die ('Kon query niet uitvoeren!');
-    }
-    while($row = mysqli_fetch_assoc($result)){
-        array_push($gerechten, $row);
-    }
-    return $gerechten;
-}
+function getGerechten(){
+    global $con;
+    $toret = "";
+    $query = "SELECT * FROM gerecht;";
+    $res = mysqli_query($con, $query);
+    if ($res){
+        while($row = mysqli_fetch_assoc($res)){
+            $query = "SELECT * FROM aantalingredienten a JOIN ingredienten i ON i.IngNR = a.IngNR WHERE a.GerNR = {$row['GerNR']};";
+            $res2 = mysqli_query($con, $query);
+            $stocked = true;
+            if (!$res2) continue;
+            while($row2 = mysqli_fetch_assoc($res2)){
+                $voorraad = $row2['ING_TechnischeVoorraad'] - $row2['ING_Gereserveerd'];
+                if ($row2['ING_Aantal'] > $voorraad) {
+                    $stocked = false;
+                    break;
+                }
 
+                $am = $voorraad / $row2['ING_Aantal'];
+                if (!isset($mogelijk) || $mogelijk > $am) {
+                    $mogelijk = $am;
+                }
+            }
+            if ($stocked){
+                $action = "index.php?a=bestelForm&id={$row['GerNR']}";
+                $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
+                $toret .= '<li>'. $row['GerNR'] .' <form action="'.$action.'" method="post"><input type="number" name="bes_aantal" required min="1" max="'.$mogelijk.'" value="'.$val.'"><input  type="submit" name="bes_submit"></form></li>';
+            }
+        }
+    }
+    return $toret;
+}
 ?>
 <div class="content">
 
-    <form>
-        <ul>
-            <?php
-            $gerechten = getGerechten($con);
-            if (isset($gerechten) && empty($gerechten)) {
-                foreach ($gerechten as $gerecht) {
-                    echo('<li>' . $gerecht['GerNR'] . '</li>');
-                }
-            }
-            ?>
-        </ul>
-    </form>
+    <ul>
+        <?php
+            echo getGerechten();
+        ?>
+    </ul>
 
 </div>

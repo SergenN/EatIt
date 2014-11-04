@@ -66,24 +66,7 @@ function getIngredienten(){
             $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="bbutton">Verwijder Ingredient</button></td></tr>';
             $totalrows++;
         }
-    } //else {
-/*        global $con;
-        $query = "SELECT * FROM ingredienten;";
-        $result1 = mysqli_query($con, $query);
-        $rows = mysqli_num_rows($result1);
-        if ($rows == 0) {
-            header("location: index.php?p=toevoegen&res=noings");
-        }
-        $query = "SELECT * FROM aantalingredienten a JOIN ingredienten i ON a.IngNR = i.IngNR;";
-        $result2 = mysqli_query($con, $query);
-        $rows = mysqli_num_rows($result2);
-        if ($rows > 0) {
-            while ($row = mysqli_fetch_assoc($result2)) {
-                $toret .= "<tr><td>" . makeSelect($row['IngNR']) . "</td><td><input type=\"number\" class=\"invoerveld\" name=\"hoeveelheid[]\" placeholder=\"Hoeveelheid\" value=\" {$row['ING_Aantal']} \"></td><td><button type=\"submit\" name=\"ger_delIng\" class=\"bbutton\">Verwijder Ingredient</button></td></tr>";
-                $totalrows++;
-            }
-        }*/
-    //}
+    }
     if ($totalrows < $selectRows) {
         $add = $totalrows == 0 ? "required" : "";
         $toret .= "<tr><td>" . makeSelect() . "</td><td><input type=\"number\" class=\"invoerveld\" name=\"hoeveelheid[]\" placeholder=\"Hoeveelheid\" ". $add ."></td></tr>";
