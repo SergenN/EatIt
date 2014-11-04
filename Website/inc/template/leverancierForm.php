@@ -9,7 +9,7 @@ $action = "index.php?a=leverancierForm&q=add";
 
 if (isset($_GET['id'])){
     $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM leverancier WHERE LevNR = $id;";
+    $query = "SELECT * FROM Leverancier WHERE LevNR = $id;";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 1){

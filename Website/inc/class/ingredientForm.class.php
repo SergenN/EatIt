@@ -30,7 +30,7 @@ if(isset($_GET['q'])){
     switch ($_GET['q']){
         case("del") :
             if($sqid != ""){
-                $query = "DELETE FROM ingredienten WHERE IngNR = $sqid";
+                $query = "DELETE FROM Artikelen WHERE ArtNR = $sqid";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)){
                     $location = "index.php?p=toevoegen&res=failed";
@@ -40,7 +40,7 @@ if(isset($_GET['q'])){
             break;
         case("add") :
             if (isset ($_POST['ing_submit'])){
-                $query = "INSERT INTO ingredienten(ING_Naam, ING_TechnischeVoorraad, ING_InBestelling, ING_Gereserveerd, ING_BestelNiveau, ING_Leverancier, ING_prijs) VALUES ('$sqnaam', $sqtv, $sqib, $sqg, $sqbn, $sqlev, $sqprijs);";
+                $query = "INSERT INTO Artikelen(ART_Naam, ART_TechnischeVoorraad, ART_InBestelling, ART_Gereserveerd, ART_BestelNiveau, ART_Leverancier, ART_prijs) VALUES ('$sqnaam', $sqtv, $sqib, $sqg, $sqbn, $sqlev, $sqprijs);";
                 $results = mysqli_query($con, $query);
                 if(mysqli_error($con)){
                     $_SESSION['ing'] = $_POST;
@@ -52,7 +52,7 @@ if(isset($_GET['q'])){
             break;
         case("mod") :
             if (isset($_POST['ing_submit']) && $sqid != ""){
-                $query = "UPDATE ingredienten SET ING_Naam='$sqnaam', ING_TechnischeVoorraad=$sqtv, ING_InBestelling=$sqib, ING_Gereserveerd=$sqg, ING_BestelNiveau=$sqbn, ING_Leverancier=$sqlev, ING_prijs=$sqprijs WHERE IngNR=$sqid;";
+                $query = "UPDATE Artikelen SET ART_Naam='$sqnaam', ART_TechnischeVoorraad=$sqtv, ART_InBestelling=$sqib, ART_Gereserveerd=$sqg, ART_BestelNiveau=$sqbn, ART_Leverancier=$sqlev, ART_prijs=$sqprijs WHERE ArtNR=$sqid;";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)) {
                     $_SESSION['ing'] = $_POST;

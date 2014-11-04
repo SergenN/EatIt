@@ -63,7 +63,7 @@ if (isset($_GET['q'])){
 
 function modGerecht(){
     global $sqnaam, $sqprijs, $sqbes, $sqid, $con;
-    $query = "UPDATE gerecht SET GER_Naam='$sqnaam', GER_Prijs='$sqprijs', GER_Beschrijving='$sqbes' WHERE GerNR = $sqid;";
+    $query = "UPDATE Gerecht SET GER_Naam='$sqnaam', GER_Prijs='$sqprijs', GER_Beschrijving='$sqbes' WHERE GerNR = $sqid;";
     $res = mysqli_query($con, $query);
     if (mysqli_error($con)){
         die("Kon gerechten niet updaten query:" . $query);
@@ -75,7 +75,7 @@ function modGerecht(){
 
 function addGerecht(){
     global $sqnaam, $sqprijs, $sqbes, $con;
-    $query = "INSERT INTO gerecht(GER_Naam, GER_Prijs, GER_Beschrijving) VALUES ('$sqnaam', '$sqprijs', '$sqbes');";
+    $query = "INSERT INTO Gerecht(GER_Naam, GER_Prijs, GER_Beschrijving) VALUES ('$sqnaam', '$sqprijs', '$sqbes');";
     $res = mysqli_query($con, $query);
     if (mysqli_error($con)){
         return false;
@@ -91,7 +91,7 @@ function deleteGerecht($id){
         return false;
     }
 
-    $query = "DELETE FROM gerecht WHERE GerNR = $id;";
+    $query = "DELETE FROM Gerecht WHERE GerNR = $id;";
     mysqli_query($con, $query);
     if (mysqli_error($con)){
         return false;
@@ -101,7 +101,7 @@ function deleteGerecht($id){
 
 function deleteIngredients($gerId){
     global $con;
-    $query = "DELETE FROM aantalingredienten WHERE GerNR = $gerId;";
+    $query = "DELETE FROM Aantalingredienten WHERE GerNR = $gerId;";
     mysqli_query($con, $query);
     if (mysqli_error($con)){
         return false;
@@ -114,7 +114,7 @@ function addIngredients($gerId){
     $ingredients = merge($_POST['ingredient'], $_POST['hoeveelheid']);
     $gerId = mysqli_real_escape_string($con, $gerId);
     foreach ($ingredients as $key => $value){
-        $query = "INSERT INTO aantalingredienten(GerNR, IngNR, ING_Aantal) VALUES ($gerId, $key, $value);";
+        $query = "INSERT INTO Aantalingredienten(GerNR, ArtNR, ING_Aantal) VALUES ($gerId, $key, $value);";
         mysqli_query($con, $query);
         if (mysqli_error($con)){
             return false;

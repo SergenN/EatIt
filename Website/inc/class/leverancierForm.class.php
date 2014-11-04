@@ -25,7 +25,7 @@ if(isset($_GET['q'])){
     switch ($_GET['q']){
         case("del") :
             if(!empty($sqid)){
-                $query = "DELETE FROM leverancier WHERE LevNR = $sqid";
+                $query = "DELETE FROM Leverancier WHERE LevNR = $sqid";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)){
                     $location = "index.php?p=toevoegen&res=failed";
@@ -35,7 +35,8 @@ if(isset($_GET['q'])){
             break;
         case("add") :
             if (isset ($_POST['lev_submit'])){
-                $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel');";
+                $query = "INSERT INTO Leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel');";
+                $result = mysqli_query($con, $query);
                 if(mysqli_error($con)){
                     $_SESSION['lev'] = $_POST;
                     $location = "index.php?p=leverancierform&res=failed";
@@ -46,7 +47,7 @@ if(isset($_GET['q'])){
             break;
         case("mod") :
             if (isset ($_POST['lev_submit']) && !empty($sqid)){
-                $query = "UPDATE leverancier SET LEV_Naam='$sqnaam', LEV_Adres='$sqadres', LEV_Postcode='$sqpost', LEV_Plaats='$sqplaats', LEV_Mail='$sqmail', LEV_Telefoonnummer='$sqtel' WHERE LevNR=$sqid;";
+                $query = "UPDATE Leverancier SET LEV_Naam='$sqnaam', LEV_Adres='$sqadres', LEV_Postcode='$sqpost', LEV_Plaats='$sqplaats', LEV_Mail='$sqmail', LEV_Telefoonnummer='$sqtel' WHERE LevNR=$sqid;";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)) {
                     $_SESSION['lev'] = $_POST;

@@ -48,7 +48,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
 
             <tbody class="editbody">
             <?php
-            $query = "SELECT * FROM gerecht;";
+            $query = "SELECT * FROM Gerecht;";
             $result = mysqli_query($con, $query);
             $rows = 0;
             while($row = mysqli_fetch_assoc($result)){
@@ -86,15 +86,15 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
 
             <tbody class="editbody">
             <?php
-            $query = "SELECT * FROM ingredienten i JOIN leverancier l ON l.LevNr = i.ING_Leverancier;";
+            $query = "SELECT * FROM Artikelen i JOIN Leverancier l ON l.LevNr = i.ART_Leverancier;";
             $result = mysqli_query($con, $query);
             $rows = 0;
             while($row = mysqli_fetch_assoc($result)){
-            $levnr = $row["IngNR"];
+            $levnr = $row["ArtNR"];
             echo "<tr>
-                <td class=\"a\">{$row['ING_Naam']}</td>
-                <td class=\"b\">{$row['ING_TechnischeVoorraad']}</td>
-                <td class=\"c\">{$row['ING_prijs']}</td>
+                <td class=\"a\">{$row['ART_Naam']}</td>
+                <td class=\"b\">{$row['ART_TechnischeVoorraad']}</td>
+                <td class=\"c\">{$row['ART_Prijs']}</td>
                 <td class=\"d\">{$row['LEV_Naam']}</td>
                 <td class=\"e\"><a href=\"index.php?p=ingredientForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=ingredientForm&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
             </tr>";
@@ -124,7 +124,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
 
             <tbody class="editbody">
             <?php
-            $query = "SELECT * FROM leverancier;";
+            $query = "SELECT * FROM Leverancier;";
             $result = mysqli_query($con, $query);
             $rows = 0;
             while($row = mysqli_fetch_assoc($result)){
