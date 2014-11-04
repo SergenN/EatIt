@@ -5,51 +5,79 @@
  * Date: 3-11-2014
  * Time: 13:54
  */
+
 $action = "index.php?a=gerechtForm&q=add";
 
 if (isset($_GET['id'])){
     $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM ingredienten WHERE IngNR = $id;";
+    $query = "SELECT * FROM gerecht WHERE GerNR = $id;";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 1){
         $row = mysqli_fetch_assoc($result);
-        $qnaam = $row['ING_Naam'];
-        $qtv = $row['ING_TechnischeVoorraad'];
-        $qib = $row['ING_InBestelling'];
-        $qg = $row['ING_Gereserveerd'];
-        $qbn = $row['ING_Bestelniveau'];
-        $qlev = $row['ING_Leverancier'];
-        $qprijs = $row['ING_Prijs'];
-        $action = "index.php?a=ingredientForm&q=mod";
+        $qnaam = $row['GER_Naam'];
+        $qprijs = $row['GER_Prijs'];
+        $qbes = $row['GER_Beschrijving'];
+
+        $query2 = "SELECT * FROM aantalingredienten a WHERE GerNR = $id;";
+        $result2 = mysqli_query($con, $query2);
+        while($row = mysqli_fetch_assoc($result2)){
+            $ingredienten[$row['IngNR']] = $row['ING_Aantal'];
+        }
+        $action = "index.php?a=gerechtForm&q=mod";
     } else {
         header("index.php?p=toevoegen&res=failed");
     }
 }
 
-$ingnaam = isset($_SESSION['ing']['ING_naam']) ? $_SESSION['ing']['ing_naam'] : isset($qnaam) ? $qnaam : "";
-$ingtv = isset($_SESSION['ing']['ING_tv']) ? $_SESSION['ing']['ing_tv'] : isset($qtv) ? $qtv : "";
-$ingib = isset($_SESSION['ing']['ing_ib']) ? $_SESSION['ing']['ing_ib'] : isset($qib) ? $qib : "";
-$ingg = isset($_SESSION['ing']['ing_g']) ? $_SESSION['ing']['ing_g'] : isset($qg) ? $qg : "";
-$ingbn = isset($_SESSION['ing']['ing_bn']) ? $_SESSION['ing']['ing_bn'] : isset($qbn) ? $qbn : "";
-$inglev = isset($_SESSION['ing']['ing_lev']) ? $_SESSION['ing']['ing_lev'] : isset($qlev) ? $qlev : "";
-$ingprijs = isset($_SESSION['ing']['ing_prijs']) ? $_SESSION['ing']['ing_prijs'] : isset($qprijs) ? $qprijs : "";
 
-function makeSelect(){
-    global $inglev, $con;
-    $query = "SELECT * FROM leverancier";
+$gernaam = isset($_SESSION['ger']['ger_naam']) ? $_SESSION['ger']['ger_naam'] : (isset($qnaam) ? $qnaam : "");
+$gerbes = isset($_SESSION['ger']['ger_bes']) ? $_SESSION['ger']['ger_bes'] : (isset($qbes) ? $qbes : "");
+$gerprijs = isset($_SESSION['ger']['ger_prijs']) ? $_SESSION['ger']['ger_prijs'] : (isset($qprijs) ? $qprijs : "");
+$gering = isset($_SESSION['ger']['ger_ing']) ? $_SESSION['ger']['ger_ing'] : (isset($ingredienten) ? $ingredienten : "");
+$selectRows = 1;
+$canAdd = true;
+
+function makeSelect($selected = null){
+    global $con, $selectRows;
+    $query = "SELECT * FROM ingredienten";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 0) {header("location: index.php?p=toevoegen&res=nolevs");}
-    echo "<select name=\"ing_lev\" class=\"dropdownveld\">";
+    $selectRows = $rows;
+    $toret = "<select name=\"ingredient[]\" class=\"dropdownveld\">";
     while($row = mysqli_fetch_assoc($result)){
-        if($row['LevNR'] == $inglev){
-            echo "<option value={$row['LevNR']} selected>{$row['LEV_Naam']} {$row['LEV_Plaats']} {$row['LEV_Adres']}</option>";
+        if($selected != null && $row['IngNR'] == $selected){
+            $toret .= "<option value={$row['IngNR']} selected>{$row['IngNR']} {$row['ING_Naam']}</option>";
         } else {
-            echo "<option value={$row['LevNR']}>{$row['LEV_Naam']} {$row['LEV_Plaats']}</option>";
+            $toret .= "<option value={$row['IngNR']}>{$row['IngNR']} {$row['ING_Naam']}</option>";
         }
     }
-    echo "</select>";
+    $toret .= "</select>";
+    return $toret;
+}
+
+function getIngredienten(){
+    global $gering, $selectRows, $canAdd;
+    $totalrows = 0;
+    $toret = "";
+    if ($gering != ""){
+        foreach($gering as $key => $value){
+            $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="bbutton">Verwijder Ingredient</button></td></tr>';
+            $totalrows++;
+        }
+    }
+    if ($totalrows < $selectRows) {
+        $add = $totalrows == 0 ? "required" : "";
+        $toret .= "<tr><td>" . makeSelect() . "</td><td><input type=\"number\" class=\"invoerveld\" name=\"hoeveelheid[]\" placeholder=\"Hoeveelheid\" ". $add ."></td></tr>";
+        $totalrows++;
+        if ($totalrows == $selectRows){
+            $canAdd = false;
+        }
+    } else {
+        $canAdd = false;
+    }
+    return $toret;
 }
 ?>
 
@@ -58,24 +86,14 @@ function makeSelect(){
         <h2>Ingredient Toevoegen/Wijzigen</h2>
         <form action="<?php echo $action;?>" method="post">
             <?php if(isset($_GET['res']) && $_GET['res'] == 'failed'){echo '<div class="error">Er ging iets verkeerd! Probeer opnieuw.</div><br>';}
-            if(isset($_GET['id'])){echo "<input type=\"text\" name=\"ing_id\" value=\"{$_GET['id']}\">";}?>
+            if(isset($_GET['id'])){echo "<input type=\"hidden\" name=\"ger_id\" value=\"{$_GET['id']}\">";}else if(isset($_SESSION['ger']['ger_id'])){ echo "<input type=\"hidden\" name=\"ger_id\" value=\"{$_SESSION['ger']['ger_id']}\">";} ?>
             <table>
-                <tr><td>Ingredient Naam</td>
-                    <td><input type="text" class="invoerveld" name="ing_naam" placeholder="Naam" required autofocus value="<?php echo $ingnaam; ?>"></td></tr>
-                <tr><td>Ingredient Prijs</td>
-                    <td><input type="text" class="invoerveld" name="ing_prijs" placeholder="Prijs" required value="<?php echo $ingprijs; ?>"></td></tr>
-                <tr><td>Ingredient Leverancier</td>
-                    <td><?php makeSelect(); ?></td></tr>
-                <tr><td>Ingredient In voorraad</td>
-                    <td><input type="number" class="invoerveld" name="ing_tv" placeholder="Technische Voorraad" min="0" required value="<?php echo $levplaats; ?>"></td></tr>
-                <tr><td>Ingredient In bestelling</td>
-                    <td><input type="number" class="invoerveld" name="ing_ib" placeholder="In bestelling" min="0" required value="<?php echo $levmail; ?>"></td></tr>
-                <tr><td>Ingredient Gereserveerd</td>
-                    <td><input type="number" class="invoerveld" name="ing_g" placeholder="Gereserveerd" min="0" required value="<?php echo $levtel; ?>"></td></tr>
-                <tr><td>Ingredient Bestelniveau</td>
-                    <td><input type="number" class="invoerveld" name="ing_bn" placeholder="Besteniveau" min="0" required value="<?php echo $levtel; ?>"></td></tr>
-                <tr><td></td>
-                    <td><button type="reset" id="submit">Opnieuw</button> <button type="submit" name="ing_submit" id="submit">Opslaan</button></td></tr>
+                <tr><td>Gerecht Naam</td><td><input type="text" class="invoerveld" name="ger_naam" placeholder="Naam" required autofocus value="<?php echo $gernaam; ?>"></td></tr>
+                <tr><td>Gerecht Prijs</td><td><input type="text" class="invoerveld" name="ger_prijs" placeholder="Prijs" required value="<?php echo $gerprijs; ?>"></td></tr>
+                <tr><td>Gerecht Beschrijving</td><td><textarea class="invoerarea" name="ger_bes" placeholder="Geef hier een beschrijving van het gerecht"><?php echo $gerbes; ?></textarea></td></tr>
+                <tr><td>Gerecht ingredienten:</td><td></td></tr>
+                <?php echo getIngredienten(); ?>
+                <tr><td></td><td><button type="reset" class="bbutton">Opnieuw</button> <button type="submit" name="ger_submit" class="bbutton">Opslaan</button> <?php if ($canAdd){ echo '<button type="submit" name="ger_addIng" class="bbutton">Extra ingredient</button>'; } ?></td></tr>
             </table>
         </form>
     </center>

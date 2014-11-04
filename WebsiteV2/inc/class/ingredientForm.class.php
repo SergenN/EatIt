@@ -6,7 +6,6 @@
  * Time: 22:54
  */
 
-
 if (isset($_POST['ing_id'])){
     $sqid = mysqli_real_escape_string($con, $_POST['ing_id']);
 } else if (isset($_GET['id'])){
@@ -15,21 +14,22 @@ if (isset($_POST['ing_id'])){
     $sqid = "";
 }
 
-
-$sqnaam = isset($_POST['ing_naam']) ? mysqli_real_escape_string($con, $_POST['ing_naam']) : "";
-$sqtv = isset($_POST['ing_tv']) ? mysqli_real_escape_string($con, $_POST['ing_tv']) : "";
-$sqib = isset($_POST['ing_ib']) ? mysqli_real_escape_string($con, $_POST['ing_ib']) : "";
-$sqg = isset($_POST['ing_g']) ? mysqli_real_escape_string($con, $_POST['ing_g']) : "";
-$sqbn = isset($_POST['ing_bn']) ? mysqli_real_escape_string($con, $_POST['ing_bn']) : "";
-$sqlev = isset($_POST['ing_lev']) ? mysqli_real_escape_string($con, $_POST['ing_lev']) : "";
-$sqprijs = isset($_POST['ing_prijs']) ? mysqli_real_escape_string($con, $_POST['ing_prijs']) : "";
+if (isset($_POST['ing_submit'])) {
+    $sqnaam = isset($_POST['ing_naam']) ? mysqli_real_escape_string($con, $_POST['ing_naam']) : "";
+    $sqtv = isset($_POST['ing_tv']) ? mysqli_real_escape_string($con, $_POST['ing_tv']) : "";
+    $sqib = isset($_POST['ing_ib']) ? mysqli_real_escape_string($con, $_POST['ing_ib']) : "";
+    $sqg = isset($_POST['ing_g']) ? mysqli_real_escape_string($con, $_POST['ing_g']) : "";
+    $sqbn = isset($_POST['ing_bn']) ? mysqli_real_escape_string($con, $_POST['ing_bn']) : "";
+    $sqlev = isset($_POST['ing_lev']) ? mysqli_real_escape_string($con, $_POST['ing_lev']) : "";
+    $sqprijs = isset($_POST['ing_prijs']) ? mysqli_real_escape_string($con, $_POST['ing_prijs']) : "";
+}
 
 $location = "index.php?p=toevoegen";
 
 if(isset($_GET['q'])){
     switch ($_GET['q']){
         case("del") :
-            if(!empty($sqid)){
+            if($sqid != ""){
                 $query = "DELETE FROM ingredienten WHERE IngNR = $sqid";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)){
@@ -46,17 +46,19 @@ if(isset($_GET['q'])){
                     $_SESSION['ing'] = $_POST;
                     $location = "index.php?p=ingredientform&res=failed";
                 }
+                unset($_SESSION['ing']);
                 $location = "index.php?p=toevoegen&res=added";
             }
             break;
         case("mod") :
-            if (isset ($_POST['lev_submit']) && !empty($sqid)){
-                $query = "UPDATE leverancier SET ING_Naam='$sqnaam', ING_TechnischeVoorraad=$sqtv, ING_InBestelling=$sqib, ING_Gereserveerd=$sqg, ING_BestelNiveau=$sqbn, ING_Leverancier=$sqlev, ING_prijs=$sqprijs WHERE IngNR=$sqid;";
+            if (isset($_POST['ing_submit']) && $sqid != ""){
+                $query = "UPDATE ingredienten SET ING_Naam='$sqnaam', ING_TechnischeVoorraad=$sqtv, ING_InBestelling=$sqib, ING_Gereserveerd=$sqg, ING_BestelNiveau=$sqbn, ING_Leverancier=$sqlev, ING_prijs=$sqprijs WHERE IngNR=$sqid;";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)) {
-                    $_SESSION['res'] = $_POST;
+                    $_SESSION['ing'] = $_POST;
                     $location = "index.php?p=ingredientform&id=$sqid&res=failed";
                 }
+                unset($_SESSION['ing']);
                 $location = "index.php?p=toevoegen&res=modified";
             }
             break;
