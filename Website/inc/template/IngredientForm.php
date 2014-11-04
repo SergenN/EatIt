@@ -27,8 +27,8 @@ if (isset($_GET['id'])){
     }
 }
 
-$ingnaam = isset($_SESSION['ing']['ING_naam']) ? $_SESSION['ing']['ing_naam'] : isset($qnaam) ? $qnaam : "";
-$ingtv = isset($_SESSION['ing']['ING_tv']) ? $_SESSION['ing']['ing_tv'] : isset($qtv) ? $qtv : "";
+$ingnaam = isset($_SESSION['ing']['ing_naam']) ? $_SESSION['ing']['ing_naam'] : isset($qnaam) ? $qnaam : "";
+$ingtv = isset($_SESSION['ing']['ing_tv']) ? $_SESSION['ing']['ing_tv'] : isset($qtv) ? $qtv : "";
 $ingib = isset($_SESSION['ing']['ing_ib']) ? $_SESSION['ing']['ing_ib'] : isset($qib) ? $qib : "";
 $ingg = isset($_SESSION['ing']['ing_g']) ? $_SESSION['ing']['ing_g'] : isset($qg) ? $qg : "";
 $ingbn = isset($_SESSION['ing']['ing_bn']) ? $_SESSION['ing']['ing_bn'] : isset($qbn) ? $qbn : "";

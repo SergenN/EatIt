@@ -13,4 +13,10 @@ $(document).ready(function() {
             });
         });
     })(jQuery);
+
+    $(function ($) {
+        $('body').on("click", '#addFields', function () {
+            $('form').append('<input type="text" />')
+        })
+    })(jQuery);
 });

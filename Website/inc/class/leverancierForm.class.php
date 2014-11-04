@@ -37,9 +37,10 @@ if(isset($_GET['q'])){
             if (isset ($_POST['lev_submit'])){
                 $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel');";
                 if(mysqli_error($con)){
-                    $_SESSION['res'] = $_POST;
+                    $_SESSION['lev'] = $_POST;
                     $location = "index.php?p=leverancierform&res=failed";
                 }
+                unset ($_SESSION['lev']);
                 $location = "index.php?p=toevoegen&res=added";
             }
             break;
@@ -48,9 +49,10 @@ if(isset($_GET['q'])){
                 $query = "UPDATE leverancier SET LEV_Naam='$sqnaam', LEV_Adres='$sqadres', LEV_Postcode='$sqpost', LEV_Plaats='$sqplaats', LEV_Mail='$sqmail', LEV_Telefoonnummer='$sqtel' WHERE LevNR=$sqid;";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)) {
-                    $_SESSION['res'] = $_POST;
+                    $_SESSION['lev'] = $_POST;
                     $location = "index.php?p=leverancierform&id=$sqid&res=failed";
                 }
+                unset ($_SESSION['lev']);
                 $location = "index.php?p=toevoegen&res=modified";
             }
             break;

@@ -46,6 +46,7 @@ if(isset($_GET['q'])){
                     $_SESSION['ing'] = $_POST;
                     $location = "index.php?p=ingredientform&res=failed";
                 }
+                unset($_SESSION['ing']);
                 $location = "index.php?p=toevoegen&res=added";
             }
             break;
@@ -54,9 +55,10 @@ if(isset($_GET['q'])){
                 $query = "UPDATE leverancier SET ING_Naam='$sqnaam', ING_TechnischeVoorraad=$sqtv, ING_InBestelling=$sqib, ING_Gereserveerd=$sqg, ING_BestelNiveau=$sqbn, ING_Leverancier=$sqlev, ING_prijs=$sqprijs WHERE IngNR=$sqid;";
                 $result = mysqli_query($con, $query);
                 if(mysqli_error($con)) {
-                    $_SESSION['res'] = $_POST;
+                    $_SESSION['ing'] = $_POST;
                     $location = "index.php?p=ingredientform&id=$sqid&res=failed";
                 }
+                unset($_SESSION['ing']);
                 $location = "index.php?p=toevoegen&res=modified";
             }
             break;

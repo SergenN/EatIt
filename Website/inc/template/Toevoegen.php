@@ -24,7 +24,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
                 echo '<div class="success">Object gedelete</div><br>';
                 break;
             case("failed") :
-                echo '<div class="success">Kon object niet verwijderen!</div><br>';
+                echo '<div class="success">Kon object niet wijzigen!</div><br>';
                 break;
         }
         echo '</center>';
@@ -33,7 +33,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
         <div class="edittabtitle">
             <p class="title">Gerechten verwijderen en/of aanpassen</p>
             <p class="blue">Hier kunt u gerechten verwijderen uit en/of aanpassen in de database.</p>
-            <a href="index.php?p=formulier&a=gerecht"><div id="newGerecht" class="newitem">Gerecht toevoegen</div></a>
+            <a href="index.php?p=gerechtForm"><div id="newGerecht" class="newitem">Gerecht toevoegen</div></a>
         </div>
         <table class="edittable" rules="groups">
             <thead>

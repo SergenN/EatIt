@@ -84,6 +84,12 @@ h2{
     padding:10px;
 }
 
+.invoerarea{
+    width: 20.36vw;
+    height: 10vw;
+    resize: none;
+}
+
 #submit{
   background-color:#6699FF;
   color:white;
@@ -94,6 +100,19 @@ h2{
 #submit:hover{
   background-color:#476BB2;
   cursor:pointer;
+}
+
+.bbutton{
+    background-color:#6699FF;
+    color:white;
+    border:none;
+    padding:10px;
+    cursor: pointer;
+}
+
+.bbutton:hover{
+    background-color:#476BB2;
+    cursor:pointer;
 }
 
 .error{
@@ -117,4 +136,9 @@ h2{
 #code{
   font-size: 22px;
   color:#5F5F5F;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
