@@ -63,7 +63,7 @@ function getIngredienten(){
     $toret = "";
     if ($gering != ""){
         foreach($gering as $key => $value){
-            $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="bbutton">Verwijder Ingredient</button></td></tr>';
+            $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="submit">Verwijder Ingredient</button></td></tr>';
             $totalrows++;
         }
     }
@@ -93,7 +93,7 @@ function getIngredienten(){
                 <tr><td>Gerecht Beschrijving</td><td><textarea class="invoerarea" name="ger_bes" placeholder="Geef hier een beschrijving van het gerecht"><?php echo $gerbes; ?></textarea></td></tr>
                 <tr><td>Gerecht ingredienten:</td><td></td></tr>
                 <?php echo getIngredienten(); ?>
-                <tr><td></td><td><button type="reset" class="bbutton">Opnieuw</button> <button type="submit" name="ger_submit" class="bbutton">Opslaan</button> <?php if ($canAdd){ echo '<button type="submit" name="ger_addIng" class="bbutton">Extra ingredient</button>'; } ?></td></tr>
+                <tr><td></td><td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="ger_submit" class="submit">Opslaan</button> <?php if ($canAdd){ echo '<button type="submit" name="ger_addIng" class="submit">Extra ingredient</button>'; } ?></td></tr>
             </table>
         </form>
     </center>

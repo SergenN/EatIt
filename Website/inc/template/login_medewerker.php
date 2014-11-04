@@ -38,7 +38,7 @@ if (isset($_POST['l_submit'])) {
             <input type="email" class="invoerveld" name="l_email" placeholder="Email" required autofocus value=<?php echo '"' . $l_email . '"'; ?>><br><br>
             <input type="password" class="invoerveld" name="l_password" placeholder="Wachtwoord" required value=<?php echo '"' . $l_password . '"'; ?>><br><br>
             <br>
-            <button type="submit" name="l_submit" id="submit">Inloggen</button>
+            <button type="submit" name="l_submit" class="submit">Inloggen</button>
         </form>
 </div>
 </center>

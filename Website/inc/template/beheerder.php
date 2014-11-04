@@ -59,7 +59,7 @@ if(isset($_POST['submit_settings'])){
 		</select><br><br>
 
 		<!-- Het formulier verzenden. -->
-		<button type="submit" name="submit_settings" id="submit">Wijzingen opslaan</button>
+		<button type="submit" name="submit_settings" class="submit">Wijzingen opslaan</button>
 	</form>
 
 	<h2>Gebruikerslijst</h2>
