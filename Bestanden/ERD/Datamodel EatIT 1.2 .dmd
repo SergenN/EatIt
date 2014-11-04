@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Datamodel EatIT" id="9D5E9406-D95D-4DB9-C4FB-A366A4B957AF" version="3.5">
-<createdBy>student</createdBy>
-<createdTime>2014-10-20 13:38:55 UTC</createdTime>
-<ownerDesignName>Datamodel EatIT</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>9D5E9406-D95D-4DB9-C4FB-A366A4B957AF</designId>
-</OSDM_Design>
