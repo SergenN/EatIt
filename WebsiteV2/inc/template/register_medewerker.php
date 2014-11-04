@@ -6,15 +6,13 @@
  * Deze pagina bevat een formulier waarmee een persoon zich kan registreren op de site.
  */
 
-//Als een gebruiker al ingelogd is, wordt het doorverwezen naar index.php
 if(!isset($_SESSION['gegevens'])){
     header ('location: index.php');
 }
 
 //Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php
-if($gegevens['Manager_ID'] == NULL){
-    // header ('location: index.php');
-    // VERANDER VERANDER VERANDER
+if($gegevens['Afdeling'] != '1'){
+    header ('location: index.php');
 }
 
 
@@ -83,11 +81,9 @@ echo $query;
           <!-- Als de registratie voltooid is (wordt in regel 94 bepaald), dan laat het systeem een bevesteging op het scherm zien. Ook krijgt de gebruiker het wachtwoord en wordt
           hij/zij aangeraden om in te loggen -->
           <?php if ($voltooid == 1) {
-            echo '<div class="success">Aanmelding succesvol. Uw wachtwoord:<br> ' . $secretcode . '<br><br> <a href="?p=login_medewerker">Log hier in!</a> </div><br>';
+            echo '<div class="success">Aanmelding succesvol. Het wachtwoord:<br> ' . $secretcode;
           } ?>
           <?php if ($voltooid == 0) {?>
-          <!-- Als de gebruiker al een account heeft, dan kunnen ze via deze link naar de inlogpagina -->
-          <a href="?p=login_medewerker">Al lid? Log hier in!</a><br><br>
             <?php
                 // Errorcode weergeven wanneer een email in bezet is
                 if($emailcheck == 1 && isset($_POST['submit'])){
@@ -103,11 +99,14 @@ echo $query;
                 <input type="text" class="invoerveld" name="adres" placeholder="Adres" required><br><br>
                 <input type="text" class="invoerveld" name="postcode" placeholder="Postcode" required><br><br>
                 Afdeling:<br><br><select class="invoerveld" name="permissie" required>
-                  <option value="lid">Lid</option>
-                  <option value="bezorger">Verkoper</option>
-                  <option value="keuken">Keuken</option>
-                  <option value="inkoop">Inkoop</option>
-                  <option value="beheerder">Beheerder</option>
+                  <option value="1">Directie</option>
+                  <option value="2">Expeditie</option>
+                  <option value="3">Administratie</option>
+                  <option value="4">Financiële administratie</option>
+                  <option value="5">Personeelsadministratie</option>
+                  <option value="6">Commerciele afdeling</option>
+                  <option value="7">Inkoop</option>
+                  <option value="8">Verkoop</option>
                   </select><br><br>
             <br>
             <!-- De knop om de gegevens te versturen. Hierna worden de bovestaande systemen uitgevoerd om de gebruiker in de database te zetten. -->

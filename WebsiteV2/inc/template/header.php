@@ -78,11 +78,11 @@
                         // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
                         //$beheerder =  (($gegevens['permissies'] == 'beheerder') ? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"");
                         if($_SESSION['soortgebruiker'] == "klant"){
-                            echo "Welkom, {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                            echo "Welkom, {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
                         }
 
                         if($_SESSION['soortgebruiker'] == "medewerker"){
-                            echo "Welkom, {$gegevens['MED_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                            echo "Welkom, {$gegevens['MED_Voornaam']} | " . (($gegevens['Afdeling'] == '1')?'<a href="?p=beheerder">Beheerderspaneel</a> | ':"")    . " <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
                         }
                     }
                 ?>
