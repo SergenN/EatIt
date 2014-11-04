@@ -60,7 +60,7 @@
 		
 	}
 	
-	//Wordt bekeken of er producten bij moet worden bestelt. Zo ja wordt er een overzicht weergegeven.
+	//Wordt bekeken of er artikelen bij moet worden bestelt. Zo ja wordt er een overzicht weergegeven.
 	if (!empty($bestellen)) {
 		echo "Het volgende product of de volgende producten moeten worden bestelt:</br>";
 		echo "</br>";
@@ -69,6 +69,10 @@
 			echo "<tr><td>". $i['ArtikelNR']. "</td><td>". $i['Naam']. "</td><td>". $i['Aantal']. "</td></tr>";
 		}
 		echo "</table>";
+	}
+	//Als er geen artikelen moeten worden besteld wordt het onderstaande weergegeven.
+	if (empty($bestellen)) {
+		echo "Er zijn geen artikelen die moeten worden bijbesteld.";
 	}
 	
 ?>
