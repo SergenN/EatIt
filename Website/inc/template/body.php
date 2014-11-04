@@ -39,11 +39,9 @@ function getGerechten(){
 }
 ?>
 <div class="content">
-
     <ul>
         <?php
             echo getGerechten();
         ?>
     </ul>
-
 </div>

@@ -54,7 +54,7 @@ $levtel = isset($_SESSION['lev']['lev_tel']) ? $_SESSION['lev']['lev_tel'] : iss
             <tr><td>Leverancier Telefoon</td>
                 <td><input type="number" class="invoerveld" name="lev_tel" placeholder="Telefoon" min="0" value="<?php echo $levtel; ?>"></td></tr>
             <tr><td></td>
-                <td><button type="reset" id="submit">Opnieuw</button> <button type="submit" name="lev_submit" id="submit">Opslaan</button></td></tr>
+                <td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="lev_submit" class="submit">Opslaan</button></td></tr>
         </table>
     </form>
     </center>

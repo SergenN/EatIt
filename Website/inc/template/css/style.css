@@ -1,27 +1,27 @@
 body{
-  background-color:#F8F8F8;
-  font-family:helvetica;
-
+    background-color:#F8F8F8;
+    font-family:helvetica;
+    font-size: 1.28vw;
 }
 
 h2{
-  color:#5F5F5F;
+    color:#5F5F5F;
 }
 
 /*.login, */.content{
-  margin-right: auto;
-  margin-left: auto;
-  background-color:white;
-  border: 1px solid #dadada;
-  border-radius: 6px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:white;
+    border: 1px solid #dadada;
+    border-radius: 6px;
 
-  margin-top:40px;
-  margin-bottom:40px;
+    margin-top:40px;
+    margin-bottom:40px;
 
-  padding-top:40px;
-  padding-bottom: 20px;
-  padding-left:10px;
-  padding-right:10px;
+    padding-top:40px;
+    padding-bottom: 20px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
   /*.login{
@@ -30,53 +30,54 @@ h2{
   }*/
 
 .footer{
-  color:grey;
-  padding-left:4px;
-  margin-top: -10px;
-  font-size:13px;
+    color:grey;
+    padding-left:4px;
+    margin-top: -10px;
+    font-size:13px;
 }
 
 .header{
-  margin-top:36px;
-  margin-bottom:-10px;
+    margin-top:36px;
+    margin-bottom:-10px;
 }
 
 .menu{
-  float:right;
-  font-size: 16px;
-  background-color:white;
-  border: 1px solid #dadada;
-  border-radius: 6px;
-  padding:10px;
-  margin-top:110px;
+    float:right;
+    font-size: 16px;
+    background-color:white;
+    border: 1px solid #dadada;
+    border-radius: 6px;
+    padding:10px;
+    margin-top:110px;
+    position: absolute;
 }
 
 .breadcumb{
-  background-color:blue;
+    background-color:blue;
 }
 
 .menu a{
-  text-decoration: none;
-  color:#206ebc;
+    text-decoration: none;
+    color:#206ebc;
 }
 
 .menu a:hover{
-  color:black;
+    color:black;
 }
 
 .content{
-  padding:30px;
+    padding:30px;
 }
 
 .container{
-  width:75%;
-  margin-right: auto;
-  margin-left: auto;
+    width:75%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .invoerveld{
-  width:19vw;
-  padding:10px;
+    width:19vw;
+    padding:10px;
 }
 
 .dropdownveld{
@@ -90,19 +91,7 @@ h2{
     resize: none;
 }
 
-#submit{
-  background-color:#6699FF;
-  color:white;
-  border:none;
-  padding:10px;
-}
-
-#submit:hover{
-  background-color:#476BB2;
-  cursor:pointer;
-}
-
-.bbutton{
+.submit{
     background-color:#6699FF;
     color:white;
     border:none;
@@ -110,7 +99,7 @@ h2{
     cursor: pointer;
 }
 
-.bbutton:hover{
+.submit:hover{
     background-color:#476BB2;
     cursor:pointer;
 }

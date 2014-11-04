@@ -75,7 +75,7 @@ function makeSelect(){
                 <tr><td>Ingredient Bestelniveau</td>
                     <td><input type="number" class="invoerveld" name="ing_bn" placeholder="Besteniveau" min="0" required value="<?php echo $qbn; ?>"></td></tr>
                 <tr><td></td>
-                    <td><button type="reset" id="submit">Opnieuw</button> <button type="submit" name="ing_submit" id="submit">Opslaan</button></td></tr>
+                    <td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="ing_submit" class="submit">Opslaan</button></td></tr>
             </table>
         </form>
     </center>

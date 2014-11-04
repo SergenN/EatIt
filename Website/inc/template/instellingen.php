@@ -143,7 +143,7 @@ if($_SESSION['soortgebruiker'] == "klant"){
 			<br><input type="password" class="invoerveld" name="password_new2"><br><br>
 
 			<!-- Het formulier verzenden. -->
-			<button type="submit" name="submit_settings" id="submit">Wijzigingen opslaan</button>
+			<button type="submit" name="submit_settings" class="submit">Wijzigingen opslaan</button>
 		</form>
 	</div>
 <?php } ?>
