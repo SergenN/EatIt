@@ -38,7 +38,6 @@ if (isset($_POST['l_submit'])) {
             // Als je account op inactief is geplaatst, kun je niet meer inloggen.
             if($afdeling == NULL){
                 echo '<div class="error">Uw account is op inactief gezet.</div><br>';
-                echo '<img src="http://emptystress.files.wordpress.com/2013/12/youre-fired.gif"><br>';
              }
              if($afdeling != NULL){
                     echo '<div class="success">Succesvol ingelogd!</div><br>';
