@@ -24,7 +24,7 @@ if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
                 echo '<div class="success">Object gedelete</div><br>';
                 break;
             case("failed") :
-                echo '<div class="success">Kon object niet wijzigen!</div><br>';
+                echo '<div class="error">Kon object niet wijzigen!</div><br>';
                 break;
         }
         echo '</center>';

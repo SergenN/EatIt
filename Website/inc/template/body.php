@@ -8,16 +8,16 @@
 function getGerechten(){
     global $con;
     $toret = "";
-    $query = "SELECT * FROM gerecht;";
+    $query = "SELECT * FROM Gerecht;";
     $res = mysqli_query($con, $query);
     if ($res){
         while($row = mysqli_fetch_assoc($res)){
-            $query = "SELECT * FROM aantalingredienten a JOIN ingredienten i ON i.IngNR = a.IngNR WHERE a.GerNR = {$row['GerNR']};";
+            $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = {$row['GerNR']};";
             $res2 = mysqli_query($con, $query);
             $stocked = true;
             if (!$res2) continue;
             while($row2 = mysqli_fetch_assoc($res2)){
-                $voorraad = $row2['ING_TechnischeVoorraad'] - $row2['ING_Gereserveerd'];
+                $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
                 if ($row2['ING_Aantal'] > $voorraad) {
                     $stocked = false;
                     break;
@@ -30,8 +30,16 @@ function getGerechten(){
             }
             if ($stocked){
                 $action = "index.php?a=bestelForm&id={$row['GerNR']}";
-                $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
-                $toret .= '<li>'. $row['GerNR'] .' <form action="'.$action.'" method="post"><input type="number" name="bes_aantal" required min="1" max="'.$mogelijk.'" value="'.$val.'"><input  type="submit" name="bes_submit"></form></li>';
+                if(isset($_SESSION['bes'])){
+                    $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
+                } else {$val = "";}
+                $toret .= '<li>
+                                <div><p class="lijstTitle">'.$row['GER_Naam'].'</p><p class="lijstText">'.$row['GER_Beschrijving'].'</p></div>
+                                <div class="prijsForm"><p class="grey">Prijs:</p><p>&euro;'.number_format($row['GER_Prijs'], 2, ',', ' ').'</p></div>
+                                <div class="lijstForm"><form action="'.$action.'" method="post">
+                                        <input type="number" name="bes_aantal" required min="1" max="'.floor($mogelijk).'" value="'.$val.'">
+                                        <input class="inCart" type="submit" name="bes_submit" value=""></form>
+                                </div></li>';
             }
         }
     }
@@ -39,9 +47,15 @@ function getGerechten(){
 }
 ?>
 <div class="content">
-    <ul>
+    <?php if(isset($_GET['res'])) {
+        if ($_GET['res'] == 'nlog'){
+            echo '<center><div class="error">Je moet ingelogd zijn om te kunnen bestellen!</div></center><br>';
+        }
+    }?>
+    <ul class="gerechtLijst">
         <?php
-            echo getGerechten();
+        echo getGerechten();
         ?>
     </ul>
+
 </div>

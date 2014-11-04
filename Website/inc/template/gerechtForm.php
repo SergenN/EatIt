@@ -50,7 +50,7 @@ function makeSelect($selected = null){
         if($selected != null && $row['ArtNR'] == $selected){
             $toret .= "<option value={$row['ArtNR']} selected>{$row['ArtNR']} {$row['ART_Naam']}</option>";
         } else {
-            $toret .= "<option value={$row['ArtNR']}>{$row['IngNR']} {$row['ART_Naam']}</option>";
+            $toret .= "<option value={$row['ArtNR']}>{$row['ArtNR']} {$row['ART_Naam']}</option>";
         }
     }
     $toret .= "</select>";
