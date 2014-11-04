@@ -36,13 +36,29 @@
     <body>
 
     <!-- Gegevens van de gebruiker opslaan -->
-    <?php if(isset($_SESSION['gegevens'])){
-        $gegevens = ($_SESSION['gegevens']);
-        // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
-        $query = "SELECT * FROM Klant WHERE KL_Mail = '" . $gegevens['KL_Mail'] . "' ";
-        $result = mysqli_query($con, $query);
-        $_SESSION['gegevens'] = mysqli_fetch_array($result);
-        $gegevens = ($_SESSION['gegevens']);
+    <?php
+    if(isset($_SESSION['soortgebruiker'])){
+        if($_SESSION['soortgebruiker'] == "klant"){
+            if(isset($_SESSION['gegevens'])){
+                $gegevens = ($_SESSION['gegevens']);
+                // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
+                $query = "SELECT * FROM Klant WHERE KL_Mail = '" . $gegevens['KL_Mail'] . "' ";
+                $result = mysqli_query($con, $query);
+                $_SESSION['gegevens'] = mysqli_fetch_array($result);
+                $gegevens = ($_SESSION['gegevens']);
+            }
+        }
+
+        if($_SESSION['soortgebruiker'] == "medewerker"){
+            if(isset($_SESSION['gegevens'])){
+                $gegevens = ($_SESSION['gegevens']);
+                // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
+                $query = "SELECT * FROM Medewerkers WHERE MED_Mail = '" . $gegevens['MED_Mail'] . "' ";
+                $result = mysqli_query($con, $query);
+                $_SESSION['gegevens'] = mysqli_fetch_array($result);
+                $gegevens = ($_SESSION['gegevens']);
+            }
+        }
     }
     
     ?>
@@ -61,7 +77,13 @@
                     } else {
                         // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
                         //$beheerder =  (($gegevens['permissies'] == 'beheerder') ? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"");
-                        echo "Welkom, . {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                        if($_SESSION['soortgebruiker'] == "klant"){
+                            echo "Welkom, {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                        }
+
+                        if($_SESSION['soortgebruiker'] == "medewerker"){
+                            echo "Welkom, {$gegevens['MED_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> | <a href=\"winkelwagen.php\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                        }
                     }
                 ?>
             </div>
