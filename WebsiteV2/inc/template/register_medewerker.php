@@ -7,9 +7,16 @@
  */
 
 //Als een gebruiker al ingelogd is, wordt het doorverwezen naar index.php
-if(isset($_SESSION['gegevens'])) {
-    header('location: index.php');
+if(!isset($_SESSION['gegevens'])){
+    header ('location: index.php');
 }
+
+//Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php
+if($gegevens['Manager_ID'] == NULL){
+    // header ('location: index.php');
+    // VERANDER VERANDER VERANDER
+}
+
 
 // De variabelen die gebruikt worden voor het systeem
 $emailcheck = 0;
@@ -24,17 +31,18 @@ $telefoonnummer = isset($_POST['telefoonnummer']) ? $_POST['telefoonnummer'] : "
 $plaats = isset($_POST['plaats']) ? $_POST['plaats'] : "";
 $adres = isset($_POST['adres']) ? $_POST['adres'] : "";
 $postcode = isset($_POST['postcode']) ? $_POST['postcode'] : "";
+$afdeling = isset($_POST['permissie']) ? $_POST['permissie'] : "";
 
 
 // Het account aanmaken zodra er op het knopje is geklikt.
 if(isset($_POST['submit'])){
 	// Kijken of het email adres al in de database staat. Dit wordt gedaan door het ingevulde email adres m.b.v een WHERE en een COUNT statement te tellen. Als er 0 zijn, dan kan de persoon zich registeren. Als het op 1 staat, dan volgt er een error.
-	$query = "SELECT count(KL_Mail) FROM Klant WHERE KL_Mail = '" . $email . "' ";
+	$query = "SELECT count(Med_Mail) FROM Medewerkers WHERE Med_Mail = '" . $email . "' ";
 	$result = mysqli_query($con, $query);
 
 
 	while($row = mysqli_fetch_array($result)) {
-		$emailcheck = $row['count(KL_Mail)'];
+		$emailcheck = $row['count(Med_Mail)'];
 	}
 
 	// Als het email adres niet gevonden is, dan worden de gegevens in de database gezet
@@ -55,8 +63,10 @@ if(isset($_POST['submit'])){
 		$secretcode = hash('crc32b', $secretcode);
 
 		// De gegevens invullen
-		$query = "INSERT INTO Klant(KL_Mail, KL_Voornaam, KL_Achternaam, KL_Telefoonnummer, KL_Plaats, KL_Adres, KL_Postcode, KL_Wachtwoord) VALUES ( '" . $email . "', '" . $voornaam . "'";
-		$query .= ", '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "')";
+		$query = "INSERT INTO Medewerkers(Med_Mail, Med_Voornaam, Med_Achternaam, Med_Telefoonnummer, Med_Plaats, Med_Adres, Med_Postcode, Med_Wachtwoord, Afdeling) VALUES ( '" . $email . "', '" . $voornaam . "'";
+		$query .= ", '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "', '" . $afdeling . "')";
+
+echo $query;
 		$result = mysqli_query($con, $query);
 
 		$voltooid = 1;
@@ -69,15 +79,15 @@ if(isset($_POST['submit'])){
 <div class="content">
 	<center>
         <form class="form-signin" method="post">
-          <h2>Registreren</h2>
+          <h2>Registreren Medewerker</h2>
           <!-- Als de registratie voltooid is (wordt in regel 94 bepaald), dan laat het systeem een bevesteging op het scherm zien. Ook krijgt de gebruiker het wachtwoord en wordt
           hij/zij aangeraden om in te loggen -->
           <?php if ($voltooid == 1) {
-            echo '<div class="success">Aanmelding succesvol. Uw wachtwoord:<br> ' . $secretcode . '<br><br> <a href="?p=login">Log hier in!</a> </div><br>';
+            echo '<div class="success">Aanmelding succesvol. Uw wachtwoord:<br> ' . $secretcode . '<br><br> <a href="?p=login_medewerker">Log hier in!</a> </div><br>';
           } ?>
           <?php if ($voltooid == 0) {?>
           <!-- Als de gebruiker al een account heeft, dan kunnen ze via deze link naar de inlogpagina -->
-          <a href="?p=login">Al lid? Log hier in!</a><br><br>
+          <a href="?p=login_medewerker">Al lid? Log hier in!</a><br><br>
             <?php
                 // Errorcode weergeven wanneer een email in bezet is
                 if($emailcheck == 1 && isset($_POST['submit'])){
@@ -92,6 +102,13 @@ if(isset($_POST['submit'])){
                 <input type="text" class="invoerveld" name="plaats" placeholder="Plaats" required><br><br>
                 <input type="text" class="invoerveld" name="adres" placeholder="Adres" required><br><br>
                 <input type="text" class="invoerveld" name="postcode" placeholder="Postcode" required><br><br>
+                Afdeling:<br><br><select class="invoerveld" name="permissie" required>
+                  <option value="lid">Lid</option>
+                  <option value="bezorger">Verkoper</option>
+                  <option value="keuken">Keuken</option>
+                  <option value="inkoop">Inkoop</option>
+                  <option value="beheerder">Beheerder</option>
+                  </select><br><br>
             <br>
             <!-- De knop om de gegevens te versturen. Hierna worden de bovestaande systemen uitgevoerd om de gebruiker in de database te zetten. -->
             <button type="submit" name="submit" id="submit">Aanmelding voltooien</button>

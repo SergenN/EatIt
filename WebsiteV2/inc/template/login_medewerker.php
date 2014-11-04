@@ -6,27 +6,27 @@ $l_password = isset($_POST['l_password']) ? $_POST['l_password'] : "";
 if (isset($_POST['l_submit'])) {
 
 	// Kijken of het email adres al in de database staat. Dit wordt gedaan door het ingevulde email adres m.b.v een WHERE en een COUNT statement te tellen. Als er 0 zijn, dan kan de persoon zich registeren. Als het op 1 staat, dan volgt er een error.
-	$query = "SELECT KL_Wachtwoord FROM Klant WHERE KL_Mail = '" . $l_email . "' ";
+	$query = "SELECT MED_Wachtwoord FROM Medewerkers WHERE MED_Mail = '" . $l_email . "' ";
 	$result = mysqli_query($con, $query);
 	$password = '';
 
 	while($row = mysqli_fetch_array($result)) {
-		$password = $row['KL_Wachtwoord'];
+		$password = $row['MED_Wachtwoord'];
 	}
 }
 ?>
 <center>
 <div class="content">
         <form class="form-signin" method="post">
-            <h2>Inloggen</h2>
+            <h2>Inloggen Medewerker</h2>
             <?php
              if(isset($_POST['l_submit']) && $password == $l_password){
                 echo '<div class="success">Succesvol ingelogd!</div><br>';
 
                 // Alle gegevens van de ingelogde gebruiker opslaan in een sessie
-                $query = "SELECT * FROM Klant WHERE KL_Mail = '" . $l_email . "' ";
+                $query = "SELECT * FROM Medewerkers WHERE MED_Mail = '" . $l_email . "' ";
                 $result = mysqli_query($con, $query);
-                $_SESSION['soortgebruiker'] = "klant";
+                $_SESSION['soortgebruiker'] = "medewerker";
                 $_SESSION['gegevens'] = mysqli_fetch_array($result);
 
                 header ('location: index.php');
@@ -35,12 +35,10 @@ if (isset($_POST['l_submit'])) {
                 echo '<div class="error">Onjuiste gegevens ingevoerd</div><br>';
             }
             ?>
-            <a href="?p=register">Nog geen lid? Registreer je hier!</a><br><br>
             <input type="email" class="invoerveld" name="l_email" placeholder="Email" required autofocus value=<?php echo '"' . $l_email . '"'; ?>><br><br>
             <input type="password" class="invoerveld" name="l_password" placeholder="Wachtwoord" required value=<?php echo '"' . $l_password . '"'; ?>><br><br>
             <br>
             <button type="submit" name="l_submit" id="submit">Inloggen</button>
-        </form><br><br>
-        <a href="?p=login_medewerker">Medewerkersportaal</a>
+        </form>
 </div>
 </center>
