@@ -14,7 +14,7 @@ $bestnr = $_SESSION["bestnr"];
 //de query zet de bestellingsstatus van alle bestellingen die op de voriga pagina weergegeven zijn op "afgerond"
 if($_POST["done"] ==  "klaar"){
 	for ($i=0; $i < count($bestnr); $i++) { 
-		$query2  = "update Besteling ";
+		$query2  = "update Bestelling ";
 		$query2 .= "set BEST_Status = 'afgerond' ";
 		$query2 .= "where bestNR = $bestnr[$i]; " ;
 		$result2 = mysqli_query($connection, $query2);

@@ -8,7 +8,7 @@ exit;}
 <?php
 	//de bestellingen die klaarstaan worden opgehaald
 	$query  = "select bestNR, KL_Voornaam, KL_Achternaam, KL_Plaats, KL_Adres ";
-	$query .= "from Besteling b, Klant k ";
+	$query .= "from Bestelling b, Klant k ";
 	$query .= "where k.Klantnr = b.Klantnr ";
 	$query .= "and BEST_Status = 'bezorgen' ";
 	$query .= "order by KL_Plaats; ";
