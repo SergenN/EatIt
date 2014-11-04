@@ -11,34 +11,63 @@ if(!isset($_SESSION['gegevens'])){
 }
 
 //Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php
-if($gegevens['Manager_ID'] == NULL){
-    // header ('location: index.php');
-    // VERANDER VERANDER VERANDER
+if($gegevens['Afdeling'] != '1'){
+    header ('location: index.php');
 }
 
 print_r($gegevens['Manager_ID']);
 
-// print_r($gegevens);
-if(isset($_POST['submit_settings'])){
+// Dit gebeurd er wanner iemand's afdeling wordt veranderd via het formulier.
+if(isset($_POST['change_department'])){
 	// Kijken of de variables zijn invuld. Als er een onderdeel is ingevoerd, dan wordt de functie update_data uitgevoerd en worden er hierbij parameters meegegeven. Deze functie
 	// zorgt ervoor dat de data wordt aangepast in de database.
-		update_data('permissies', $_POST['email'], $con);
+		update_department('Afdeling', $_POST['email'], $con);
 }	
 		// Een functie die ervoor zorgt dat de klantgegevens worden aangepast in de database
-		function update_data($name, $email, $con){
+		function update_department($name, $email, $con){
 		// De update query
-		$query = "UPDATE medewerkers SET permissies= '" . $_POST['permissie'] . "' WHERE email='" . $email . "'";
+		$query = "UPDATE medewerkers SET Afdeling = '" . $_POST['afdeling'] . "' WHERE MED_Mail='" . $email . "'";
 		$result = mysqli_query($con, $query);
 
 		// Een melding van alle aanpassingen
 		echo '<center><div class="success">' . ucfirst($name) . ' is succesvol aangepast!</div></center>';
 	}
 
-	// Alle nieuwe gegevens van de ingelogde gebruiker opslaan in de sessie variabel
-		// $query = "SELECT * FROM medewerkers WHERE email = '" . $gegevens['MED_Mail'] . "' ";
-		// $result = mysqli_query($con, $query);
-		// $_SESSION['gegevens'] = mysqli_fetch_array($result);
+// Dit gebeurd er wanneer iemand's manager ID wordt aangepast via het formulier
+if(isset($_POST['change_manager'])){
+	// Kijken of de variables zijn invuld. Als er een onderdeel is ingevoerd, dan wordt de functie update_data uitgevoerd en worden er hierbij parameters meegegeven. Deze functie
+	// zorgt ervoor dat de data wordt aangepast in de database.
+		update_manager('Manager', $_POST['email'], $con);
+}	
+		// Een functie die ervoor zorgt dat de klantgegevens worden aangepast in de database
+		function update_manager($name, $email, $con){
+		// De update query
+		$query = "UPDATE medewerkers SET Manager_ID = '" . $_POST['manager'] . "' WHERE MED_Mail='" . $email . "'";
+		$result = mysqli_query($con, $query);
+
+		// Een melding van alle aanpassingen
+		echo '<center><div class="success">' . ucfirst($name) . ' is succesvol aangepast!</div></center>';
+	}
+
+	// Dit gebeurd er wanneer iemand op inactief wordt gezet. De afdeling wordt op NULL gezet, want we willen de werknemer voor de toekomst natuurlijk wel bewaren.
+	if(isset($_POST['change_activity'])){
+			// Kijken of de variables zijn invuld. Als er een onderdeel is ingevoerd, dan wordt de functie update_data uitgevoerd en worden er hierbij parameters meegegeven. Deze functie
+			// zorgt ervoor dat de data wordt aangepast in de database.
+				update_activity('Activiteit', $_POST['email'], $con);
+		}	
+		// Een functie die ervoor zorgt dat de klantgegevens worden aangepast in de database
+		function update_activity($name, $email, $con){
+		// De update query
+		$query = "UPDATE medewerkers SET Afdeling = NULL WHERE MED_Mail='" . $email . "'";
+		$result = mysqli_query($con, $query);
+
+		// Een melding van alle aanpassingen
+		echo '<center><div class="success">' . ucfirst($name) . ' is succesvol aangepast!</div></center>';
+	}
+
 ?>
+
+
 
 <div class="content">
 	<h2>Nieuwe medewerker toevoegen</h2>
@@ -47,26 +76,49 @@ if(isset($_POST['submit_settings'])){
 
 	<!-- Het formulier -->
 	<h2>Afdeling wijzigen</h2>
-		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
+		<!-- Hier kan de afdeling van een werknemer gewijzigd worden. -->
 		<form class="form-signin" name="changedata" method="post" action="?p=beheerder">
 		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
-		Verplaatsen naar afdeling:<br><select class="invoerveld" name="permissie" required>
-		<option value="lid">Lid</option>
-		<option value="bezorger">Bezorger</option>
-		<option value="keuken">Keuken</option>
-		<option value="inkoop">Inkoop</option>
-		<option value="beheerder">Beheerder</option>
-		</select><br><br>
+		Verplaatsen naar afdeling:<br><select class="invoerveld" name="afdeling" required>
+                  <option value="1">Directie</option>
+                  <option value="2">Expeditie</option>
+                  <option value="3">Administratie</option>
+                  <option value="4">Financiële administratie</option>
+                  <option value="5">Personeelsadministratie</option>
+                  <option value="6">Commerciele afdeling</option>
+                  <option value="7">Inkoop</option>
+                  <option value="8">Verkoop</option>
+                  </select>
+		<br><br>
 
 		<!-- Het formulier verzenden. -->
-		<button type="submit" name="submit_settings" id="submit">Wijzingen opslaan</button>
+		<button type="submit" name="change_department" id="submit">Wijzingen opslaan</button>
 	</form>
+
+
+	<!-- Het formulier -->
+	<h2>Manager wijzigen</h2>
+		<!-- Hier kan de afdeling van een werknemer gewijzigd worden. -->
+		<form class="form-signin" name="changedata" method="post" action="?p=beheerder">
+		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
+		Manager ID geven:<br><input type="number" class="invoerveld" name="manager	" required>
+		<br><br>
+	</form>
+
+	<h2>Medewerker op inactief zetten</h2>
+		<!-- Hier kan de afdeling van een werknemer gewijzigd worden. -->
+		<form class="form-signin" name="changedata" method="post" action="?p=beheerder">
+		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
+		<!-- Het formulier verzenden. -->
+		<button type="submit" name="change_activity" id="submit">Wijzingen opslaan</button>
+	</form>
+
 
 	<h2>Gebruikerslijst</h2>
 	<?php
 
 	// Een lijst opstellen met alle gebruikers met bijehorende gegevens
-	$query = "SELECT * from medewerkers";
+	$query = "SELECT * from medewerkers WHERE Afdeling != 'NULL'";
 	$result = mysqli_query($con, $query);
 
 	// De tabel met gebruikers

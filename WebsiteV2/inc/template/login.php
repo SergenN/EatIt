@@ -1,4 +1,9 @@
 <?php
+// Als iemand al ingelogd is, dan stuur hem terug naar de index.php pagina
+if(isset($_SESSION['gegevens'])){
+    header ('location: index.php');
+}
+
 // De variabelen die in de invoervelden worden aangepast
 $l_email = isset($_POST['l_email']) ? $_POST['l_email'] : "";
 $l_password = isset($_POST['l_password']) ? $_POST['l_password'] : "";
