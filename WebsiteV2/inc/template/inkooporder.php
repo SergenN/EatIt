@@ -1,14 +1,13 @@
-<div class="content">
-    <?php
-        if(isset($_GET['res'])){
-            echo '<center>';
-            if($_GET['res'] == 'failed'){
-                echo '<center><div class="error">Kon object niet wijzigen!</div></center>';
-            } else if ($_GET['res'] == 'success'){
-                echo '<center><div class="success">Bestelorder is geplaatst.</div></center>';
-            }
-            echo '</center>';
+<?php
+    if(isset($_GET['res'])){
+        echo '<center>';
+        if($_GET['res'] == 'failed'){
+            echo '<center><div class="error">Kon object niet wijzigen!</div></center>';
+        } else if ($_GET['res'] == 'success'){
+            echo '<center><div class="success">Bestelorder is geplaatst.</div></center>';
         }
+        echo '</center>';
+    }
 
     /**
      * Functie makeSelect
@@ -51,9 +50,8 @@
             return $num;
         }
     }
-
-    ?>
-
+?>
+<div class="content">
     <form action="index.php?a=inkooporder" method="POST">
         <table>
             <tr><td>Artikel nummer:</td><td><?php echo makeSelect(); ?></td></tr>
