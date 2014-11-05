@@ -60,7 +60,6 @@ function getGerechten(){
         }
     }?>
     <table class="tablelist">
-        <!-- <tr><td><b>Artikel</b></td><td><b>Prijs</b></td><td><b>Bestellen</b></td></tr> -->
         <?php
         echo getGerechten();
         ?>

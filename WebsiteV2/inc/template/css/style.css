@@ -145,71 +145,14 @@ a:hover{
     color:black;
 }
 
-
-/*.gerechtLijst ul, li{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.gerechtLijst li {
-    border-bottom: solid 1px #acd589;
-    height: auto;
-    min-height: 5vw;
-    max-height: 11vw;
-}*/
-
-/*.lijstTitle {
-    font-size: 2vw;
-    font-weight: bold;
-    color: #5F5F5F;
-}
-.grey {
-    color: #5F5F5F;
-    font-weight: bold;
-}
-
-.lijstText {
-    position: relative;
-    left: 1px;
-    width: 30vw;
-}*/
-
-/*.prijsForm {
-    position: relative;
-    left: 33vw;
-    top: -5vw;
-    width:5vw;
-}
-
-.lijstForm {
-    position: relative;
-    right: -50vw;
-    width: 15vw;
-    top: -10vw;
-}
-.lijstForm2 {
-    position: relative;
-    right: -50vw;
-    width: 15vw;
-    top: -3vw;
-}
-
-
-.lijstSub {
-    color: #aeaeae;
-    position: relative;
-    left: 2vw;
-    width: 40vw;
-    font-weight: bold;
-}
-
-.lijstIngredienten {
-    position: relative;
-    left: 2vw;
-    width: 40vw;
-}*/
-
 .tablelist{
   width: 100%;
+}
+
+.tablelist tr td {
+    border-bottom:1pt solid #acd589;
+}
+
+tr.UL td {
+    border-bottom:1pt solid #acd589;
 }
