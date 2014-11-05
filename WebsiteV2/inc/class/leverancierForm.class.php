@@ -6,10 +6,6 @@
  * Time: 06:00
  */
 
-if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
-    header ('location: index.php');
-}
-
 //initializeer id
 if (isset($_POST['lev_id'])){
     //als post id is gezet
@@ -49,6 +45,8 @@ if(isset($_GET['q'])){
         case("add") ://toevoegen
             if (isset ($_POST['lev_submit'])){//is submit gedrukt
                 $query = "INSERT INTO leverancier (LEV_Adres, LEV_Mail, LEV_Naam, LEV_Plaats, LEV_Postcode, LEV_Telefoonnummer) VALUES ('$sqadres','$sqmail','$sqnaam', '$sqplaats','$sqpost', '$sqtel');";
+                $result = mysqli_query($con, $query);
+                
                 if(mysqli_error($con)){//gaat de query fout?
                     $_SESSION['res'] = $_POST;//sla post op en stuur terug
                     $location = "index.php?p=leverancierform&res=failed";

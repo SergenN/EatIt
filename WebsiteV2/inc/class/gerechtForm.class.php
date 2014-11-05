@@ -6,16 +6,13 @@
  * Time: 13:54
  */
 
-if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
-    header ('location: index.php');
-}
-
 //als gerechtAddIngredient is toegevoegd
 if (isset($_POST['ger_addIng'])){
     //sla post op
     savePost();
     //stuur terug naar gerecht formulier
-    header("location: index.php?p=gerechtForm");
+    $gerredId = $_POST['ger_id'];
+    header("location: index.php?p=gerechtForm&id=$gerredId");
 }
 
 //als gerechtDelete Ingredient knop is ingedrukt
@@ -25,7 +22,8 @@ if (isset($_POST['ger_delIng'])){
     unset($_SESSION['ger']['ger_ing'][$_POST['id']]);
     unset($_SESSION['ger']['id']);
     //stuur terug naar gerecht formulier
-    header("location: index.php?p=gerechtForm");
+    $gerredId = $_POST['ger_id'];
+    header("location: index.php?p=gerechtForm&id=$gerredId");
 }
 //als gerecht submit knop is ingedrukt prepereer alle variabelen voor mysql
 if (isset($_POST['ger_submit'])){

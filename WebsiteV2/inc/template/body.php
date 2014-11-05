@@ -17,8 +17,13 @@ function getGerechten(){
             $stocked = true;
             if (!$res2) continue;
             while($row2 = mysqli_fetch_assoc($res2)){
-                $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
-                if ($row2['ING_Aantal'] > $voorraad) {
+                if (isset($row2['ART_Gereserveerd']) || isset($row2['ART_TechnischeVoorraad'] )){
+                    $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
+                    if ($row2['ING_Aantal'] > $voorraad) {
+                        $stocked = false;
+                        break;
+                    }
+                } else {
                     $stocked = false;
                     break;
                 }
