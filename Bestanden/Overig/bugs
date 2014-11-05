@@ -1,9 +1,5 @@
 Bugs/opmerkingen/vragen
 ------------------------------------------------------
-
-* Waarde aangeving klopt niet bij het bestellen. (mag niet kleiner zijn dan x. Geeft max 17 aan terwijl er volgens de gegevensbeheer 19 op voorraad zijn)
-* Waarde aangeving klopt niet bij het bestellen. (mag niet kleiner zijn dan x. Geeft max 17 aan terwijl er volgens de gegevensbeheer 19 op voorraad zijn)
-
 * knoppen op keuken pagina staan niet goed gepositioneerd
 * Ingredienten worden niet opgeteld in keuken pagina (Ik weet niet zeker of dit moet?)
 * BAL geeft alleen Mais weer

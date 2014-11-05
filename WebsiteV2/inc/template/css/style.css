@@ -189,6 +189,13 @@ a:hover{
     width: 15vw;
     top: -10vw;
 }
+.lijstForm2 {
+    position: relative;
+    right: -50vw;
+    width: 15vw;
+    top: -3vw;
+}
+
 
 .lijstSub {
     color: #aeaeae;

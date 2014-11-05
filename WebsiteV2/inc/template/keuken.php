@@ -44,7 +44,7 @@ function getOrders() {
             }
             $toret .= '</p>';
             $action = "index.php?a=keuken&id={$row['BestNR']}";
-            $toret .= '<div class="lijstForm"><form action="'. $action.'" method="post"><input class="submit" type="submit" name="keuken_submit" value="Klaar"></form></div>';
+            $toret .= '<div class="lijstForm2"><form action="'. $action.'" method="post"><input class="submit" type="submit" name="keuken_submit" value="Klaar"></form></div>';
         }
         $toret .= "</li>";
     }
