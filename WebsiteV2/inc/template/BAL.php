@@ -1,23 +1,7 @@
-<?php
-
-	//Connectie database.
-	$connectie = mysqli_connect("localhost", "root", "", "EatIT");
-	
-	//Connectie testen.
-	if(mysqli_connect_errno()) {
-		die("Database connection failed: " .
-			mysqli_connect_error() .
-			" (" . mysqli_connect_errno() . ")"
-			);
-	}
-
-?>
-
+<div class="content">
 <?php
 
 	//Opstellen BAL
-	
-	
 	$economische_voorraad;
 	$bestelniveau;
 	
@@ -26,7 +10,7 @@
 	$query .= "FROM Artikelen ";
 	
 	//Resultaat query
-	$result = mysqli_query($connectie, $query);
+	$result = mysqli_query($con, $query);
 	
 	//Wordt gekeken of de query werkt.
 	if (!$result) {
@@ -76,3 +60,4 @@
 	}
 	
 ?>
+</div>
