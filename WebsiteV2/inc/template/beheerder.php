@@ -90,7 +90,7 @@ function update_activity($name, $email, $con){
 			<br><br>
 
 			<!-- Het formulier verzenden. -->
-			<button type="submit" name="change_department" id="submit">Wijzingen opslaan</button>
+			<button type="submit" name="change_department" class="submit">Wijzingen opslaan</button>
 		</form>
 
 
@@ -102,7 +102,7 @@ function update_activity($name, $email, $con){
 			Manager ID geven:<br><input type="number" class="invoerveld" name="manager" required><br><br>
 
 			<!-- Het formulier verzenden. -->
-			<button type="submit" name="change_manager" id="submit">Wijzingen opslaan</button>
+			<button type="submit" name="change_manager" class="submit">Wijzingen opslaan</button>
 			<br><br>
 	</form>
 
@@ -112,7 +112,7 @@ function update_activity($name, $email, $con){
 		<form class="form-signin" name="changedata" method="post" action="?p=beheerder">
 		Email:<br><input type="email" class="invoerveld" placeholder="Email van gebruiker" name="email" required><br><br>
 		<!-- Het formulier verzenden. -->
-		<button type="submit" name="change_activity" id="submit">Wijzingen opslaan</button>
+		<button type="submit" name="change_activity" class="submit">Wijzingen opslaan</button>
 	</form>
 
 	<!-- Een lijst met alle actieve medewerkers weergeven -->

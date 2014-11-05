@@ -64,7 +64,6 @@ if(isset($_POST['submit'])){
 		$query = "INSERT INTO Medewerkers(Med_Mail, Med_Voornaam, Med_Achternaam, Med_Telefoonnummer, Med_Plaats, Med_Adres, Med_Postcode, Med_Wachtwoord, Afdeling) VALUES ( '" . $email . "', '" . $voornaam . "'";
 		$query .= ", '" . $achternaam . "', '" . $telefoonnummer . "', '" . $plaats . "', '" . $adres . "', '" . $postcode . "', '" . $secretcode . "', '" . $afdeling . "')";
 
-echo $query;
 		$result = mysqli_query($con, $query);
 
 		$voltooid = 1;
@@ -110,7 +109,7 @@ echo $query;
                   </select><br><br>
             <br>
             <!-- De knop om de gegevens te versturen. Hierna worden de bovestaande systemen uitgevoerd om de gebruiker in de database te zetten. -->
-            <button type="submit" name="submit" id="submit">Aanmelding voltooien</button>
+            <button type="submit" name="submit" class="submit">Aanmelding voltooien</button>
             <?php } ?>
         </form>
 	</center>
