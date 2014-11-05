@@ -32,7 +32,7 @@ if(isset($i)){
 	<?php 	if(isset($_SESSION['order'])) {
 				echo"<input type=\"button\" name=\"confirm\" value=\"bevestigen\"/>";
 			} ?>
-	<input type="submit" name="back" value="terug naar bestellen"/>
+	<input type="submit" name="back" class="button" value="terug naar bestellen"/>
 </form>
 </div>
 <?php

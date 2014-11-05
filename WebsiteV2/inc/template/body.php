@@ -33,7 +33,7 @@ function getGerechten(){
                 if(isset($_SESSION['bes'])){
                 $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
 				} else {$val = "";}
-                $toret .= '<li>'. $row['GerNR'] ." - ". $row['GER_Naam'] .' <form action="'.$action.'" method="post"><input type="number" name="bes_aantal" required min="1" max="'.$mogelijk.'" value="'.$val.'"><input  type="submit" name="bes_submit" value="Bestellen"></form></li>';
+                $toret .= '<li>'. $row['GerNR'] ." - ". $row['GER_Naam'] .' <form action="'.$action.'" method="post"><input type="number" name="bes_aantal" class="invoerveld" required min="1" max="'.$mogelijk.'" value="'.$val.'"> <input  type="submit" name="bes_submit" class="button" value="Bestellen"></form></li><br>';
             }
         }
     }
