@@ -10,7 +10,7 @@ $action = "index.php?a=gerechtForm&q=add";
 
 if (isset($_GET['id'])){
     $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM gerecht WHERE GerNR = $id;";
+    $query = "SELECT * FROM Gerecht WHERE GerNR = $id;";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 1){
@@ -19,7 +19,7 @@ if (isset($_GET['id'])){
         $qprijs = $row['GER_Prijs'];
         $qbes = $row['GER_Beschrijving'];
 
-        $query2 = "SELECT * FROM aantalingredienten a WHERE GerNR = $id;";
+        $query2 = "SELECT * FROM Aantalingredienten a WHERE GerNR = $id;";
         $result2 = mysqli_query($con, $query2);
         while($row = mysqli_fetch_assoc($result2)){
             $ingredienten[$row['IngNR']] = $row['ING_Aantal'];
@@ -40,17 +40,17 @@ $canAdd = true;
 
 function makeSelect($selected = null){
     global $con, $selectRows;
-    $query = "SELECT * FROM ingredienten";
+    $query = "SELECT * FROM Artikelen";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 0) {header("location: index.php?p=toevoegen&res=nolevs");}
     $selectRows = $rows;
     $toret = "<select name=\"ingredient[]\" class=\"dropdownveld\">";
     while($row = mysqli_fetch_assoc($result)){
-        if($selected != null && $row['IngNR'] == $selected){
-            $toret .= "<option value={$row['IngNR']} selected>{$row['IngNR']} {$row['ING_Naam']}</option>";
+        if($selected != null && $row['ArtNR'] == $selected){
+            $toret .= "<option value={$row['ArtNR']} selected>{$row['ArtNR']} {$row['ART_Naam']}</option>";
         } else {
-            $toret .= "<option value={$row['IngNR']}>{$row['IngNR']} {$row['ING_Naam']}</option>";
+            $toret .= "<option value={$row['ArtNR']}>{$row['ArtNR']} {$row['ART_Naam']}</option>";
         }
     }
     $toret .= "</select>";
@@ -63,7 +63,7 @@ function getIngredienten(){
     $toret = "";
     if ($gering != ""){
         foreach($gering as $key => $value){
-            $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="button">Verwijder Ingredient</button></td></tr>';
+            $toret .= '<tr><td>' . makeSelect($key) . '</td><td><input type="number" class="invoerveld" name="hoeveelheid[]" placeholder="Hoeveelheid" value="'.$value.'"></td><td><input type="hidden" name="id" value="'.$key.'"/><button type="submit" name="ger_delIng" class="submit">Verwijder Ingredient</button></td></tr>';
             $totalrows++;
         }
     }
@@ -93,7 +93,7 @@ function getIngredienten(){
                 <tr><td>Gerecht Beschrijving</td><td><textarea class="invoerarea" name="ger_bes" placeholder="Geef hier een beschrijving van het gerecht"><?php echo $gerbes; ?></textarea></td></tr>
                 <tr><td>Gerecht ingredienten:</td><td></td></tr>
                 <?php echo getIngredienten(); ?>
-                <tr><td></td><td><button type="reset" class="button">Opnieuw</button> <button type="submit" name="ger_submit" class="button">Opslaan</button> <?php if ($canAdd){ echo '<button type="submit" name="ger_addIng" class="button">Extra ingredient</button>'; } ?></td></tr>
+                <tr><td></td><td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="ger_submit" class="submit">Opslaan</button> <?php if ($canAdd){ echo '<button type="submit" name="ger_addIng" class="submit">Extra ingredient</button>'; } ?></td></tr>
             </table>
         </form>
     </center>

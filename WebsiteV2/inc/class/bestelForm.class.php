@@ -7,5 +7,9 @@
  */
 
 if (isset($_POST['bes_submit'])){
+    if(!isset($_SESSION['gegevens'])){
+        if (isset($_SESSION['bes'])) {unset($_SESSION['bes']);}
+        header ('location: index.php?res=nlog');
+    }
     $_SESSION['bes'][$_GET['id']] = $_POST['bes_aantal'];
 }
