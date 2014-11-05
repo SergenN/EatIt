@@ -155,7 +155,8 @@ a:hover{
 .gerechtLijst li {
     border-bottom: solid 1px #acd589;
     height: auto;
-    min-height: 8vw;
+    min-height: 5vw;
+    max-height: 11vw;
 }
 
 .lijstTitle {

@@ -51,12 +51,30 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
             $result = mysqli_query($con, $query);
             $rows = 0;
             while($row = mysqli_fetch_assoc($result)){//geef alle gerechten weer
+
+                $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = {$row['GerNR']};";
+                $res2 = mysqli_query($con, $query);
+                $stocked = 0;
+                if (!$res2) continue;
+                while($row2 = mysqli_fetch_assoc($res2)){
+                    $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
+                    if ($row2['ING_Aantal'] > $voorraad) {
+                        $stocked = 0;
+                        break;
+                    }
+
+                    $am = $voorraad / $row2['ING_Aantal'];
+                    if (!isset($mogelijk) || $mogelijk > $am) {
+                        $stocked = floor($am);
+                    }
+                }
+
                 $levnr = $row["GerNR"];
                 echo "<tr>
                 <td class=\"a\">{$row['GER_Naam']}</td>
                 <td class=\"b\">{$row['GerNR']}</td>
                 <td class=\"c\">{$row['GER_Prijs']}</td>
-                <td class=\"d\">{$row['GER_Naam']}</td>
+                <td class=\"d\">{$stocked}</td>
                 <td class=\"e\"><a href=\"index.php?p=gerechtForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=gerechtform&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
             </tr>";
                 $rows++;
@@ -78,7 +96,7 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
                 <th class="a">Product</th>
                 <th class="b">In voorraad</th>
                 <th class="c">Prijs</th>
-                <th class="d">Fabrikant</th>
+                <th class="d">Leverancier</th>
                 <th class="e"></th>
             </tr>
             </thead>
@@ -94,7 +112,7 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
                 <td class=\"a\">{$row['ART_Naam']}</td>
                 <td class=\"b\">{$row['ART_TechnischeVoorraad']}</td>
                 <td class=\"c\">{$row['ART_Prijs']}</td>
-                <td class=\"d\">{$row['LEV_Naam']}</td>
+                <td class=\"d\">".substr($row['LEV_Naam'], 0, 12)."</td>
                 <td class=\"e\"><a href=\"index.php?p=ingredientForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=ingredientForm&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
             </tr>";
                 $rows++;
@@ -132,7 +150,7 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
                 <td class=\"a\">{$row['LEV_Adres']}</td>
                 <td class=\"b\">{$row['LEV_Postcode']}</td>
                 <td class=\"c\">{$row['LEV_Plaats']}</td>
-                <td class=\"d\">{$row['LEV_Naam']}</td>
+                <td class=\"d\">".substr($row['LEV_Naam'], 0, 12)."</td>
                 <td class=\"e\"><a href=\"index.php?p=leverancierForm&id=$levnr\"><img src=\"inc/template/img/otf_edit.svg\" class=\"editico\"></a><a href=\"index.php?a=leverancierform&q=del&id=$levnr\"><img src=\"inc/template/img/otf_delete.svg\" class=\"delico\"></a></td>
                     </tr>";
                 $rows++;
