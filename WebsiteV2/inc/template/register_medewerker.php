@@ -110,7 +110,7 @@ echo $query;
                   </select><br><br>
             <br>
             <!-- De knop om de gegevens te versturen. Hierna worden de bovestaande systemen uitgevoerd om de gebruiker in de database te zetten. -->
-            <button type="submit" name="submit" id="submit">Aanmelding voltooien</button>
+            <button type="submit" name="submit" class="submit">Aanmelding voltooien</button>
             <?php } ?>
         </form>
 	</center>
