@@ -1,3 +1,4 @@
+<div class="content">
 <?php
     if(isset($_GET['res'])){
         echo '<center>';
@@ -51,13 +52,15 @@
         }
     }
 ?>
-<div class="content">
     <form action="index.php?a=inkooporder" method="POST">
         <table>
+            <h2>Inkooporder aanmaken<h2>
             <tr><td>Artikel nummer:</td><td><?php echo makeSelect(); ?></td></tr>
             <tr><td>Aantal:</td><td><input type="number" class="invoerveld" value="" name="Aantal" required></td></tr>
             <tr><td>OrderNR:</td><td><input readonly type="number" class="invoerveld" name="OrderNR" value="<?php echo getOrderNr();?>"></td></tr>
         </table><br>
         <input type="submit" class="submit" value="Inkooporder maken" name="submit" /><br><br>
     </form>
+    <br>
+    <h2>Inkooporder aftekenen<h2>
 </div>

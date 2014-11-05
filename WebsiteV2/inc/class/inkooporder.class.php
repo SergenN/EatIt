@@ -31,6 +31,19 @@
                     values ($ordernr, 'verwerken', $prijs);";
         $result2 = mysqli_query($con, $query2);
 
+        // Kijken hoeveel er momenteel gereserveerd zijn van dit artikel
+        $query4  = "select ART_Gereserveerd from Artikelen where ArtNR = $artnr;";
+        $result4 = mysqli_fetch_assoc(mysqli_query($con, $query4));
+
+        $aantal_gereserveerd = $result4['ART_Gereserveerd'];
+        $n_aantal_gereserveerd = $aantal_gereserveerd + $aantal;
+
+        // Bereken de nieuwe waarde voor ART_gereserveerd
+        $query5 = "UPDATE Artikelen SET ART_Gereserveerd = " . $n_aantal_gereserveerd . " WHERE ArtNR =" . $artnr;
+        $result5 = mysqli_query($con, $query5);
+
+        echo $query5;
+
         if(!$result2){
             header("location: index.php?p=inkooporder&res=failed");
         }
