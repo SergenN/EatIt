@@ -25,7 +25,32 @@ function updateStatus($id){
 
 function updateStock($id){
     global $con;
-    $query = "SELECT * FROM AantalVerkocht WHERE BestNR = $id";
+    $query = "SELECT * FROM AantalVerkocht WHERE BestNR = $id;";
+    $res = mysqli_query($con, $query);
+    while ($row = mysqli_fetch_assoc($res)) {
+        $query2 = "SELECT * FROM Gerecht g JOIN Aantalingredienten a ON g.GerNR = a.GerNR WHERE g.GerNR = {$row['GerNR']};";
+        $res2 = mysqli_query($con, $query2);
+        while($row2 = mysqli_fetch_assoc($res2)){
+            $query3 = "SELECT * FROM Artikelen WHERE ArtNR = {$row2['ArtNR']}";
+            $row3 = mysqli_fetch_assoc(mysqli_query($con, $query3));
+
+            $aantalIngredient = $row['Aantal'] * $row2['ING_Aantal'];
+            $newTV = $row3['ART_TechnischeVoorraad'] - $aantalIngredient;
+            $newGER = $row3['ART_Gereserveerd'] - $aantalIngredient;
+            $query4 = "UPDATE Artikelen SET ART_TechnischeVoorraad=$newTV ,ART_Gereserveerd=$newGER WHERE ArtNR = {$row3['ArtNR']};";
+            mysqli_query($con, $query4);
+            if (mysqli_error($con)){
+                return false;
+            }
+        }
+        if (mysqli_error($con)){
+            return false;
+        }
+    }
+    if(mysqli_error($con)){
+        return false;
+    }
+    return true;
 }
 
 ?>
