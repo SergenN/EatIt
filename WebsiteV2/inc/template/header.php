@@ -33,8 +33,7 @@
         <meta name="description" content="Op deze website van EatIt kunt u gerechten bekijken en bestellen.">
     </head>
 
-    <body>
-
+<body>
     <!-- Gegevens van de gebruiker opslaan -->
     <?php
     if(isset($_SESSION['soortgebruiker'])){
@@ -61,10 +60,12 @@
         }
     }
     
-    ?>
-
+?>
+    
+    <!-- Hierin staat de indeling van de header -->
     <div class="container">
         <div class="header">
+            <!-- Het logo van Eat It -->
             <a href="index.php"><img src="inc/template/img/logo.png" id="logo"></a>
 
             <!-- Het menu. Wordt aangepast op basis of je bent ingelogd. -->
@@ -75,16 +76,17 @@
                         echo '<a href="index.php?p=login">Inloggen</a> |
                         <a href="index.php?p=register">Registreren</a>';
                     } else {
-                        // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
-                        //$beheerder =  (($gegevens['permissies'] == 'beheerder') ? '<a href="?p=beheerder">Beheerderspaneel</a> | ' :"");
-                        if($_SESSION['soortgebruiker'] == "klant"){
-                            echo "Welkom, {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> |  <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
-                        }
-
-                        if($_SESSION['soortgebruiker'] == "medewerker"){
-                            echo "Welkom, {$gegevens['MED_Voornaam']} | " . (($gegevens['Afdeling'] == '1')?'<a href="?p=beheerder">Beheerderspaneel</a> | ':"")    . " <a href=\"?p=instellingen\">Instellingen</a> |  <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
-                        }
+                    // Ingelogd: je krijgt het volledige menu te zien (instellingen, winkelwagen, uitloggen)
+                    // Als de gebruiker een klant betreft, dan krijgt het een ander menu te zien dan een werknemer.
+                    if($_SESSION['soortgebruiker'] == "klant"){
+                        echo "Welkom, {$gegevens['KL_Voornaam']} | <a href=\"?p=instellingen\">Instellingen</a> |  <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
                     }
-                ?>
-            </div>
+
+                        // Als de gebruiker een werknemer betreft, dan krijgt het een ander menu te zien dan een klant. De mensen uit afdeling 1 (directie, inge en tim) krijgen ook een beheerderspaneel item in het menu te zien.
+                    if($_SESSION['soortgebruiker'] == "medewerker"){
+                        echo "Welkom, {$gegevens['MED_Voornaam']} | " . (($gegevens['Afdeling'] == '1')?'<a href="?p=beheerder">Beheerderspaneel</a> | ':"")    . " <a href=\"?p=instellingen\">Instellingen</a> |  <a href=\"?p=winkelwagen\">Winkelwagen</a> | <a href=\"?p=uitloggen\">Uitloggen</a>";
+                    }
+                }
+            ?>
         </div>
+    </div>
