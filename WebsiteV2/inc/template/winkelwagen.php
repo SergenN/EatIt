@@ -3,9 +3,10 @@
 
 
 //redirect functie wordt gedefineerd
-function redirect_to($new_location)
-	{header("location: " . $new_location); 
-	exit;}
+function redirect_to($new_location){
+    header("location: " . $new_location);
+	exit;
+}
 ?>
 <div class="content">
 <?php
@@ -58,7 +59,7 @@ if (isset($_POST["confirm"]) == "bevestigen ") {
 	$query .= "values (" . $_SESSION['gegevens']['KlantNR'] . " ,str_to_date( '" . date('d-m-Y ') . "' , '%d-%m-%Y' ), 'besteld'); ";
 	$result = mysqli_query($con, $query);
 	if(!$result){
-		die("database query failed". mysqli_error());
+		die("database query failed". mysqli_error($con));
 	}
 	
 	
@@ -66,7 +67,7 @@ if (isset($_POST["confirm"]) == "bevestigen ") {
 	$query3 .= "values (" . $gerecht . "," . $aantal . "," . mysqli_insert_id($con) . "); ";
 	$result3 = mysqli_query($con, $query3);
 	if(!$result3){
-		die("database query failed". mysqli_error());
+		die("database query failed". mysqli_error($con));
 	}
 	
 	$query4  = "select ING_Aantal, ArtNR ";
@@ -75,7 +76,7 @@ if (isset($_POST["confirm"]) == "bevestigen ") {
 	$query4 .= "and g.GerNR = $gerecht; ";
 	$result4 = mysqli_query($con,$query4);
 		if(!$result4){
-			die("database query failed" . mysqli_error());
+			die("database query failed" . mysqli_error($con));
 		}
 		while ($row = mysqli_fetch_assoc($result4)) {
 		

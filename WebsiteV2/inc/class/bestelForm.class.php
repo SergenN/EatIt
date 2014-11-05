@@ -6,11 +6,22 @@
  * Time: 13:29
  */
 
+if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
+    header ('location: index.php');
+}
+
+
+//Als submit is gedrukt dan
 if (isset($_POST['bes_submit'])){
+    //als de gebruiker NIET is ingelogd dan
     if(!isset($_SESSION['gegevens'])){
+        //mocht er een sessie zijn gezet; verdwijder deze
         if (isset($_SESSION['bes'])) {unset($_SESSION['bes']);}
+        //doorsturen naar index met foutmelding
         header ('location: index.php?res=nlog');
     }
+    //bestelling toevoegen aan sessie in associatieve array "bes" formaat = ArtikelID => Besteld Aantal
     $_SESSION['bes'][$_GET['id']] = $_POST['bes_aantal'];
+    //Doorsturen naar index met melding dat het gelukt is.
     header ('location: index.php?res=success');
 }

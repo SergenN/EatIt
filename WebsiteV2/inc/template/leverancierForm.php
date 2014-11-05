@@ -5,9 +5,15 @@
  * Date: 31-10-2014
  * Time: 04:23
  */
+
+if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
+    header ('location: index.php');
+}
+
+
 $action = "index.php?a=leverancierForm&q=add";
 
-if (isset($_GET['id'])){
+if (isset($_GET['id'])){//als een id is gezet; verkrijg alle gegevens uit de database die bij dit id horen
     $id = mysqli_real_escape_string($con, $_GET['id']);
     $query = "SELECT * FROM Leverancier WHERE LevNR = $id;";
     $result = mysqli_query($con, $query);
@@ -25,7 +31,7 @@ if (isset($_GET['id'])){
         header("index.php?p=toevoegen&res=failed");
     }
 }
-
+//predefine alle gegevens (is er een sessie aanwezig ? ja dan zet deze gegeven vast. nee dan kijk of er resultaat verkregen is van een query? ja dan zet dit vast. nee dan zet niets.
 $levnaam = isset($_SESSION['lev']['lev_naam']) ? $_SESSION['lev']['lev_naam'] : isset($qnaam) ? $qnaam : "";
 $levadres = isset($_SESSION['lev']['lev_adres']) ? $_SESSION['lev']['lev_adres'] : isset($qadres) ? $qadres : "";
 $levpost = isset($_SESSION['lev']['lev_post']) ? $_SESSION['lev']['lev_post'] : isset($qpost) ? $qpost : "";

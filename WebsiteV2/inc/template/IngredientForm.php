@@ -5,9 +5,14 @@
  * Date: 31-10-2014
  * Time: 22:54
  */
+
+if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
+    header ('location: index.php');
+}
+
 $action = "index.php?a=ingredientForm&q=add";
 
-if (isset($_GET['id'])){
+if (isset($_GET['id'])){//als een id is gezet; verkrijg alle gegevens uit de database die bij dit id horen
     $id = mysqli_real_escape_string($con, $_GET['id']);
     $query = "SELECT * FROM ingredienten WHERE IngNR = $id;";
     $result = mysqli_query($con, $query);
@@ -26,7 +31,7 @@ if (isset($_GET['id'])){
         header("index.php?p=toevoegen&res=failed");
     }
 }
-
+//predefine alle gegevens (is er een sessie aanwezig ? ja dan zet deze gegeven vast. nee dan kijk of er resultaat verkregen is van een query? ja dan zet dit vast. nee dan zet niets.
 $ingnaam = isset($_SESSION['ing']['ing_naam']) ? $_SESSION['ing']['ing_naam'] : isset($qnaam) ? $qnaam : "";
 $ingtv = isset($_SESSION['ing']['ing_tv']) ? $_SESSION['ing']['ing_tv'] : isset($qtv) ? $qtv : "";
 $ingib = isset($_SESSION['ing']['ing_ib']) ? $_SESSION['ing']['ing_ib'] : isset($qib) ? $qib : "";
@@ -35,18 +40,25 @@ $ingbn = isset($_SESSION['ing']['ing_bn']) ? $_SESSION['ing']['ing_bn'] : isset(
 $inglev = isset($_SESSION['ing']['ing_lev']) ? $_SESSION['ing']['ing_lev'] : isset($qlev) ? $qlev : "";
 $ingprijs = isset($_SESSION['ing']['ing_prijs']) ? $_SESSION['ing']['ing_prijs'] : isset($qprijs) ? $qprijs : "";
 
+/**
+ * Functie makeSelect
+ * maak een select lijst met alle leveranciers en zet de default geselecteerde
+ *
+ * @param null $selected - wat geselecteerd moet worden (null als er niets geselecteerd moet worden)
+ * @return string - een selectie lijst in HTML
+ */
 function makeSelect(){
     global $inglev, $con;
     $query = "SELECT * FROM leverancier";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
-    if ($rows == 0) {header("location: index.php?p=toevoegen&res=nolevs");}
+    if ($rows == 0) {header("location: index.php?p=toevoegen&res=nolevs");}//als er geen leveranciers zijn kun je geen ingredient toevoegen.
     echo "<select name=\"ing_lev\" class=\"dropdownveld\">";
-    while($row = mysqli_fetch_assoc($result)){
-        if($row['LevNR'] == $inglev){
-            echo "<option value={$row['ArtNR']} selected>{$row['ART_Naam']} {$row['ART_Plaats']} {$row['ART_Adres']}</option>";
+    while($row = mysqli_fetch_assoc($result)){//alle leveranciers verkrijgen
+        if($inglev != "" && $row['LevNR'] == $inglev){
+            echo "<option value={$row['ArtNR']} selected>{$row['ART_Naam']} {$row['ART_Plaats']} {$row['ART_Adres']}</option>";//leverancier selecteren
         } else {
-            echo "<option value={$row['ArtNR']}>{$row['ART_Naam']} {$row['ART_Plaats']}</option>";
+            echo "<option value={$row['ArtNR']}>{$row['ART_Naam']} {$row['ART_Plaats']}</option>";//gewoon default.
         }
     }
     echo "</select>";

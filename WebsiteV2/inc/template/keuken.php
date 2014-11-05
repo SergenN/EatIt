@@ -7,13 +7,16 @@
  */
 
 //Alleen beheerders en de keuken hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
-if($gegevens['Afdeling'] != '6'){
-    if($gegevens['Afdeling'] != '1'){
+if($gegevens['Afdeling'] != 1 || $gegevens['Afdeling'] != 6){//check of de gebruiker admin of keuken is
         header ('location: index.php');
-    }
 }
 
-
+/**
+ * Functie getOrders
+ * verkrijg alle orders, gerechten en ingredienten die bij deze gerechten horen
+ *
+ * @return string - een lijst met alle orders, hun gerechten en de ingredienten van deze gerechten
+ */
 function getOrders() {
     global $con;
     $toret = "";
@@ -50,7 +53,7 @@ function getOrders() {
 ?>
 
 <div class="content">
-    <?php if(isset($_GET['res'])) {
+    <?php if(isset($_GET['res'])) {//als er een error was en de bestelstatus kon niet worden gewijzigd
         if ($_GET['res'] == 'fail'){
             echo '<center><div class="error">Kon bestel status niet wijzigen! Probeer opnieuw.</div></center><br>';
         }
