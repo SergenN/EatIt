@@ -137,8 +137,12 @@ h2{
 }
 
 a {
-    color: inherit;
+    color: #206EBC;
     text-decoration: none;
+}
+
+a:hover{
+    color:black;
 }
 
 
