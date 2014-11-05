@@ -1,4 +1,9 @@
 <?php
+// Winkelwagen is alleen te gebruiken voor klanten.
+if($_SESSION['soortgebruiker'] != "klant"){
+	header ('location: index.php');
+}
+
 //redirect functie wordt gedefineerd
 function redirect_to($new_location)
 	{header("location: " . $new_location); 
@@ -103,4 +108,66 @@ if (isset($_POST["back"]) == "terug naar bestellen"){
 
 
 ?>
+
+<!-- ADRES WIJZIGEN -->
+<?php
+/* Geschreven door:			Thijs Kuilman
+ * Studentnummer:					327154
+ *
+ * Doel van dit bestand:
+ * Deze pagina bevat een formulier waarmee een gebruiker zijn persoonlijke gegevens kan veranderen. Naast account instellingen kun je ook je wachtwoord aanpassen.
+ */
+if(!isset($_SESSION['gegevens'])){
+    header ('location: index.php');
+}
+
+// Een functie die ervoor zorgt dat de Klantgegevens worden aangepast in de database
+function update_klant($name, $email, $con, $newvalue){
+	// De update query
+	$query = "UPDATE Klant SET " . $name . "= '" . $newvalue . "' WHERE KL_Mail='" . $email . "'";
+	$result = mysqli_query($con, $query);
+
+	// Aangeven dat de aanpassingen succesvol zijn
+	echo '<center><div class="success">' . ucfirst($name) . ' is succesvol aangepast!</div></center>';
+}
+
+
+// Als er een klant is ingelogd, dan krijgt hij/zij het volgende te zien:
+if($_SESSION['soortgebruiker'] == "klant"){
+	// print_r($gegevens);
+	if(isset($_POST['submit_settings'])){
+
+		if ($_POST['plaats'] != '') {
+			$plaats = $_POST['plaats'];
+			update_klant('KL_Plaats', $gegevens['KL_Mail'], $con, $plaats);
+		}
+
+		if ($_POST['adres'] != '') {
+			$adres = $_POST['adres'];
+			update_klant('KL_Adres', $gegevens['KL_Mail'], $con, $adres);
+		}
+
+		if ($_POST['postcode'] != '') {
+			$postcode = $_POST['postcode'];
+			update_klant('KL_Postcode', $gegevens['KL_Mail'], $con, $postcode);
+		}
+	}		
+?>
+
+	<!-- De content. Hier komt alle inhoud van de site. -->
+	<div class="content">
+		<!-- Het formulier -->
+		<h2>Adresgegevens wijzigen (optioneel)</h2>
+		<!-- Alle invoervelden voor het wijzigen van de persoonlijke gegevens. Niets is required, dus velden kunnen ook worden overgeslagen als ze hetzelfde moeten blijven. -->
+		<form class="form-signin" name="changedata" method="post" action="?p=winkelwagen">
+		Plaats:<br><input type="text" class="invoerveld" name="plaats" placeholder=<?php echo '"' . $gegevens['KL_Plaats'] . '"'; ?>><br><br>
+		Adres + Huisnummer:<br><input type="text" class="invoerveld" name="adres" placeholder=<?php echo '"' . $gegevens['KL_Adres'] . '"'; ?>><br><br>
+		Postcode:<br><input type="text" class="invoerveld" name="postcode" placeholder=<?php echo '"' . $gegevens['KL_Postcode'] . '"'; ?>><br><br>
+
+		<!-- Het formulier verzenden. -->
+		<button type="submit" name="submit_settings" class="submit">Wijzigingen opslaan</button>
+		</form>
+	</div>
+<?php } ?>
+
 </div>

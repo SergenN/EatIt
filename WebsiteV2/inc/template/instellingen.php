@@ -121,7 +121,7 @@ if($_SESSION['soortgebruiker'] == "klant"){
 		Achternaam:<br><input type="text" class="invoerveld" name="achternaam" placeholder=<?php echo '"' . $gegevens['KL_Achternaam'] . '"'; ?>><br><br>
 		Telefoonnummer:<br><input type="number" class="invoerveld" name="telefoonnummer" placeholder=<?php echo '"' . $gegevens['KL_Telefoonnummer'] . '"'; ?>><br><br>
 		Plaats:<br><input type="text" class="invoerveld" name="plaats" placeholder=<?php echo '"' . $gegevens['KL_Plaats'] . '"'; ?>><br><br>
-		Adres:<br><input type="text" class="invoerveld" name="adres" placeholder=<?php echo '"' . $gegevens['KL_Adres'] . '"'; ?>><br><br>
+		Adres + Huisnummer:<br><input type="text" class="invoerveld" name="adres" placeholder=<?php echo '"' . $gegevens['KL_Adres'] . '"'; ?>><br><br>
 		Postcode:<br><input type="text" class="invoerveld" name="postcode" placeholder=<?php echo '"' . $gegevens['KL_Postcode'] . '"'; ?>><br><br>
 			
 		<!-- Hier kunnen de gebruikers hun wachtwoord veranderen. Het wijzigingsproces wordt ALLEEN geactiveerd als het eerste veld hiervan wordt ingevuld. -->
