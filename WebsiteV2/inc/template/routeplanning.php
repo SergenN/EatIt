@@ -3,7 +3,16 @@
 function redirect_to($new_location)
 {header("location: " . $new_location); 
 exit;}
+
+//Alleen beheerders en de expeditie hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
+if($gegevens['Afdeling'] != '2'){
+    if($gegevens['Afdeling'] != '1'){
+	    header ('location: index.php');
+	}
+}
+
 ?>
+
 <div class="content">
 <?php
 	//de bestellingen die klaarstaan worden opgehaald
