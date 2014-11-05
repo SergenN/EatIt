@@ -1,14 +1,39 @@
 <?php 
+// de connectie wordt geopend
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "Eatit";
+$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+if(mysqli_connect_errno()){
+	die("error connecting to database" . mysqli_connect_error());
+	}
+
+session_start();
+
 //redirect functie wordt gedefineerd
 function redirect_to($new_location)
 {header("location: " . $new_location); 
 exit;}
+
+
+//Alleen beheerders en de expeditie hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
+if($gegevens['Afdeling'] != '2'){
+    if($gegevens['Afdeling'] != '1'){
+	    header ('location: index.php');
+	}
+}
+
 ?>
-<div class="content">
-<?php
+<!DOCTYPE html>
+<head>
+	<title>Routeplanning</title>
+</head>
+<body>
+	<?php
 	//de bestellingen die klaarstaan worden opgehaald
 	$query  = "select bestNR, KL_Voornaam, KL_Achternaam, KL_Plaats, KL_Adres ";
-	$query .= "from Bestelling b, Klant k ";
+	$query .= "from Besteling b, Klant k ";
 	$query .= "where k.Klantnr = b.Klantnr ";
 	$query .= "and BEST_Status = 'bezorgen' ";
 	$query .= "order by KL_Plaats; ";
@@ -16,7 +41,7 @@ exit;}
 	
 	if(mysqli_num_rows($result) == 0){
 		echo "	<form action\"\" method=\"post\">
-					<input type=\"submit\" name=\"herladen\" value=\"Opnieuw Checken\" /> 
+					<input type=\"submit\" class=\"button\" name=\"herladen\" value=\"Opnieuw Checken\" /> 
 				</form> ";
 		if(isset($_POST["herladen"])){
 			redirect_to("Routeplanning.php");
@@ -37,14 +62,17 @@ exit;}
 	
 ?>
 <!-- deze button stuurt je door naar de volgende pagina en geeft post de waarde "klaar" mee -->
-<form action="?p=routeplanning2" method="post">
-<input type="submit" name="done" value="klaar" />
+<form action="routeplanning2.php" method="post">
+<input type="submit" class="button" name="done" value="klaar" />
 </form>
 
 <!-- als je op deze button drukt wordt de pagina geprint -->
 <form action="" method="post">
-<input type="button" onClick="window.print()" value="Print"/>
+<input type="button" class="button" onClick="window.print()" value="Print"/>
 </form>
-</div>
 
-
+</body>
+<?php
+mysqli_free_result($result);
+mysqli_close($connection); 
+?>
