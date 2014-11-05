@@ -1,6 +1,6 @@
 <div class="content">
 		<form method="POST">
-			<input type="submit" value="Inkoop order maken" name="maken" />
+			<input type="submit" class="submit" value="Inkoop order maken" name="maken" />
 		</form>
 		
 		<?php
@@ -16,7 +16,9 @@
 				
 				//Wordt gekeken of de query werkt.
 				if (!$result) {
+					
 					die("Query werkt niet");
+
 				}
 				
 				//Ordernr wordt meegestuurd naar Inkooporder2.php.

@@ -6,8 +6,9 @@ function redirect_to($new_location)
 exit;}
 	echo "U heeft besteld";
 ?>
+<br><br>
 <form action="" method="post">
-	<input type="submit" name="back" class="button" value="terug naar bestellen"/>
+	<input type="submit" name="back" class="submit" value="Terug naar bestellen"/>
 </form>
 <?php 
 if(isset($_POST['back'])){

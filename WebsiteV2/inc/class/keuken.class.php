@@ -6,9 +6,6 @@
  * Time: 12:37
  */
 
-if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
-    header ('location: index.php');
-}
 
 //is keuken submit gedrukt?
 if (isset($_POST['keuken_submit'])){

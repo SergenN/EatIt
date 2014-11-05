@@ -21,7 +21,7 @@ if(isset($_SESSION['bes'])){
 		}
 		while ($naam = mysqli_fetch_assoc($result2)) {
 		
-		echo "u heeft van het gerecht " . $naam['GER_Naam'] . " " . $aantal. " besteld";
+		echo "Het gerecht " . $naam['GER_Naam'] . " is " . $aantal. " keer door U besteld";
 		echo "<hr/>";
 		}
 	}
@@ -32,7 +32,7 @@ if(isset($_SESSION['bes'])){
 //als er gerechten besteld zijn wordt de verwijder knop weergegeven
 if(isset($_SESSION['bes'])){
 	echo "		<form action=\"\" method=\"post\">
-					<input type=\"submit\" name=\"delete\"  value=\"verwijderen\" />
+					<input type=\"submit\" class=\"submit\" name=\"delete\"  value=\"Verwijderen\" />
 				</form>";
 }
 		
@@ -41,9 +41,9 @@ if(isset($_SESSION['bes'])){
 <!-- als er gerechten besteld zijn wordt de bevestig knop weergegeven-->
 <form action="" method="post">
 	<?php 	if(isset($_SESSION['bes'])) {
-				echo"<input type=\"submit\" name=\"confirm\" value=\"bevestigen\"/>";
+				echo"<br><input type=\"submit\" class=\"submit\" name=\"confirm\" value=\"Bevestigen\"/>";
 			} ?>
-	<input type="submit" name="back" class="button" value="terug naar bestellen"/>
+	<br><br><input type="submit" class="submit" name="back" class="button" value="Terug naar bestellen"/>
 </form>
 
 <?php

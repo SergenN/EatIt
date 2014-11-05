@@ -6,11 +6,6 @@
  * Time: 13:29
  */
 
-if(isset($gegevens['Afdeling'])){//check of de gebruiker admin is (voor de zekerheid)
-    header ('location: index.php');
-}
-
-
 //Als submit is gedrukt dan
 if (isset($_POST['bes_submit'])){
     //als de gebruiker NIET is ingelogd dan

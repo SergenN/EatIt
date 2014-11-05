@@ -1,6 +1,4 @@
 <?php
-
-
 //redirect functie wordt gedefineerd
 function redirect_to($new_location)
 {header("location: " . $new_location); 
@@ -17,7 +15,7 @@ if($_POST["done"] ==  "klaar"){
 		$query2  = "update Bestelling ";
 		$query2 .= "set BEST_Status = 'afgerond' ";
 		$query2 .= "where bestNR = $bestnr[$i]; " ;
-		$result2 = mysqli_query($connection, $query2);
+		$result2 = mysqli_query($con, $query2);
 		if(!$result2){
 			die("Query mislukt ");
 		}
@@ -36,6 +34,4 @@ if(isset($_POST["redirect"])){
 	}
 }
 
-//de db connectie wordt afgesloten
-mysqli_close($connection);
 ?>

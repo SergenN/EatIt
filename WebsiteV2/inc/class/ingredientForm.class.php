@@ -6,10 +6,6 @@
  * Time: 22:54
  */
 
-if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
-    header ('location: index.php');
-}
-
 //initializeer id
 if (isset($_POST['ing_id'])){
     //als id van een post is gezet

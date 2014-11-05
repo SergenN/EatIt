@@ -14,7 +14,7 @@ $action = "index.php?a=ingredientForm&q=add";
 
 if (isset($_GET['id'])){//als een id is gezet; verkrijg alle gegevens uit de database die bij dit id horen
     $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM ingredienten WHERE IngNR = $id;";
+    $query = "SELECT * FROM Artikelen WHERE ArtNR = $id;";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 1){
@@ -49,16 +49,16 @@ $ingprijs = isset($_SESSION['ing']['ing_prijs']) ? $_SESSION['ing']['ing_prijs']
  */
 function makeSelect(){
     global $inglev, $con;
-    $query = "SELECT * FROM leverancier";
+    $query = "SELECT * FROM Leverancier";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 0) {header("location: index.php?p=toevoegen&res=nolevs");}//als er geen leveranciers zijn kun je geen ingredient toevoegen.
     echo "<select name=\"ing_lev\" class=\"dropdownveld\">";
     while($row = mysqli_fetch_assoc($result)){//alle leveranciers verkrijgen
         if($inglev != "" && $row['LevNR'] == $inglev){
-            echo "<option value={$row['ArtNR']} selected>{$row['ART_Naam']} {$row['ART_Plaats']} {$row['ART_Adres']}</option>";//leverancier selecteren
+            echo "<option value={$row['LevNR']} selected>{$row['LEV_Naam']} {$row['LEV_Plaats']} {$row['LEV_Adres']}</option>";//leverancier selecteren
         } else {
-            echo "<option value={$row['ArtNR']}>{$row['ART_Naam']} {$row['ART_Plaats']}</option>";//gewoon default.
+            echo "<option value={$row['LevNR']}>{$row['LEV_Naam']} {$row['LEV_Plaats']}</option>";//gewoon default.
         }
     }
     echo "</select>";
@@ -79,13 +79,13 @@ function makeSelect(){
                 <tr><td>Ingredient Leverancier</td>
                     <td><?php makeSelect(); ?></td></tr>
                 <tr><td>Ingredient In voorraad</td>
-                    <td><input type="number" class="invoerveld" name="ing_tv" placeholder="Technische Voorraad" min="0" required value="<?php echo $qtv; ?>"></td></tr>
+                    <td><input type="number" class="invoerveld" name="ing_tv" placeholder="Technische Voorraad" min="0" required value="<?php echo $ingtv; ?>"></td></tr>
                 <tr><td>Ingredient In bestelling</td>
-                    <td><input type="number" class="invoerveld" name="ing_ib" placeholder="In bestelling" min="0" required value="<?php echo $qib; ?>"></td></tr>
+                    <td><input type="number" class="invoerveld" name="ing_ib" placeholder="In bestelling" min="0" required value="<?php echo $ingib; ?>"></td></tr>
                 <tr><td>Ingredient Gereserveerd</td>
-                    <td><input type="number" class="invoerveld" name="ing_g" placeholder="Gereserveerd" min="0" required value="<?php echo $qg; ?>"></td></tr>
+                    <td><input type="number" class="invoerveld" name="ing_g" placeholder="Gereserveerd" min="0" required value="<?php echo $ingg; ?>"></td></tr>
                 <tr><td>Ingredient Bestelniveau</td>
-                    <td><input type="number" class="invoerveld" name="ing_bn" placeholder="Besteniveau" min="0" required value="<?php echo $qbn; ?>"></td></tr>
+                    <td><input type="number" class="invoerveld" name="ing_bn" placeholder="Besteniveau" min="0" required value="<?php echo $ingbn; ?>"></td></tr>
                 <tr><td></td>
                     <td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="ing_submit" class="submit">Opslaan</button></td></tr>
             </table>

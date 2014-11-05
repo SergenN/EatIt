@@ -6,11 +6,12 @@
  * Time: 11:28
  */
 
-//Alleen beheerders en de keuken hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
-if($gegevens['Afdeling'] != 1 || $gegevens['Afdeling'] != 6){//check of de gebruiker admin of keuken is
-        header ('location: index.php');
-}
-
+	//Alleen beheerders en de inkoop afdeling hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
+	if($gegevens['Afdeling'] != '6'){
+	    if($gegevens['Afdeling'] != '1'){
+	        header ('location: index.php');
+	    }
+	}
 /**
  * Functie getOrders
  * verkrijg alle orders, gerechten en ingredienten die bij deze gerechten horen

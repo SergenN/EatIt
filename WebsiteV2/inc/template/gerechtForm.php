@@ -27,7 +27,7 @@ if (isset($_GET['id'])){//als een id is gezet; verkrijg alle gegevens uit de dat
         $query2 = "SELECT * FROM Aantalingredienten a WHERE GerNR = $id;";
         $result2 = mysqli_query($con, $query2);
         while($row = mysqli_fetch_assoc($result2)){//alle ingredient nummers en hoeveelheden in een associative array zetten formaat=(id=>aantal)
-            $ingredienten[$row['IngNR']] = $row['ING_Aantal'];
+            $ingredienten[$row['ArtNR']] = $row['ING_Aantal'];
         }
         $action = "index.php?a=gerechtForm&q=mod";
     } else {//oeps er ging iets fout
