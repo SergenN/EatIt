@@ -4,10 +4,9 @@
 * Date: 28-10-2014
 * Time: 11:00
 */
-/*
-if((!isset($_SESSION['gegevens'])) || ($gegevens['permissies'] != 'beheerder')){
+if($gegevens['Afdeling'] != '1'){
     header ('location: index.php');
-}*/
+}
 ?>
 
 <div class="content">

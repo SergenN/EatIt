@@ -6,6 +6,14 @@
  * Time: 11:28
  */
 
+//Alleen beheerders en de keuken hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
+if($gegevens['Afdeling'] != '6'){
+    if($gegevens['Afdeling'] != '1'){
+        header ('location: index.php');
+    }
+}
+
+
 function getOrders() {
     global $con;
     $toret = "";

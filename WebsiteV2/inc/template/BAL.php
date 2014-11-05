@@ -1,6 +1,11 @@
 <div class="content">
 <?php
-
+	//Alleen beheerders en de inkoop afdeling hebben toegang tot deze pagina. Geen van deze? Terugsturen naar index.php
+	if($gegevens['Afdeling'] != '7'){
+	    if($gegevens['Afdeling'] != '1'){
+	        header ('location: index.php');
+	    }
+	}
 	//Opstellen BAL
 	$economische_voorraad;
 	$bestelniveau;
