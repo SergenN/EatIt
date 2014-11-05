@@ -8,7 +8,7 @@ if($gegevens['Afdeling'] != '3'){
 	    }
 	}
 }
-
+//
 $query  = "select InkfNR, Inkf_Status, Bedrag, OrderNR, IngNR, LevNR, Aantal ";
 $query .= "from Inkooporder o, Inkoopfactuur f ";
 $query .= "where o.OrderNR = f.InkfNR; ";
