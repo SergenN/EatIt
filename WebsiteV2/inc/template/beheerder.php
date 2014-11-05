@@ -83,7 +83,7 @@ function update_activity($name, $email, $con){
 		            <option value="3">Administratie</option>
 		            <option value="4">Financiële administratie</option>
 		            <option value="5">Personeelsadministratie</option>
-		            <option value="6">Commerciele afdeling</option>
+		            <option value="6">Keuken</option>
 		            <option value="7">Inkoop</option>
 		            <option value="8">Verkoop</option>
 		        </select>

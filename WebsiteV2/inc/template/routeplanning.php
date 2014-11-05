@@ -11,6 +11,13 @@ if($gegevens['Afdeling'] != '2'){
 	}
 }
 
+// Een individuele bestelling's status veranderen
+if(isset($_GET['nummer'])){
+	$bestelnummer = $_GET['nummer'];
+	$query = "UPDATE Bestelling SET BEST_Status = 'afgerond' WHERE bestNR =" . $bestelnummer;
+    $result = mysqli_query($con, $query);
+}
+
 ?>
 
 <div class="content">
@@ -25,18 +32,18 @@ if($gegevens['Afdeling'] != '2'){
 	
 	if(mysqli_num_rows($result) == 0){
 		echo "	<form action\"\" method=\"post\">
-					<input type=\"submit\" name=\"herladen\" value=\"Opnieuw Checken\" /> 
+					<input type=\"submit\" name=\"herladen\" class=\"submit\" value=\"Opnieuw Checken\" /><br><br>
 				</form>";
 		if(isset($_POST["herladen"])){
-			redirect_to("Routeplanning.php");
+			header("location: index.php?p=routeplanning");
 		}
 		die("Geen bestellingen klaar" . mysqli_connect_error());
 	}
 	//de bestellingen worden weergegeven in een tabel en de bestellingsnummers komen in de array $bestnr te staan
-	echo "<table width=100%><tr><td><b>Bestelling</b></td><td><b>Voornaam</b></td><td><b>Achternaam</b></td><td><b>Plaats</b></td><td><b>Adres</b></td></tr>";
+	echo "<table width=100%><tr><td><b>Bestelling</b></td><td><b>Voornaam</b></td><td><b>Achternaam</b></td><td><b>Plaats</b></td><td><b>Adres</b></td><td><b>Afronden</b></td></tr>";
 	while($row = mysqli_fetch_assoc($result)){
 		$bestnr[] = $row["bestNR"];
-		echo "<tr><td>". $row["bestNR"]. "</td><td>". $row["KL_Voornaam"]. "</td><td>". $row["KL_Achternaam"]. "</td><td>". $row["KL_Plaats"]. "</td><td>" . $row["KL_Adres"] . "</td></tr>";
+		echo "<tr><td>". $row["bestNR"]. "</td><td>". $row["KL_Voornaam"]. "</td><td>". $row["KL_Achternaam"]. "</td><td>". $row["KL_Plaats"]. "</td><td>" . $row["KL_Adres"] . "</td><td><a href=\"?p=routeplanning&nummer=" . $row["bestNR"] . "\">Aftekenen</a></td></tr>";
 		;
 	}
 	echo '</table>';
@@ -49,7 +56,7 @@ if($gegevens['Afdeling'] != '2'){
 <!-- deze button stuurt je door naar de volgende pagina en geeft post de waarde "klaar" mee -->
 <br>
 <form action="?p=routeplanning2" method="post">
-<input type="submit" name="done" class="submit" value="Klaar" />
+<input type="submit" name="done" class="submit" value="Alles aftekenen" />
 </form>
 &nbsp
 <!-- als je op deze button drukt wordt de pagina geprint -->
