@@ -14,13 +14,13 @@ if (isset($_GET['id'])){
     $rows = mysqli_num_rows($result);
     if ($rows == 1){
         $row = mysqli_fetch_assoc($result);
-        $qnaam = $row['ING_Naam'];
-        $qtv = $row['ING_TechnischeVoorraad'];
-        $qib = $row['ING_InBestelling'];
-        $qg = $row['ING_Gereserveerd'];
-        $qbn = $row['ING_BestelNiveau'];
-        $qlev = $row['ING_Leverancier'];
-        $qprijs = $row['ING_prijs'];
+        $qnaam = $row['ART_Naam'];
+        $qtv = $row['ART_TechnischeVoorraad'];
+        $qib = $row['ART_InBestelling'];
+        $qg = $row['ART_Gereserveerd'];
+        $qbn = $row['ART_BestelNiveau'];
+        $qlev = $row['ART_Leverancier'];
+        $qprijs = $row['ART_Prijs'];
         $action = "index.php?a=ingredientForm&q=mod";
     } else {
         header("index.php?p=toevoegen&res=failed");
@@ -44,9 +44,9 @@ function makeSelect(){
     echo "<select name=\"ing_lev\" class=\"dropdownveld\">";
     while($row = mysqli_fetch_assoc($result)){
         if($row['LevNR'] == $inglev){
-            echo "<option value={$row['LevNR']} selected>{$row['LEV_Naam']} {$row['LEV_Plaats']} {$row['LEV_Adres']}</option>";
+            echo "<option value={$row['ArtNR']} selected>{$row['ART_Naam']} {$row['ART_Plaats']} {$row['ART_Adres']}</option>";
         } else {
-            echo "<option value={$row['LevNR']}>{$row['LEV_Naam']} {$row['LEV_Plaats']}</option>";
+            echo "<option value={$row['ArtNR']}>{$row['ART_Naam']} {$row['ART_Plaats']}</option>";
         }
     }
     echo "</select>";
@@ -75,7 +75,7 @@ function makeSelect(){
                 <tr><td>Ingredient Bestelniveau</td>
                     <td><input type="number" class="invoerveld" name="ing_bn" placeholder="Besteniveau" min="0" required value="<?php echo $qbn; ?>"></td></tr>
                 <tr><td></td>
-                    <td><button type="reset" id="submit">Opnieuw</button> <button type="submit" name="ing_submit" id="submit">Opslaan</button></td></tr>
+                    <td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="ing_submit" class="submit">Opslaan</button></td></tr>
             </table>
         </form>
     </center>

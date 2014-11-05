@@ -9,7 +9,7 @@ $action = "index.php?a=leverancierForm&q=add";
 
 if (isset($_GET['id'])){
     $id = mysqli_real_escape_string($con, $_GET['id']);
-    $query = "SELECT * FROM leverancier WHERE LevNR = $id;";
+    $query = "SELECT * FROM Leverancier WHERE LevNR = $id;";
     $result = mysqli_query($con, $query);
     $rows = mysqli_num_rows($result);
     if ($rows == 1){
@@ -39,7 +39,7 @@ $levtel = isset($_SESSION['lev']['lev_tel']) ? $_SESSION['lev']['lev_tel'] : iss
     <h2>Leverancier Toevoegen/Wijzigen</h2>
     <form action="<?php echo $action;?>" method="post">
         <?php if(isset($_GET['res']) && $_GET['res'] == 'failed'){echo '<div class="error">Er ging iets verkeerd! Probeer opnieuw.</div><br>';}
-         if(isset($_GET['id'])){echo "<input type=\"text\" name=\"lev_id\" value=\"{$_GET['id']}\">";}?>
+         if(isset($_GET['id'])){echo "<input type=\"hidden\" name=\"lev_id\" value=\"{$_GET['id']}\">";}?>
         <table>
             <tr><td>Leverancier Naam</td>
                 <td><input type="text" class="invoerveld" name="lev_naam" placeholder="Naam" required autofocus value="<?php echo $levnaam; ?>"></td></tr>
@@ -54,7 +54,7 @@ $levtel = isset($_SESSION['lev']['lev_tel']) ? $_SESSION['lev']['lev_tel'] : iss
             <tr><td>Leverancier Telefoon</td>
                 <td><input type="number" class="invoerveld" name="lev_tel" placeholder="Telefoon" min="0" value="<?php echo $levtel; ?>"></td></tr>
             <tr><td></td>
-                <td><button type="reset" id="submit">Opnieuw</button> <button type="submit" name="lev_submit" id="submit">Opslaan</button></td></tr>
+                <td><button type="reset" class="submit">Opnieuw</button> <button type="submit" name="lev_submit" class="submit">Opslaan</button></td></tr>
         </table>
     </form>
     </center>

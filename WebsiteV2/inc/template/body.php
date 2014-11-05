@@ -31,9 +31,15 @@ function getGerechten(){
             if ($stocked){
                 $action = "index.php?a=bestelForm&id={$row['GerNR']}";
                 if(isset($_SESSION['bes'])){
-                $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
-				} else {$val = "";}
-                $toret .= '<li>'. $row['GerNR'] ." - ". $row['GER_Naam'] .' <form action="'.$action.'" method="post"><input type="number" name="bes_aantal" class="invoerveld" required min="1" max="'.$mogelijk.'" value="'.$val.'"> <input  type="submit" name="bes_submit" class="button" value="Bestellen"></form></li><br>';
+                    $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
+                } else {$val = "";}
+                $toret .= '<li>
+                                <div><p class="lijstTitle">'.$row['GER_Naam'].'</p><p class="lijstText">'.$row['GER_Beschrijving'].'</p></div>
+                                <div class="prijsForm"><p class="grey">Prijs:</p><p>&euro;'.number_format($row['GER_Prijs'], 2, ',', ' ').'</p></div>
+                                <div class="lijstForm"><form action="'.$action.'" method="post">
+                                        <input type="number" name="bes_aantal" required min="1" max="'.floor($mogelijk).'" value="'.$val.'">
+                                        <input class="inCart" type="submit" name="bes_submit" value=""></form>
+                                </div></li>';
             }
         }
     }
@@ -41,10 +47,14 @@ function getGerechten(){
 }
 ?>
 <div class="content">
-
-    <ul>
+    <?php if(isset($_GET['res'])) {
+        if ($_GET['res'] == 'nlog'){
+            echo '<center><div class="error">Je moet ingelogd zijn om te kunnen bestellen!</div></center><br>';
+        }
+    }?>
+    <ul class="gerechtLijst">
         <?php
-            echo getGerechten();
+        echo getGerechten();
         ?>
     </ul>
 
