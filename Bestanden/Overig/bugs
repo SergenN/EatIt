@@ -6,7 +6,7 @@ Bugs/opmerkingen/vragen
 * Bij de route planning is er alleen een knop om ALLE bestellingen af te handelen. Hoe pakt dit uit als er meerdere bezorgers zijn die allebei een andere route doen? Is het niet beter als je bestellingen 1 voor 1 kan aftekenen?
 * routeplanning 2 opmaak klopt niet volgens de stijl (div content en submit class)
 * routeplanning lijst wordt niet leeggemaakt wanneer je op 'Klaar' klikt.
-* telefoonnummer in instellingen controlleert niet op de lengte
+
 * Pagina's zien op kleine resolutie (1024x768 getest) rommelig uit:
 	- geplaatste bestellingen pagina
 	- tabel beheerder (steekt uit content area)
