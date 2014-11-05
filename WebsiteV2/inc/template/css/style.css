@@ -154,7 +154,8 @@ a:hover{
 
 .gerechtLijst li {
     border-bottom: solid 1px #acd589;
-    height: 8vw;
+    height: auto;
+    min-height: 8vw;
 }
 
 .lijstTitle {
@@ -186,4 +187,18 @@ a:hover{
     right: -50vw;
     width: 15vw;
     top: -10vw;
+}
+
+.lijstSub {
+    color: #aeaeae;
+    position: relative;
+    left: 2vw;
+    width: 40vw;
+    font-weight: bold;
+}
+
+.lijstIngredienten {
+    position: relative;
+    left: 2vw;
+    width: 40vw;
 }
