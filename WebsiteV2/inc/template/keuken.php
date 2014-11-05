@@ -31,6 +31,8 @@ function getOrders() {
                 $toret .=  'Artikel:'.$row3['ArtNR'].' '. $row3['ArtNaam'] .' Hoeveelheid: '.$row3['IngAantal'].'<br>';
             }
             $toret .= '</p>';
+            $action = "index.php?a=keuken&id={$row['BestNR']}";
+            $toret .= '<div class="lijstForm"><form action="'. $action.'" method="post"><input class="submit" type="submit" name="bes_submit" value="Klaar"></form></div>';
         }
         $toret .= "</li>";
     }

@@ -14,12 +14,12 @@
 ?>
 
 <?php
-	
+
 	$query = "SELECT BestNR, KlantNR, MedNR, BEST_Datum, BEST_Status ";
 	$query .= "FROM Bestelling ";
-	
+
 	$result = mysqli_query($connectie, $query);
-	
+
 	if (!$result) {
 		die("Query werkt niet");
 	}
