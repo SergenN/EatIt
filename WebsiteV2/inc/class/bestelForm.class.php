@@ -12,4 +12,5 @@ if (isset($_POST['bes_submit'])){
         header ('location: index.php?res=nlog');
     }
     $_SESSION['bes'][$_GET['id']] = $_POST['bes_aantal'];
+    header ('location: index.php?res=success');
 }
