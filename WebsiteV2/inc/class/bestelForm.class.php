@@ -6,7 +6,7 @@
  * Time: 13:29
  */
 
-if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is (voor de zekerheid)
+if(isset($gegevens['Afdeling'])){//check of de gebruiker admin is (voor de zekerheid)
     header ('location: index.php');
 }
 
