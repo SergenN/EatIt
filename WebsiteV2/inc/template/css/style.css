@@ -146,7 +146,7 @@ a:hover{
 }
 
 
-.gerechtLijst ul, li{
+/*.gerechtLijst ul, li{
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -157,13 +157,12 @@ a:hover{
     height: auto;
     min-height: 5vw;
     max-height: 11vw;
-}
+}*/
 
-.lijstTitle {
+/*.lijstTitle {
     font-size: 2vw;
     font-weight: bold;
     color: #5F5F5F;
-    line-height: 0;
 }
 .grey {
     color: #5F5F5F;
@@ -174,9 +173,9 @@ a:hover{
     position: relative;
     left: 1px;
     width: 30vw;
-}
+}*/
 
-.prijsForm {
+/*.prijsForm {
     position: relative;
     left: 33vw;
     top: -5vw;
@@ -209,4 +208,8 @@ a:hover{
     position: relative;
     left: 2vw;
     width: 40vw;
+}*/
+
+.tablelist{
+  width: 100%;
 }

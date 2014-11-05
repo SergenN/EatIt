@@ -36,13 +36,13 @@ function getGerechten(){
                 if(isset($_SESSION['bes'])){
                     $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
                 } else {$val = "";}
-                $toret .= '<li>
-                                <div><p class="lijstTitle">'.$row['GER_Naam'].'</p><p class="lijstText">'.$row['GER_Beschrijving'].'</p></div>
-                                <div class="prijsForm"><p class="grey">Prijs:</p><p>&euro;'.number_format($row['GER_Prijs'], 2, ',', ' ').'</p></div>
-                                <div class="lijstForm"><form action="'.$action.'" method="post">
+                $toret .= '<tr>
+                                <td><h2>'.$row['GER_Naam'].'</h2>' .$row['GER_Beschrijving'].'</td>
+                                <td><h2>Prijs:</h2>&euro;'.number_format($row['GER_Prijs'], 2, ',', ' ').'</td>
+                                <td><form action="'.$action.'" method="post">
                                         <input type="number" name="bes_aantal" required min="1" max="'.floor($mogelijk).'" value="'.$val.'">
                                         <input class="inCart" type="submit" name="bes_submit" value=""></form>
-                                </div></li>';
+                                </td></tr>';
             }
         }
     }
@@ -57,10 +57,11 @@ function getGerechten(){
             echo '<center><div class="success">Item is toegevoegd aan je winkelwagen</div></center><br>';
         }
     }?>
-    <ul class="gerechtLijst">
+    <table class="tablelist">
+        <!-- <tr><td><b>Artikel</b></td><td><b>Prijs</b></td><td><b>Bestellen</b></td></tr> -->
         <?php
         echo getGerechten();
         ?>
-    </ul>
+    </table>
 
 </div>
