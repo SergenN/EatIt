@@ -51,11 +51,11 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
             $result = mysqli_query($con, $query);
             $rows = 0;
             while($row = mysqli_fetch_assoc($result)){//geef alle gerechten weer
-
                 $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = {$row['GerNR']};";
                 $res2 = mysqli_query($con, $query);
                 $stocked = 0;
                 if (!$res2) continue;
+                unset($mogelijk);
                 while($row2 = mysqli_fetch_assoc($res2)){
                     $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
                     if ($row2['ING_Aantal'] > $voorraad) {
@@ -66,6 +66,7 @@ if($gegevens['Afdeling'] != 1){//check of de gebruiker admin is
                     $am = $voorraad / $row2['ING_Aantal'];
                     if (!isset($mogelijk) || $mogelijk > $am) {
                         $stocked = floor($am);
+                        $mogelijk = floor($am);
                     }
                 }
 

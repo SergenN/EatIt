@@ -14,26 +14,24 @@ function getGerechten(){
         while($row = mysqli_fetch_assoc($res)){
             $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = {$row['GerNR']};";
             $res2 = mysqli_query($con, $query);
-            $stocked = true;
+            $stocked = 0;
             if (!$res2) continue;
+            unset($mogelijk);
             while($row2 = mysqli_fetch_assoc($res2)){
-                if (isset($row2['ART_Gereserveerd']) || isset($row2['ART_TechnischeVoorraad'] )){
-                    $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
-                    if ($row2['ING_Aantal'] > $voorraad) {
-                        $stocked = false;
-                        break;
-                    }
-                } else {
-                    $stocked = false;
+                $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
+                if ($row2['ING_Aantal'] > $voorraad) {
+                    $stocked = 0;
                     break;
                 }
 
                 $am = $voorraad / $row2['ING_Aantal'];
                 if (!isset($mogelijk) || $mogelijk > $am) {
-                    $mogelijk = $am;
+                    $stocked = floor($am);
+                    $mogelijk = floor($am);
                 }
             }
-            if ($stocked){
+
+            if ($stocked > 0){
                 $action = "index.php?a=bestelForm&id={$row['GerNR']}";
                 if(isset($_SESSION['bes'])){
                     $val = array_key_exists($row['GerNR'], $_SESSION['bes']) ? $_SESSION['bes'][$row['GerNR']] : "";
