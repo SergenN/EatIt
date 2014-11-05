@@ -55,6 +55,8 @@ function getGerechten(){
             echo '<center><div class="error">Je moet ingelogd zijn om te kunnen bestellen!</div></center><br>';
         } else if ($_GET['res'] == 'success') {
             echo '<center><div class="success">Item is toegevoegd aan je winkelwagen</div></center><br>';
+        } else if ($_GET['res'] == 'error'){
+            echo '<center><div class="success">Er zijn geen artikelen om een bestelling te kunnen plaatsen!</div></center><br>';
         }
     }?>
     <table class="tablelist">
