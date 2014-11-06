@@ -108,8 +108,11 @@
             $result6 = mysqli_query($con, $query6);
             while ($gereserveerd = mysqli_fetch_assoc($result6)) {
                 //query die het aantal gereserveerd aanpast
+                $var1 = $gereserveerd['ING_Aantal'];
+                $war2 = $gereserveerd['ART_Gereserveerd'];
+                $var =  $var1 + $var2;
                 $query5  = "update Artikelen
-                        set ART_Gereserveerd ={$gereserveerd['ART_Gereserveerd']} + {$row['ING_Aantal']}
+                        set ART_Gereserveerd = $var
                         where ArtNR = {$row['ArtNR']};";
             }
         }

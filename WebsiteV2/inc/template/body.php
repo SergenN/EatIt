@@ -63,11 +63,7 @@
         }?>
         <table class="tablelist">
             <?php
-            if (isset($_SESSION['soortgebruiker']) && $_SESSION['soortgebruiker'] == "medewerker"){
-                echo "U kunt geen bestellingen plaatsen als medewerker.";
-            } else {
                 echo getGerechten();
-            }
             ?>
         </table>
  </div>
