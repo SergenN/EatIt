@@ -7,13 +7,35 @@
  */
 
     //Wordt gekeken of alles is ingevoerd en of alles correct is igevoerd.
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['ink_submit'])) {
         //Alle $_POST data wordt in variabelen gezet
         $artnr = $_POST['ArtNR'];
         $aantal = $_POST['Aantal'];
-        $ordernr = $_POST['OrderNR'];
 
-        //Query voor toevoegen ingevulde waardes.
+        $query = "INSERT INTO Inkoopfacatuur (INFK_Status, BEDRAG) VALUES ('besteld', 0);";
+        mysqli_query($con, $query);
+        if(mysqli_error($con)){
+            header("location: index.php?p=inkooporder&res=failed");
+        }
+
+        $insid = mysqli_insert_id($con);
+        $query1 = "INSERT INTO Inkooporder (LevNR, Aantal) VALUES ($insid, $aantal)";
+        mysqli_query($con, $query1);
+        if(mysqli_error($con)){
+            header("location: index.php?p=inkooporder&res=failed");
+        }
+
+        $ordernr = mysqli_insert_id($con);
+        $query2 = "INSERT INTO Bestelorder (ArtNR, OrderNR, Aantal) VALUES ($artnr, $ordernr, $aantal);";
+        mysqli_query($con, $query2);
+        if(mysqli_error($con)){
+            header("location: index.php?p=inkooporder&res=failed");
+        }
+
+        header("location: index.php?p=inkooporder&res=success&id=$ordernr");
+
+
+       /* //Query voor toevoegen ingevulde waardes.
         $query = "INSERT INTO Bestelorder (ArtNR, OrderNR, Aantal)
                   VALUES ($artnr, $ordernr, $aantal);";
         $result = mysqli_query($con, $query);
@@ -47,6 +69,6 @@
         if(!$result2){
             header("location: index.php?p=inkooporder&res=failed");
         }
-        header("location: index.php?p=inkooporder&res=success");
+        header("location: index.php?p=inkooporder&res=success");*/
     }
 ?>
