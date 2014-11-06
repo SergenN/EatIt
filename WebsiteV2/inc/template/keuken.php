@@ -23,16 +23,7 @@ function getOrders() {
     $toret = "";
     foreach (getBestellingen() as $bestelling){
         $toret .= '<tr><td><h2>Bestelling: '.$bestelling['BestNR'].'</h2></td><td><h2>Klant: '.$bestelling['KlantNR'].'</h2></td></tr>';
-        foreach(getReceptenFromBestelling($bestelling['BestNR']) as $gerecht){
-            $toret .= '<tr><td>Gerecht: '.$gerecht['GER_Naam'].'</td><td>Aantal: '. $gerecht['Aantal'].'</td></tr>';
-            $toret .= '<tr><td>&nbsp;</td></tr>';
-            foreach (getIngredientenFromRecept($gerecht['GerNR']) as $ingredient){
-                $toret .=  '<tr><td>Artikel:'.$gerecht['ArtNR'].' '. $gerecht['ART_Naam'] .' Hoeveelheid: '.$gerecht['ING_Aantal'].'</td></tr>';
-            }
-            $action = "index.php?a=keuken&id={$bestelling['BestNR']}";
-            $toret .= '<tr><td>&nbsp;</td></tr>';
-            $toret .= '<tr><td><form action="'. $action.'" method="post"><input class="submit" type="submit" name="keuken_submit" value="Klaar"></form></td></tr>';
-        }
+        $toret .= getReceptenFromBestelling($bestelling['BestNR']);
         $toret .= '<tr class="UL"><td>&nbsp;</td><td>&nbsp;</td></tr>';
     }
     return $toret;
@@ -42,14 +33,28 @@ function getIngredientenFromRecept($Gernr){
     global $con;
     $query = "SELECT * FROM Aantalingredienten ai JOIN Artikelen ar ON ai.ArtNR = ar.ArtNR WHERE GerNR = $Gernr;";
     $result = mysqli_query($con, $query);
-    return resToArray($result);
+    $array = resToArray($result);
+    $toret = "";
+    foreach ($array as $val) {
+        $toret .=  '<tr><td>Artikel:'.$val['ArtNR'].' '. $val['ART_Naam'] .' Hoeveelheid: '.$val['ING_Aantal'].'</td></tr>';
+    }
+    return $toret;
 }
 
 function getReceptenFromBestelling($Bestelnr){
     global $con;
     $query = "SELECT * FROM AantalVerkocht a JOIN Gerecht g ON a.GerNR = g.GerNR WHERE BestNR = $Bestelnr;";
     $result = mysqli_query($con, $query);
-    return resToArray($result);
+    $array = resToArray($result);
+    $toret = "";
+    foreach ($array as $val) {
+        $toret .= '<tr><td>Gerecht: ' . $val['GER_Naam'] . '</td><td>Aantal: ' . $val['Aantal'] . '</td></tr>';
+        $toret .= '<tr><td>&nbsp;</td></tr>';
+        $toret .= getIngredientenFromRecept($val['GerNR']);
+        $action = "index.php?a=keuken&id=$Bestelnr";
+        $toret .= '<tr><td>&nbsp;</td></tr>';
+        $toret .= '<tr><td><form action="'. $action.'" method="post"><input class="submit" type="submit" name="keuken_submit" value="Klaar"></form></td></tr>';
+    }
 }
 
 function getBestellingen() {
