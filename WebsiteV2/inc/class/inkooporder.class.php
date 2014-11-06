@@ -12,7 +12,7 @@
         $artnr = $_POST['ArtNR'];
         $aantal = $_POST['Aantal'];
 
-        $query = "INSERT INTO Inkoopfacatuur (INFK_Status, BEDRAG) VALUES ('besteld', 0);";
+        $query = "INSERT INTO Inkoopfactuur (Inkf_Status, Bedrag) VALUES ('besteld', 0);";
         mysqli_query($con, $query);
         if(mysqli_error($con)){
             header("location: index.php?p=inkooporder&res=failed");
