@@ -12,7 +12,13 @@
         $artnr = $_POST['ArtNR'];
         $aantal = $_POST['Aantal'];
 
-        $query = "INSERT INTO Inkoopfactuur (Inkf_Status, Bedrag) VALUES ('besteld', 0);";
+        $query0 = "SELECT ART_Prijs FROM Artikelen WHERE ArtNR = $artnr;";
+        $totaalbedrag = mysqli_fetch_assoc(mysqli_query($con, $query0))['ART_Prijs'] * $aantal;
+        if(mysqli_error($con)){
+            header("location: index.php?p=inkooporder&res=failed");
+        }
+
+        $query = "INSERT INTO Inkoopfactuur (Inkf_Status, Bedrag) VALUES ('besteld', $totaalbedrag);";
         mysqli_query($con, $query);
         if(mysqli_error($con)){
             header("location: index.php?p=inkooporder&res=failed");
