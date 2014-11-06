@@ -25,7 +25,7 @@
         }
 
         $insid = mysqli_insert_id($con);
-        $query1 = "INSERT INTO Inkooporder (LevNR, Aantal) VALUES ($insid, $aantal)";
+        $query1 = "INSERT INTO Inkooporder (LevNR, Aantal, IngNR) VALUES ($insid, $aantal, $artnr)";
         mysqli_query($con, $query1);
         if(mysqli_error($con)){
             header("location: index.php?p=inkooporder&res=failed");

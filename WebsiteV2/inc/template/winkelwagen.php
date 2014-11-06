@@ -1,6 +1,10 @@
 <div class="content">
     <?php
 
+    if (isset($_POST['back'])) {
+         header ('location: index.php');
+    }
+
     // Winkelwagen is alleen te gebruiken voor klanten.
 	if($_SESSION['soortgebruiker'] != "klant"){
 		header ('location: index.php');
@@ -30,9 +34,8 @@
                 die("Database query failed");
             }
             while ($naam = mysqli_fetch_assoc($result2)) {
-
-            echo "Het gerecht " . $naam['GER_Naam'] . " is " . $aantal. " keer door U besteld";
-            echo "<hr/>";
+                echo "Het gerecht " . $naam['GER_Naam'] . " is " . $aantal. " keer door U besteld";
+                echo "<hr/>";
             }
         }
 //als er geen gerechten besteld zijn wordt dat weergegeven
@@ -58,20 +61,27 @@
 
     <?php
     //als er op bevestigen wordt gedrukt wordt de bestelling ingevoerd in de database
-    if (isset($_POST["confirm"]) == "bevestigen ") {
-        foreach ($_SESSION['bes'] as $gerecht => $aantal) {
-            $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = $gerecht;";
-            $res2 = mysqli_query($con, $query);
-            $stocked = 0;
-            if (!$res2) continue;
-            while ($row2 = mysqli_fetch_assoc($res2)) {
-                $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
-                if (($row2['ING_Aantal'] * $aantal) > $voorraad) {
-                    header("location: index.php?p=winkelwagen&res=error&gid=$gerecht");
+    if (isset($_POST["confirm"]) == "bevestigen") {
+        if(isset($_SESSION['bes'])){
+            foreach ($_SESSION['bes'] as $gerecht => $aantal) {
+                $query = "SELECT * FROM Aantalingredienten a JOIN Artikelen i ON i.ArtNR = a.ArtNR WHERE a.GerNR = $gerecht;";
+                $res2 = mysqli_query($con, $query);
+                $stocked = 0;
+                if (!$res2) continue;
+                while ($row2 = mysqli_fetch_assoc($res2)) {
+                    $voorraad = $row2['ART_TechnischeVoorraad'] - $row2['ART_Gereserveerd'];
+                    if (($row2['ING_Aantal'] * $aantal) > $voorraad) {
+                        header("location: index.php?p=winkelwagen&res=error&gid=$gerecht");
+                    }
                 }
+                //de bestelling wordt verwijderd en je wordt door verwezen
+                $_SESSION['bes'] = null;
+                header("location: index.php?p=winkelwagen&res=success");
+
             }
         }
 
+        if(isset($_SESSION['bes'])){
         foreach ($_SESSION['bes'] as $gerecht => $aantal) {
 
             //query die de data in de bestelling tabel zet
@@ -104,7 +114,6 @@
                 $query6  = "select ART_Gereserveerd from Artikelen where ArtNR =" . $row['ArtNR'] . ";";
                 $result6 = mysqli_query($con, $query6);
                 while ($gereserveerd = mysqli_fetch_assoc($result6)) {
-                    var_dump($gereserveerd);
                     //query die het aantal gereserveerd aanpast
                     $query5  = "update Artikelen
                             set ART_Gereserveerd ={$gereserveerd['ART_Gereserveerd']} + {$row['ING_Aantal']}
@@ -112,10 +121,8 @@
                 }
             }
         }
-        //de bestelling wordt verwijderd en je wordt door verwezen
-        $_SESSION['bes'] = null;
-        header("location: index.php?p=winkelwagen&res=success");
     }
+}
 
     ?>
 

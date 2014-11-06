@@ -42,6 +42,4 @@
         </table><br>
         <input type="submit" class="submit" value="Inkooporder maken" name="ink_submit" /><br><br>
     </form>
-    <br>
-    <h2>Inkooporder aftekenen<h2>
 </div>
