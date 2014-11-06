@@ -7,8 +7,6 @@
  */
 
 // Een klant krijgt een lijst met gerechten te zien die hij/zij kan bestellen
-if($_SESSION['soortgebruiker'] == "klant"){
-
     function getGerechten(){
         global $con;
         $toret = "";
@@ -53,7 +51,7 @@ if($_SESSION['soortgebruiker'] == "klant"){
         return $toret;
     }
     ?>
-    
+
         <?php if(isset($_GET['res'])) {
             if ($_GET['res'] == 'nlog'){
                 echo '<center><div class="error">Je moet ingelogd zijn om te kunnen bestellen!</div></center><br>';
@@ -65,16 +63,11 @@ if($_SESSION['soortgebruiker'] == "klant"){
         }?>
         <table class="tablelist">
             <?php
-            echo getGerechten();
+            if (isset($_SESSION['soortgebruiker']) && $_SESSION['soortgebruiker'] == "medewerker"){
+                echo "U kunt geen bestellingen plaatsen als medewerker.";
+            } else {
+                echo getGerechten();
+            }
             ?>
         </table>
-
-   
-<?php } 
-
-// Als je een medewerker bent, dan moet er een melding komen dat de ingelogde gebruiker geen bestellinegn kan plaatsen
-if($_SESSION['soortgebruiker'] == "medewerker"){
-    echo 'U kunt als medewerker geen bestellingen plaatsen.';
-}?>
-
  </div>

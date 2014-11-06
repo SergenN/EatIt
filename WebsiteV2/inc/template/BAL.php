@@ -24,29 +24,20 @@
 	
 	//Query wordt in een array gezet.
 	while ($artikelen = mysqli_fetch_assoc($result)) {
-		$artikelen_tabel[] = array('ArtikelNR' => intval($artikelen["ArtNR"]), 'Naam' => $artikelen["ART_Naam"], 'Technischevoorraad' => intval($artikelen["ART_TechnischeVoorraad"]), 
-			'In bestelling' => intval($artikelen["ART_InBestelling"]), 'Gereserveerd' => intval($artikelen["ART_Gereserveerd"]), 'Bestelniveau' => intval($artikelen["ART_BestelNiveau"]), 
-			);
-		}
-	
-	//Gaat $artikelen_tabel array doorlopen.
-	foreach ($artikelen_tabel as $nummer) {
-		
-		//Variabelen worden gevuld met verschillende waardes.
-		$bestelniveau = $nummer["Bestelniveau"];
-		$TV = $nummer["Technischevoorraad"];
-		$IB = $nummer["In bestelling"];
-		$GR = $nummer["Gereserveerd"];
-		
-		//Wordt berekent wat de economische voorraad is.
-		$economische_voorraad = $TV + $IB - $GR;
-		
-		//Wordt bekeken of er bij bestelt moet worden.
-		if ($economische_voorraad <= $bestelniveau) {
-			$aantal_bestellen = $bestelniveau - $economische_voorraad;
-			$bestellen[] = array('ArtikelNR' => intval($nummer["ArtikelNR"]), 'Naam' => $nummer["Naam"], 'Aantal' => intval($aantal_bestellen));
-		}
-		
+        $bestelniveau = $artikelen["ART_BestelNiveau"];
+        $TV = $artikelen["ART_TechnischeVoorraad"];
+        $IB = $artikelen["ART_InBestelling"];
+        $GR = $artikelen["ART_Gereserveerd"];
+        $naam = $artikelen["ART_Naam"];
+        $nr = $artikelen["ArtNR"];
+
+        $economische_voorraad = $TV + $IB - $GR;
+        if ($economische_voorraad <= $bestelniveau) {
+            $aantal_bestellen = $bestelniveau - $economische_voorraad;
+            if ($aantal_bestellen > 0 ) {
+                $bestellen[] = array('ArtikelNR' => $nr, 'Naam' => $naam, 'Aantal' => $aantal_bestellen);
+            }
+        }
 	}
 	
 	//Wordt bekeken of er artikelen bij moet worden bestelt. Zo ja wordt er een overzicht weergegeven.

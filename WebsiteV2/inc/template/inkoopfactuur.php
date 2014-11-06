@@ -1,5 +1,16 @@
 <div class="content">
 <?php
+
+if(!isset($_SESSION['gegevens'])){
+    header ('location: index.php');
+}
+
+//Alleen beheerders hebben toegang tot deze pagina. Geen beheerder: terugsturen naar index.php
+if($gegevens['Afdeling'] != '1' && $gegevens['Afdeling'] != '4' && $gegevens['Afdeling'] != '7'){
+    header ('location: index.php');
+}
+
+
 if(isset($_GET['res'])){
     echo '<center>';
     if($_GET['res'] == 'failed'){

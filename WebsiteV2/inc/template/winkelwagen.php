@@ -74,54 +74,48 @@
                         header("location: index.php?p=winkelwagen&res=error&gid=$gerecht");
                     }
                 }
-                //de bestelling wordt verwijderd en je wordt door verwezen
-                $_SESSION['bes'] = null;
-                header("location: index.php?p=winkelwagen&res=success");
-
             }
         }
 
-        if(isset($_SESSION['bes'])){
-        foreach ($_SESSION['bes'] as $gerecht => $aantal) {
+        //query die de data in de bestelling tabel zet
+        $query  = "insert into Bestelling (KlantNR, Best_Datum, BEST_Status) values ({$_SESSION['gegevens']['KlantNR']} ,str_to_date( '" . date('d-m-Y ') . "' , '%d-%m-%Y' ), 'besteld'); ";
+        $result = mysqli_query($con, $query);
+        if(!$result){
+            header("location: index.php?p=winkelwagen&res=error");
+        }
 
-            //query die de data in de bestelling tabel zet
-            $query  = "insert into Bestelling
-                (KlantNR, Best_Datum, BEST_Status)
-                values (" . $_SESSION['gegevens']['KlantNR'] . " ,str_to_date( '" . date('d-m-Y ') . "' , '%d-%m-%Y' ), 'besteld'); ";
-            $result = mysqli_query($con, $query);
-            if(!$result){
-                header("location: index.php?p=winkelwagen&res=error");
-            }
+        $BestelNR = mysqli_insert_id($con);
+    foreach ($_SESSION['bes'] as $gerecht => $aantal) {
 
-            //query die de bij behorende data in de aantalverkocht tabel zet en aan de  bestelling tabel linkt
-            $query3  = "insert into AantalVerkocht (GerNR, Aantal, BestNR)
-                values ($gerecht, $aantal, " .mysqli_insert_id($con) . ");";
-            $result3 = mysqli_query($con, $query3);
-            if(!$result3){
-                header("location: index.php?p=winkelwagen&res=error");
-            }
-            //query die het aantal ingredienten samen met het ingredientnummer ophaalt
-            $query4  = "select ING_Aantal, ArtNR
-                from Gerecht g, Aantalingredienten a
-                where g.GerNR = a.GerNR
-                and g.GerNR = $gerecht; ";
-            $result4 = mysqli_query($con,$query4);
-            if(!$result4){
-                header("location: index.php?&winkelwagen&res=error");
-            }
-            while ($row = mysqli_fetch_assoc($result4)) {
-                //query dat het aantal gereserveerd van het ingredient wordt opgehaald
-                $query6  = "select ART_Gereserveerd from Artikelen where ArtNR =" . $row['ArtNR'] . ";";
-                $result6 = mysqli_query($con, $query6);
-                while ($gereserveerd = mysqli_fetch_assoc($result6)) {
-                    //query die het aantal gereserveerd aanpast
-                    $query5  = "update Artikelen
-                            set ART_Gereserveerd ={$gereserveerd['ART_Gereserveerd']} + {$row['ING_Aantal']}
-                            where ArtNR = {$row['ArtNR']};";
-                }
+        //query die de bij behorende data in de aantalverkocht tabel zet en aan de  bestelling tabel linkt
+        $query3  = "insert into AantalVerkocht (GerNR, Aantal, BestNR) values ($gerecht, $aantal, $BestelNR);";
+        $result3 = mysqli_query($con, $query3);
+        if(!$result3){
+            header("location: index.php?p=winkelwagen&res=error");
+        }
+        //query die het aantal ingredienten samen met het ingredientnummer ophaalt
+        $query4  = "select ING_Aantal, ArtNR
+            from Gerecht g, Aantalingredienten a
+            where g.GerNR = a.GerNR
+            and g.GerNR = $gerecht; ";
+        $result4 = mysqli_query($con,$query4);
+        if(!$result4){
+            header("location: index.php?&winkelwagen&res=error");
+        }
+        while ($row = mysqli_fetch_assoc($result4)) {
+            //query dat het aantal gereserveerd van het ingredient wordt opgehaald
+            $query6  = "select ART_Gereserveerd from Artikelen where ArtNR =" . $row['ArtNR'] . ";";
+            $result6 = mysqli_query($con, $query6);
+            while ($gereserveerd = mysqli_fetch_assoc($result6)) {
+                //query die het aantal gereserveerd aanpast
+                $query5  = "update Artikelen
+                        set ART_Gereserveerd ={$gereserveerd['ART_Gereserveerd']} + {$row['ING_Aantal']}
+                        where ArtNR = {$row['ArtNR']};";
             }
         }
     }
+    unset($_SESSION['bes']);
+    header("location: index.php?p=winkelwagen&res=success");
 }
 
     ?>
