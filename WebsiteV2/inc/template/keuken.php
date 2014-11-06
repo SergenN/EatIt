@@ -21,31 +21,48 @@
 function getOrders() {
     global $con;
     $toret = "";
-    $query = "SELECT * FROM Bestelling WHERE BEST_Status='besteld';";
-    $result = mysqli_query($con, $query);
-    while ($row = mysqli_fetch_assoc($result)) {
-        //Alle variabelen $row = {BestNR, KlantNR, MedNR, BEST_Datum, BEST_Status}
-        $toret .= '<tr><td><h2>Bestelling: '.$row['BestNR'].'</h2></td><td><h2>Klant: '.$row['KlantNR'].'</h2></td></tr>';
-        $query = "SELECT * FROM AantalVerkocht a JOIN Gerecht g ON a.GerNR = g.GerNR WHERE BestNR = {$row['BestNR']};";
-        $result2 = mysqli_query($con, $query);
-        while($row2 = mysqli_fetch_assoc($result2)){
-            //Alle variabelen $row2 = {BestNR, GerNr, Aantal = Ger_NR, Ger_Naam, Ger_Prijs, Ger_Beschrijving}
-
-            $toret .= '<tr><td>Gerecht: '.$row2['GER_Naam'].'</td><td>Aantal: '. $row2['Aantal'].'</td></tr>';
+    foreach (getBestellingen() as $bestelling){
+        $toret .= '<tr><td><h2>Bestelling: '.$bestelling['BestNR'].'</h2></td><td><h2>Klant: '.$bestelling['KlantNR'].'</h2></td></tr>';
+        foreach(getReceptenFromBestelling($bestelling['BestNR']) as $gerecht){
+            $toret .= '<tr><td>Gerecht: '.$gerecht['GER_Naam'].'</td><td>Aantal: '. $gerecht['Aantal'].'</td></tr>';
             $toret .= '<tr><td>&nbsp;</td></tr>';
-
-            $query = "SELECT * FROM Aantalingredienten ai JOIN Artikelen ar ON ai.ArtNR = ar.ArtNR WHERE GerNR = {$row2['GerNR']};";
-            $result3 = mysqli_query($con, $query);
-
-            while($row3 = mysqli_fetch_assoc($result3)){
-                //Alle variabelen $row3 = {AiNR, GerNR, ArtNR, IngAantal = ArtNR, ArtNaam}
-                $toret .=  '<tr><td>Artikel:'.$row3['ArtNR'].' '. $row3['ART_Naam'] .' Hoeveelheid: '.$row3['ING_Aantal'].'</td></tr>';
+            foreach (getIngredientenFromRecept($gerecht['GerNR']) as $ingredient){
+                $toret .=  '<tr><td>Artikel:'.$gerecht['ArtNR'].' '. $gerecht['ART_Naam'] .' Hoeveelheid: '.$gerecht['ING_Aantal'].'</td></tr>';
             }
-            $action = "index.php?a=keuken&id={$row['BestNR']}";
+            $action = "index.php?a=keuken&id={$bestelling['BestNR']}";
             $toret .= '<tr><td>&nbsp;</td></tr>';
             $toret .= '<tr><td><form action="'. $action.'" method="post"><input class="submit" type="submit" name="keuken_submit" value="Klaar"></form></td></tr>';
         }
         $toret .= '<tr class="UL"><td>&nbsp;</td><td>&nbsp;</td></tr>';
+    }
+    return $toret;
+}
+
+function getIngredientenFromRecept($Gernr){
+    global $con;
+    $query = "SELECT * FROM Aantalingredienten ai JOIN Artikelen ar ON ai.ArtNR = ar.ArtNR WHERE GerNR = $Gernr;";
+    $result = mysqli_query($con, $query);
+    return resToArray($result);
+}
+
+function getReceptenFromBestelling($Bestelnr){
+    global $con;
+    $query = "SELECT * FROM AantalVerkocht a JOIN Gerecht g ON a.GerNR = g.GerNR WHERE BestNR = $Bestelnr;";
+    $result = mysqli_query($con, $query);
+    return resToArray($result);
+}
+
+function getBestellingen() {
+    global $con;
+    $query = "SELECT * FROM Bestelling WHERE BEST_Status='besteld';";
+    $result = mysqli_query($con, $query);
+    return resToArray($result);
+}
+
+function resToArray($result){
+    $toret = array();
+    while($row = mysqli_fetch_assoc($result)){
+        array_push($toret, $row);
     }
     return $toret;
 }
