@@ -104,16 +104,15 @@
         }
         while ($row = mysqli_fetch_assoc($result4)) {
             //query dat het aantal gereserveerd van het ingredient wordt opgehaald
-            $query6  = "select ART_Gereserveerd from Artikelen where ArtNR =" . $row['ArtNR'] . ";";
+            $query6  = "select * from Artikelen where ArtNR =" . $row['ArtNR'] . ";";
             $result6 = mysqli_query($con, $query6);
             while ($gereserveerd = mysqli_fetch_assoc($result6)) {
                 //query die het aantal gereserveerd aanpast
-                $var1 = $gereserveerd['ING_Aantal'];
-                $war2 = $gereserveerd['ART_Gereserveerd'];
-                $var =  $var1 + $var2;
-                $query5  = "update Artikelen
-                        set ART_Gereserveerd = $var
-                        where ArtNR = {$row['ArtNR']};";
+                $var1 = $row['ING_Aantal'];
+                $var2 = $gereserveerd['ART_Gereserveerd'];
+                $var =  ($var1 + $var2) * $aantal;
+                $query5  = "UPDATE Artikelen SET ART_Gereserveerd = $var WHERE ArtNR = {$row['ArtNR']};";
+                mysqli_query($con, $query5);
             }
         }
     }
